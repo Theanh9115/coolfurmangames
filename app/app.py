@@ -10,7 +10,3 @@ def home():
 @app.route("/hello")
 def hello():
     return "Hello, World!"
-
-# @app.route("/coolfurmangames")
-# def main():
-#     return render_template("main.html")
