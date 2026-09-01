@@ -1,0 +1,11 @@
+body {
+    font-family: sans-serif;
+    max-width: 700px;
+    margin: 4rem auto;
+    padding: 0 1rem;
+    color: #222;
+}
+
+h1 {
+    color: #2b5fa4;
+}

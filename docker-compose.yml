@@ -1,0 +1,31 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      # Bind-mount the app directory so code edits show up immediately
+      # without rebuilding the image.
+      - ./app:/app
+    environment:
+      - FLASK_ENV=development
+    expose:
+      - "8000"
+    networks:
+      - devnet
+
+  nginx:
+    image: nginx:1.27-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./www:/var/www/html:ro
+    depends_on:
+      - web
+    networks:
+      - devnet
+
+networks:
+  devnet:
+    driver: bridge
