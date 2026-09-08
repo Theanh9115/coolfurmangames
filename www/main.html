@@ -1,34 +1,27 @@
 <!doctype html>
 <html>
-
   <head>
-    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="./static/css/style.css" />
     <title>Cool Furman Games!</title>
   </head>
 
   <body>
-
-    <div class = "top-banner">
-      <img src="static/img/BellTower.jpg" width="100" alt="" />
-      <h1>Cool Furman Games!</h1>
-      <a href="leaderboards.html">Leaderboards</a>
-      <a href="localscore.html">Local Records</a>
-      <p>Theme</p>
-    </div>
-
-    <div class = "content">
-      <a href="">Link to... something (right now, it's nothing)</a>
-
-      <br><br>
-
-      <a href="about.html">About Us</a>
-
-      <br><br><br><br>
-
-      <a href="/hello">Link to hello</a>
-    </div>
-
-    <script src="js/main.js"></script>
-
+    <nav class="nav-bar">
+      <div class="nav-home">
+        <a href="./main.html"
+          ><img id="nav-img" src="./static/img/BellTower.jpg" alt=""
+        /></a>
+      </div>
+      <div class="nav-pages">
+        <div class="nav-page"><a href="./main.html">Home</a></div>
+        <div class="nav-page"><a href="#">Play Games</a></div>
+        <div class="nav-page"><a href="./about.html">About us</a></div>
+        <div class="nav-page">
+          <a href="./leaderboards.html">Leaderboard</a>
+        </div>
+        <div class="nav-page"><a href="./localscore.html">Your Score</a></div>
+      </div>
+    </nav>
+    <script src="./static/js/main.js"></script>
   </body>
 </html>
