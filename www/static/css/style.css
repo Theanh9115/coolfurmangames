@@ -64,12 +64,10 @@ table {
   padding: 0px 20px;
 }
 
-.top-banner {
-  background-color: white;
+.game-button {
   border-style: double;
   border-width: 10px;
-  border-color: #782c67;
-  margin: 0px;
+  margin: 30px 30vw;
 }
 
 main {
