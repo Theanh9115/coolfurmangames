@@ -1,12 +1,100 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
     <head>
-        <link rel="stylesheet" href="static/css/style.css" />
-        <title>Leaderboards</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="./static/css/style.css" />
+        <title>Leaderboard | Cool Furman Games</title>
     </head>
 
     <body>
-        <h1>Leaderboards</h1>
-        <a href="main.html">Home page</a>
+        <nav class="nav-bar">
+            <div class="nav-home">
+                <a href="./main.html">Cool Furman Games</a>
+            </div>
+            <div class="nav-pages">
+                <div class="nav-page"><a href="./main.html">Home</a></div>
+                <div class="nav-page"><a href="./about.html">About us</a></div>
+                <div class="nav-page"><a href="./leaderboards.html">Leaderboard</a></div>
+            </div>
+        </nav>
+
+        <main class="leaderboard-page">
+            <header class="leaderboard-heading">
+                <p class="eyebrow"> Game's name</p>
+                <h1>Leaderboard</h1>
+                <p>See the highest scores submitted by players.</p>
+            </header>
+
+            <section class="leaderboard-board" aria-labelledby="leaderboard-title">
+                <div class="leaderboard-board-heading">
+                    <div>
+                        <h2 id="leaderboard-title">Highest scores</h2>
+                        <p class="board-note">Website-wide scores</p>
+                    </div>
+                    <label class="board-filter">
+                        <span>View</span>
+                        <select>
+                            <option>All-time</option>
+                            <option>This month</option>
+                            <option>This week</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="game-tabs" role="tablist" aria-label="Choose a game">
+                    <button class="game-tab active" type="button" role="tab" aria-selected="true">Game 1</button>
+                    <button class="game-tab" type="button" role="tab" aria-selected="false">Game 2</button>
+                    <button class="game-tab" type="button" role="tab" aria-selected="false">Game 3</button>
+                </div>
+
+                <div class="leaderboard-table-wrap">
+                    <table class="leaderboard-table">
+                        <caption class="visually-hidden">Game 1 highest scores</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Rank</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Highest points</th>
+                                <th scope="col">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="rank">1</td>
+                                <td>PlayerOne</td>
+                                <td class="points">12,450</td>
+                                <td>09/08/2026</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">2</td>
+                                <td>GameMaster</td>
+                                <td class="points">10,220</td>
+                                <td>09/07/2026</td>
+                            </tr>
+                            <tr>
+                                <td class="rank">3</td>
+                                <td>CoolPlayer</td>
+                                <td class="points">8,975</td>
+                                <td>09/05/2026</td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td>4</td>
+                                <td>Open spot</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr class="empty-row">
+                                <td>5</td>
+                                <td>Open spot</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+        </main>
     </body>
 </html>
