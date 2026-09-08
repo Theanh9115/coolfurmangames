@@ -55,10 +55,8 @@ table {
   padding: 0px 20px;
 }
 
-.top-banner {
-  background-color: white;
-  border-style: double;
-  border-width: 10px;
-  border-color: #782c67;
-  margin: 0px;
+.game-button {
+    border-style: double;
+    border-width: 10px;
+    margin: 30px 30vw;
 }
