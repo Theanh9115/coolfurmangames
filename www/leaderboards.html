@@ -8,6 +8,7 @@
     </head>
 
     <body>
+        <!-- Navigation links for the main pages. -->
         <nav class="nav-bar">
             <div class="nav-home">
                 <a href="./main.html">Cool Furman Games</a>
@@ -19,13 +20,16 @@
             </div>
         </nav>
 
+        <!-- Main content for the leaderboard page. -->
         <main class="leaderboard-page">
+            <!-- Page title and short description. -->
             <header class="leaderboard-heading">
                 <p class="eyebrow"> Game's name</p>
                 <h1>Leaderboard</h1>
                 <p>See the highest scores submitted by players.</p>
             </header>
 
+            <!-- The board contains the score filter, game tabs, and scores table. -->
             <section class="leaderboard-board" aria-labelledby="leaderboard-title">
                 <div class="leaderboard-board-heading">
                     <div>
@@ -42,12 +46,14 @@
                     </label>
                 </div>
 
+                <!-- These tabs will switch between the different games later. -->
                 <div class="game-tabs" role="tablist" aria-label="Choose a game">
                     <button class="game-tab active" type="button" role="tab" aria-selected="true">Game 1</button>
                     <button class="game-tab" type="button" role="tab" aria-selected="false">Game 2</button>
                     <button class="game-tab" type="button" role="tab" aria-selected="false">Game 3</button>
                 </div>
 
+                <!-- Score table with rank, username, points, and date. -->
                 <div class="leaderboard-table-wrap">
                     <table class="leaderboard-table">
                         <caption class="visually-hidden">Game 1 highest scores</caption>
