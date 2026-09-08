@@ -58,7 +58,27 @@ table {
 .game-button {
     border-style: double;
     border-width: 10px;
-    margin: 30px 30vw;
+    display: grid;
+    justify-content: center;
+
+}
+
+.game-desc {
+    display: grid;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+#game1-image {
+    filter: blur(8px);
+}
+
+#game2-image {
+    filter: blur(8px);
+}
+
+#game3-image {
+    filter: blur(8px);
 }
 
 /*
