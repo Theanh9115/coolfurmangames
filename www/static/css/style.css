@@ -4,8 +4,17 @@ body {
     margin: 4rem auto;
     padding: 0 1rem;
     color: #222;
+    background-color: #F0E1EE;
 }
 
 h1 {
     color: #2b5fa4;
+}
+
+.top-banner {
+    background-color: white;
+    border-style: double;
+    border-width: 10px;
+    border-color: #782C67;
+    margin: 0px;
 }
