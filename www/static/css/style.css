@@ -60,3 +60,212 @@ table {
     border-width: 10px;
     margin: 30px 30vw;
 }
+
+/*
+  Leaderboard page layout:
+  Keep the board centered and limit its width so the table is easy to read
+  on large computer screens instead of stretching across the whole page.
+*/
+.leaderboard-page {
+  width: 90%;
+  max-width: 950px;
+  margin: 2rem auto;
+}
+
+/* Add space below the page introduction before the board begins. */
+.leaderboard-heading {
+  margin-bottom: 1.5rem;
+}
+
+/* clamp() makes the title responsive without becoming too large or small. */
+.leaderboard-heading h1 {
+  color: #333;
+  font-size: 2.5rem;
+}
+
+.eyebrow,
+.board-note {
+  /* Small uppercase labels help identify the game and score source. */
+  color: #333;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.leaderboard-board {
+  /* This is the main white panel that contains the leaderboard. */
+  overflow: hidden;
+  border: 1px solid #333;
+  border-radius: 0;
+  background: #fff;
+}
+
+.leaderboard-board-heading {
+  /* Put the board title on the left and the time filter on the right. */
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.leaderboard-board-heading h2 {
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.board-filter {
+  /* Keep the filter label and dropdown aligned on desktop screens. */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+}
+
+.board-filter select {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0.5rem;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+.game-tabs {
+  /* The buttons act as tabs for the future Game 1, Game 2, and Game 3 boards. */
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.75rem 1rem 0;
+  border-bottom: 1px solid #333;
+}
+
+.game-tab {
+  /* Make each game tab look like part of the table section. */
+  cursor: pointer;
+  border: 1px solid #333;
+  border-bottom: 0;
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  background: #fff;
+  color: #333;
+  font: inherit;
+  font-weight: 700;
+}
+
+.game-tab.active,
+.game-tab:hover {
+  /* Show which tab is selected or currently under the mouse. */
+  background: #ddd;
+  color: #333;
+}
+
+.leaderboard-table-wrap {
+  /* On a narrow phone, allow the table to scroll horizontally instead of
+     squeezing columns until the text overlaps. */
+  overflow-x: auto;
+}
+
+.leaderboard-table {
+  /* The minimum width keeps the four columns readable. */
+  width: 100%;
+  min-width: 600px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  /* Consistent padding separates the rank, username, points, and date. */
+  border: 1px solid #333;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.leaderboard-table th {
+  /* Make the header row visually different from the score rows. */
+  background: #eee;
+  color: #333;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: #f5f5f5;
+}
+
+.leaderboard-table .rank,
+.leaderboard-table .points {
+  font-weight: 700;
+}
+
+.empty-row {
+  /* Placeholder rows show where future scores can appear. */
+  color: #999;
+}
+
+/* Hide the table caption visually while keeping it available to screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  /*
+    Mobile layout:
+    At 700px and below, stack navigation and board controls vertically.
+    This prevents the navigation, dropdown, and tabs from colliding on phones.
+  */
+  .nav-bar {
+    align-items: flex-start;
+    flex-direction: column;
+    font-size: 1rem;
+  }
+
+  .nav-home {
+    margin: 0;
+  }
+
+  .nav-pages {
+    justify-content: flex-start;
+    width: 100%;
+  }
+
+  .nav-page {
+    padding: 0 0.5rem 0 0;
+  }
+
+  .leaderboard-page {
+    width: 95%;
+    margin: 2rem auto;
+  }
+
+  .leaderboard-board-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .board-filter,
+  .board-filter select {
+    width: 100%;
+  }
+
+  .board-filter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .game-tabs {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .game-tab {
+    flex: 1;
+    padding: 0.6rem 0.25rem;
+  }
+}
