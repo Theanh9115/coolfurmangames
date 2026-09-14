@@ -9,15 +9,30 @@
     </head>
     <body>
         <header>
-            <h1>About Cool Furman Games</h1>
-            <p>
-                Cool Furman Games is a small browser-game site built around quick,
-                approachable games that are easy to play between classes or whenever
-                you have a few minutes to spare.
-            </p>
+            <nav class="nav-bar">
+                <div class="nav-home">
+                    <a href="./main.html">
+                        <img id="home-img" src="./static/img/BellTower.jpg" alt=""/></a>
+                    <h1 id="nav-title">Cool Furman Games!</h1>
+                </div>
+                <div class="nav-pages">
+                    <div class="nav-page"><a href="./about.html">About Us</a></div>
+                    <div class="nav-page"><a href="./leaderboards.html">Leaderboard</a></div>
+                    <div class="nav-page"><a href="./localscore.html">Local Scores</a></div>
+                </div>
+            </nav>
         </header>
 
-        <main>
+        <main class="about-text">
+            <section>
+                <h1>About Cool Furman Games</h1>
+                <p>
+                    Cool Furman Games is a small browser-game site built around quick,
+                    approachable games that are easy to play between classes or whenever
+                    you have a few minutes to spare.
+                </p>
+            </section>
+
             <section>
                 <h2>What we are building</h2>
                 <p>
@@ -36,7 +51,7 @@
 
             <section>
                 <h2>Planned features</h2>
-                <ul>
+                <ul id="feature-list">
                     <li>Interactive games that users can launch from the main page</li>
                     <li>Question-mark buttons that explain how each game is played</li>
                     <li>Local and website-wide leaderboards for users' high scores</li>
@@ -46,8 +61,8 @@
                 </ul>
                 <p>These features are part of our planned scope and may change as the site develops.</p>
                 <p>
-                    We are using resources from
-                    <a href="" rel="">Some link to website</a>.
+                    This site is inspired by other browser game websites like
+                    <a href="https://www.hoodamath.com/#" rel="">Hoodamath</a>.
                 </p>
             </section>
 
@@ -55,29 +70,25 @@
                 <h2>Our team</h2>
                 <article>
                     <h3>Charlie Moss</h3>
-                    <p><strong>Role: Programmer</strong></p>
-                    <p></p>
+                    <p class="role-text">Role: Programmer</p>
                 </article>
                 <article>
                     <h3>Kai Nguyen</h3>
-                    <p><strong>Role: Designer</strong></p>
-                    <p></p>
+                    <p class="role-text">Role: Designer</p>
                 </article>
                 <article>
                     <h3>The Anh Nguyen</h3>
-                    <p><strong>Role: Programmer</strong></p>
-                    <p></p>
+                    <p class="role-text">Role: Programmer</p>
                 </article>
                 <article>
                     <h3>Lakia Robertson</h3>
-                    <p><strong>Role: Content Specialist</strong></p>
-                    <p></p>
+                    <p class="role-text">Role: Content Specialist</p>
                 </article>
             </section>
         </main>
 
         <footer>
-            <p><a href="main.html">Return to the games</a></p>
+            
         </footer>
     </body>
 </html>
