@@ -1,15 +1,14 @@
 /* Resetting margins, paddings, and borders for all elements */
 * {
-  margin: 0;
-  padding: 0;
   border: 0;
   box-sizing: border-box;
 }
 /* Setting base font properties */
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
   color: #333;
+  background-color: #f1e7f8;
 }
 /* Removing list styles */
 ul,
@@ -19,7 +18,7 @@ ol {
 /* Removing text decoration from links */
 a {
   text-decoration: none;
-  color: inherit;
+  color: none;
 }
 /* Setting table properties */
 table {
@@ -27,40 +26,61 @@ table {
   border-spacing: 0;
 }
 
-.nav-home {
-  margin: 0px 20px;
-}
-
-#nav-img {
-  width: 100px;
-}
+/* Navigation bar header styles */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 22px;
+  background-color: white;
   color: #582c83;
   font-weight: 600;
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
+.nav-home {
+  margin: 0px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 35;
+}
+
+#nav-title {
+  padding-left: 20px;
+}
+
+#home-img {
+  width: 100px;
+}
+
 .nav-pages {
   width: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
 }
 
 .nav-page {
-  padding: 0px 20px;
+  padding: 0px 30px;
 }
 
+.nav-page a:hover {
+  color: #cd1919;
+}
+
+/* Home page: game button styles */
+
 .game-button {
-    border-style: double;
-    border-width: 10px;
     display: grid;
     justify-content: center;
+    padding: 0px;
+    margin: 20px;
+    border: double 10px #582c83;
+}
 
+.game-link {
+  filter: blur(8px);
+  width: 250px;
 }
 
 .game-desc {
@@ -69,19 +89,26 @@ table {
     margin-bottom: 100px;
 }
 
-#game1-image {
-    filter: blur(8px);
+/* About page styles */
+
+.about-text {
+  margin: 25px;
 }
 
-#game2-image {
-    filter: blur(8px);
+#feature-list {
+  list-style: circle;
 }
 
-#game3-image {
-    filter: blur(8px);
+.role-text {
+  font-weight: 500
 }
 
-/* Leaderboard page */
+/*
+  Leaderboard page layout:
+  Keep the board centered and limit its width so the table is easy to read
+  on large computer screens instead of stretching across the whole page.
+*/
+
 .leaderboard-page {
   width: 90%; /* Use most of the screen width. */
   max-width: 950px; /* Stop the page getting too wide. */
