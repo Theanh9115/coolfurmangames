@@ -10,6 +10,12 @@ body {
   color: #333;
   background-color: #f1e7f8;
 }
+
+h1, h2{
+  font-family: sans-serif;
+  line-height: 1.5;
+  color: #582c83;
+}
 /* Removing list styles */
 ul,
 ol {
