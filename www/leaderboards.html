@@ -1,10 +1,11 @@
 <!doctype html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="./static/css/style.css" />
     <link rel="stylesheet" href="./static/css/localscore.css" />
-    <title>Local Scores</title>
+    <title>Leaderboard</title>
   </head>
 
   <body>
@@ -27,8 +28,61 @@
         </div>
       </nav>
     </header>
-    <main>
-      <h1>Leaderboard</h1>
+    <main class="leaderboard-page">
+      <header class="leaderboard-header">
+        <h1>Leaderboard</h1>
+        <p>See the highest scores achieved by players.</p>
+      </header>
+      <section class="leaderboard-board">
+        <div class="leaderboard-board-heading">
+          <div>
+            <h2 id = "leaderboard-title">Top Scores</h2>
+            <p class="board-note">Website-wide scores</p>
+          </div>
+          <label class="board-filter">
+            <span>View</span>
+            <select id="leaderboard-filter">
+              <option>All-time</option>
+              <option>This month</option>
+              <option>This week</option>
+            </select>
+          </label>
+        </div>
+        <div class="game-tabs">
+          <!-- Game selection tabs, game 1 is being selected by default -->
+          <button class="game-tab active" type="button" role="tab" aria-selected="true">Game 1</button>
+          <button class="game-tab" type="button" role="tab" aria-selected="false">Game 2</button>
+          <button class="game-tab" type="button" role="tab" aria-selected="false">Game 3</button>
+        </div>
+        <!-- Leaderboard table -->
+        <div class="leaderboard-table-container">
+          <table class="leaderboard-table">
+            <thead>
+              <tr>
+                <th scope="col">Rank</th>
+                <th scope="col">Username</th>
+                <th scope="col">Score</th>
+                <th scope="col">Date</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboard-body">
+              <!-- Leaderboard rows will be dynamically inserted here -->
+               <tr>
+                <td>1</td>
+                <td>Player1</td>
+                <td>1000</td>
+                <td>2024-06-01</td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Player2</td>
+                <td>900</td>
+                <td>2024-06-02</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
     </main>
   </body>
 </html>
