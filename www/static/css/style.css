@@ -1,26 +1,33 @@
 /* Resetting margins, paddings, and borders for all elements */
 * {
   border: 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
   color: #4d4d4f;
 }
 /* Setting base font properties */
 body {
-  font-family: sans-serif;
+  height: 100vh;
+  font-family: "Fredoka", sans-serif;
   line-height: 1.5;
   color: #333;
   background-color: #f1e7f8;
 }
 
-/* Removing text decoration from links */
-a {
-  text-decoration: none;
-  color: none;
-}
 /* Setting table properties */
 table {
   border-collapse: collapse;
   border-spacing: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #582c83;
 }
 
 /* Navigation bar header styles */
@@ -29,22 +36,42 @@ table {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 22px;
+  font-size: 1.5rem;
   background-color: white;
   color: #582c83;
   font-weight: 600;
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
+/* Add media queries for mobile nav bar */
+@media screen and (max-width: 800px) {
+  .nav-bar {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+
+  .nav-pages {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #nav-title {
+    display: none;
+  }
+}
+
 .nav-home {
   margin: 0px 20px;
   display: flex;
   align-items: center;
-  font-size: 35;
+  font-size: 1.2rem;
 }
 
 #nav-title {
   padding-left: 20px;
+  font-weight: 600;
 }
 
 #home-img {
@@ -60,8 +87,18 @@ table {
   padding: 0px 30px;
 }
 
-.nav-page a:hover {
-  color: #cd1919;
+.nav-bar a {
+  text-decoration: none;
+  color: none;
+}
+
+.nav-bar a:hover {
+  color: red;
+}
+
+/* Add padding for main  */
+main {
+  padding: 40px;
 }
 
 /* Home page: game button styles */
@@ -87,14 +124,24 @@ table {
 
 /* About page styles */
 
-.about-text {
-  margin: 25px;
+.about-text section,
+article {
+  padding: 8px 0px;
 }
 
-#feature-list {
+.about-text #feature-list {
   list-style: circle;
+  padding: 5px 0px;
+}
+
+#feature-list li {
+  margin-left: 20px;
 }
 
 .role-text {
   font-weight: 500;
+}
+
+.team h3 {
+  color: #4d4d4f;
 }
