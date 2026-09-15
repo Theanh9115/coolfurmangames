@@ -2,7 +2,6 @@
 * {
   border: 0;
   box-sizing: border-box;
-  color: #4d4d4f;
 }
 
 /* Setting base font properties */
@@ -11,7 +10,7 @@ body {
   font-family: sans-serif;
   line-height: 1.5;
   color: #333;
-  background-color: #f1e7f8;
+  background-color: #dfcbed;
 }
 
 /* Setting table properties */
@@ -92,23 +91,54 @@ table {
 
 /* Home page: game button styles */
 
+#game-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f1e7f8;
+  margin: 50px 100px;
+  border-radius: 100px;
+}
+
+.game-card {
+  background-color: white;
+  padding: 25px;
+  margin: 75px 0px;
+  border-radius: 50px ;
+}
+
 .game-button {
-  display: grid;
+  display: flex;
   justify-content: center;
+  max-width: 420px;
   padding: 0px;
   margin: 20px;
   border: double 10px #582c83;
+  border-radius: 10px;
 }
 
-.game-link {
+
+.game-img {
   filter: blur(8px);
-  width: 250px;
+  max-width: 400px;
 }
 
 .game-desc {
   display: grid;
   justify-content: center;
-  margin-bottom: 100px;
+  text-decoration: underline 1px;
+}
+
+@media (max-width: 600px) {
+  #game-selection {
+    margin: 50px 20px;
+    border-radius: 50px;
+  }
+
+  .game-card {
+    padding: 0px;
+    border-radius: 25px;
+  }
 }
 
 /* About page styles */
