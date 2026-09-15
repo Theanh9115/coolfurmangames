@@ -1,15 +1,14 @@
 /* Resetting margins, paddings, and borders for all elements */
 * {
-  margin: 0;
-  padding: 0;
   border: 0;
   box-sizing: border-box;
 }
 /* Setting base font properties */
 body {
-  font-family: Arial, sans-serif;
+  font-family: sans-serif;
   line-height: 1.5;
   color: #333;
+  background-color: #f1e7f8;
 }
 /* Removing list styles */
 ul,
@@ -19,7 +18,7 @@ ol {
 /* Removing text decoration from links */
 a {
   text-decoration: none;
-  color: inherit;
+  color: none;
 }
 /* Setting table properties */
 table {
@@ -27,40 +26,61 @@ table {
   border-spacing: 0;
 }
 
-.nav-home {
-  margin: 0px 20px;
-}
-
-#nav-img {
-  width: 100px;
-}
+/* Navigation bar header styles */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   font-size: 22px;
+  background-color: white;
   color: #582c83;
   font-weight: 600;
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
+.nav-home {
+  margin: 0px 20px;
+  display: flex;
+  align-items: center;
+  font-size: 35;
+}
+
+#nav-title {
+  padding-left: 20px;
+}
+
+#home-img {
+  width: 100px;
+}
+
 .nav-pages {
   width: 70%;
   display: flex;
-  justify-content: space-around;
+  justify-content: end;
 }
 
 .nav-page {
-  padding: 0px 20px;
+  padding: 0px 30px;
 }
 
+.nav-page a:hover {
+  color: #cd1919;
+}
+
+/* Home page: game button styles */
+
 .game-button {
-    border-style: double;
-    border-width: 10px;
     display: grid;
     justify-content: center;
+    padding: 0px;
+    margin: 20px;
+    border: double 10px #582c83;
+}
 
+.game-link {
+  filter: blur(8px);
+  width: 250px;
 }
 
 .game-desc {
@@ -69,14 +89,201 @@ table {
     margin-bottom: 100px;
 }
 
-#game1-image {
-    filter: blur(8px);
+/* About page styles */
+
+.about-text {
+  margin: 25px;
 }
 
-#game2-image {
-    filter: blur(8px);
+#feature-list {
+  list-style: circle;
 }
 
-#game3-image {
-    filter: blur(8px);
+.role-text {
+  font-weight: 500
+}
+
+/*
+  Leaderboard page layout:
+  Keep the board centered and limit its width so the table is easy to read
+  on large computer screens instead of stretching across the whole page.
+*/
+
+.leaderboard-page {
+  width: 90%; /* Use most of the screen width. */
+  max-width: 950px; /* Stop the page getting too wide. */
+  margin: 32px auto; /* Add space and center the page. */
+}
+
+.leaderboard-heading {
+  margin-bottom: 24px; /* Space between the title and the table. */
+}
+
+.leaderboard-heading h1 {
+  color: #333; /* Dark title text. */
+  font-size: 40px; /* Make the main title larger. */
+}
+
+.eyebrow,
+.board-note {
+  color: #333; /* Dark label text. */
+  font-size: 14px; /* Smaller than the main title. */
+  font-weight: 700; /* Make the labels stand out. */
+  letter-spacing: 1px; /* Add a little space between letters. */
+  text-transform: uppercase; /* Display the labels in capital letters. */
+}
+
+.leaderboard-board {
+  /* Plain section for now; the final board design can be added later. */
+}
+
+.leaderboard-board-heading {
+  display: flex; /* Put the title and filter in one row. */
+  align-items: end; /* Align them at the bottom. */
+  justify-content: space-between; /* Put them on opposite sides. */
+  gap: 16px; /* Add space between the two parts. */
+  padding: 16px; /* Add space inside this section. */
+  background: #fff; /* Keep the background white. */
+}
+
+.leaderboard-board-heading h2 {
+  color: #333; /* Dark section title. */
+  font-size: 24px; /* Medium-sized heading. */
+}
+
+.board-filter {
+  display: flex; /* Put the label and select together. */
+  align-items: center; /* Align the label and select. */
+  gap: 8px; /* Add space between them. */
+  font-weight: 600; /* Make the filter text easier to see. */
+}
+
+.board-filter select {
+  border: 1px solid #aaa; /* Give the dropdown a simple border. */
+  border-radius: 4px; /* Slightly round the dropdown corners. */
+  padding: 8px; /* Add space inside the dropdown. */
+  background: #fff; /* White dropdown background. */
+  color: #333; /* Dark dropdown text. */
+  font: inherit; /* Use the same font as the page. */
+}
+
+.game-tabs {
+  display: flex; /* Place the game buttons beside each other. */
+  gap: 4px; /* Add a small gap between buttons. */
+  padding: 12px 0 0; /* Add space above the buttons. */
+}
+
+.game-tab {
+  cursor: pointer; /* Show that the tab can be clicked. */
+  padding: 12px 24px; /* Add space inside each tab. */
+  border: 1px solid #333; /* Outline each tab. */
+  background: #eee; /* Light gray tab background. */
+  color: #333; /* Dark tab text. */
+  font: inherit; /* Use the page font. */
+  font-weight: 700; /* Make the game names bold. */
+}
+
+.game-tab.active,
+.game-tab:hover {
+  background: #ddd; /* Change the tab color when selected or hovered. */
+  color: #333; /* Keep the text dark. */
+}
+
+.leaderboard-table-wrap {
+  overflow-x: auto; /* Allow the table to scroll on small screens. */
+}
+
+.leaderboard-table {
+  width: 100%; /* Fill the available space. */
+  min-width: 600px; /* Keep the columns readable. */
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  border: 1px solid #333; /* Draw the table grid. */
+  padding: 12px 16px; /* Add space inside each cell. */
+  text-align: left; /* Align the text to the left. */
+}
+
+.leaderboard-table th {
+  background: #eee; /* Make the header row different. */
+  color: #333; /* Dark header text. */
+  font-size: 14px; /* Smaller header text. */
+  text-transform: uppercase; /* Show headings in capitals. */
+}
+
+.leaderboard-table tbody tr:hover {
+  background: #f5f5f5; /* Highlight a row when the mouse is over it. */
+}
+
+.leaderboard-table .rank,
+.leaderboard-table .points {
+  font-weight: 700; /* Make rank and points easier to notice. */
+}
+
+.empty-row {
+  color: #999; /* Make unused rows look different. */
+}
+
+/* Hides the table caption but keeps it available to screen readers. */
+.visually-hidden {
+  position: absolute; /* Remove the caption from the visual layout. */
+  width: 1px; /* Keep it available for screen readers. */
+  height: 1px; /* Make the hidden caption very small. */
+  overflow: hidden; /* Hide anything outside the small area. */
+  clip: rect(0 0 0 0); /* Hide the caption visually. */
+  white-space: nowrap; /* Keep the caption on one line. */
+}
+
+@media (max-width: 700px) {
+  /* Change the layout when the screen is 700px wide or smaller. */
+  .nav-bar {
+    align-items: flex-start; /* Align links to the left. */
+    flex-direction: column; /* Put navigation items in a column. */
+    font-size: 16px; /* Use smaller text on phones. */
+  }
+
+  .nav-home {
+    margin: 0; /* Remove extra space around the home link on mobile. */
+  }
+
+  .nav-pages {
+    justify-content: flex-start; /* Start the links from the left. */
+    width: 100%; /* Let the links use the phone width. */
+  }
+
+  .nav-page {
+    padding: 0 0.5rem 0 0; /* Add a small gap between links. */
+  }
+
+  .leaderboard-page {
+    width: 95%; /* Leave a small margin on both sides. */
+    margin: 16px auto; /* Center the page on a phone. */
+  }
+
+  .leaderboard-board-heading {
+    align-items: flex-start; /* Align content to the left. */
+    flex-direction: column; /* Stack the title and filter. */
+    padding: 16px; /* Keep space inside the section. */
+  }
+
+  .board-filter,
+  .board-filter select {
+    width: 100%; /* Make the filter fit the phone width. */
+  }
+
+  .board-filter {
+    align-items: flex-start; /* Align the filter contents to the left. */
+    flex-direction: column; /* Put the label above the dropdown. */
+  }
+
+  .game-tabs {
+    padding-left: 0; /* Keep tabs aligned with the page. */
+    padding-right: 0; /* Remove extra space on the right. */
+  }
+
+  .game-tab {
+    flex: 1; /* Give each tab equal width. */
+    padding: 10px 4px; /* Use smaller tab spacing. */
+  }
 }
