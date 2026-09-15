@@ -2,3 +2,36 @@
   color: #582c83;
   text-decoration: underline;
 }
+
+@media only screen and (max-width: 600px) {
+  .leaderboard-page {
+    width: 95%;
+    margin: 16px auto;
+  }
+
+  .leaderboard-board-heading {
+    flex-direction: column; /* stack heading elements vertically */
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .board-filter,
+  .board-filter select {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .board-filter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .game-tabs {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .game-tab {
+    flex: 1;
+    padding: 8px 12px;
+  }
+}
