@@ -2,7 +2,6 @@
 * {
   border: 0;
   box-sizing: border-box;
-  color: #4d4d4f;
 }
 
 /* Setting base font properties */
@@ -23,6 +22,7 @@ table {
 
 /* Navigation bar header styles */
 
+
 .nav-bar {
   display: flex;
   align-items: center;
@@ -34,11 +34,33 @@ table {
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
+@media (max-width: 500px) {
+  .nav-bar{
+    display: flow-root;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 18px;
+    background-color: white;
+    color: #582c83;
+    font-weight: 600;
+    box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
+  }
+}
+
 .nav-home {
   margin: 0px 20px;
   display: flex;
   align-items: center;
   font-size: 35;
+}
+
+@media (max-width: 500px) {
+  .nav-home{
+    margin: 0px 10px;
+    display: flex;
+    align-items: center;
+    font-size: 25;
+  }
 }
 
 #nav-title {
@@ -56,7 +78,7 @@ table {
 
 .nav-link {
   text-decoration: none;
-  color: none;
+  color:#582c83;;
 }
 
 .nav-page {
