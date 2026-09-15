@@ -115,23 +115,22 @@ main {
   flex-direction: column;
   align-items: center;
   background-color: #f1e7f8;
-  margin: 50px 100px;
+  padding: 1em 1em;
   border-radius: 100px;
 }
 
 .game-card {
+  flex: 1 1;
   background-color: white;
   padding: 25px;
   margin: 75px 0px;
   border-radius: 50px;
+  max-width: 400px;
 }
 
 .game-button {
-  box-sizing: content-box;
   display: flex;
   justify-content: center;
-  width: 300px;
-  height: 300px;
   padding: 8px;
   margin: 20px;
   border: double 10px #582c83;
@@ -139,9 +138,10 @@ main {
 }
 
 .game-img {
+  flex: 1 1;
   filter: blur(8px);
-  width: 300px;
-  height: 300px;
+  width: 100%;
+  height: auto;
 }
 
 .game-desc {
@@ -149,7 +149,7 @@ main {
   justify-content: center;
   text-decoration: underline 1px;
 }
-
+/* 
 @media (max-width: 600px) {
   #game-selection {
     margin: 50px 20px;
@@ -160,7 +160,12 @@ main {
     padding: 0px;
     border-radius: 25px;
   }
-}
+
+  .game-img {
+    width: 200px;
+    height: 200px;
+  }
+} */
 
 /* About page styles */
 
