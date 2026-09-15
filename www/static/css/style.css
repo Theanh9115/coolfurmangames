@@ -2,25 +2,20 @@
 * {
   border: 0;
   box-sizing: border-box;
+  color: #4d4d4f;
 }
+
 /* Setting base font properties */
+
 body {
   font-family: sans-serif;
   line-height: 1.5;
   color: #333;
   background-color: #f1e7f8;
 }
-/* Removing list styles */
-ul,
-ol {
-  list-style: none;
-}
-/* Removing text decoration from links */
-a {
-  text-decoration: none;
-  color: none;
-}
+
 /* Setting table properties */
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -55,9 +50,13 @@ table {
 }
 
 .nav-pages {
-  width: 70%;
   display: flex;
   justify-content: end;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: none;
 }
 
 .nav-page {
@@ -71,11 +70,11 @@ table {
 /* Home page: game button styles */
 
 .game-button {
-    display: grid;
-    justify-content: center;
-    padding: 0px;
-    margin: 20px;
-    border: double 10px #582c83;
+  display: grid;
+  justify-content: center;
+  padding: 0px;
+  margin: 20px;
+  border: double 10px #582c83;
 }
 
 .game-link {
@@ -84,9 +83,9 @@ table {
 }
 
 .game-desc {
-    display: grid;
-    justify-content: center;
-    margin-bottom: 100px;
+  display: grid;
+  justify-content: center;
+  margin-bottom: 100px;
 }
 
 /* About page styles */
@@ -100,6 +99,172 @@ table {
 }
 
 .role-text {
-  font-weight: 500
+  font-weight: 500;
 }
 
+/*Leaderboard page styles*/
+.leaderboard-page{
+  width: 90%;
+  max-width: 950px;
+  margin: 25px auto;
+}
+.leaderboard-header {
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: #582c83;
+}
+
+.leaderboard-board {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.271);
+}
+
+.leaderboard-board-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background:#f1e7f8;
+}
+
+.leaderboard-board-heading h2 {
+  color:#333;
+  font-size: 24px;
+}
+
+.board-note {
+  font-size: 16px;
+  color: #080808a4;
+}
+
+.board-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.board-filter select {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 8px;
+  background: #fff;
+  color:#333;
+  font: inherit;
+}
+
+.game-tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 0 0;
+}
+
+.game-tab {
+  cursor: pointer;
+  text-align: center;
+  padding: 12px 24px;
+  border: 1px solid #582c83;
+  background: #f1e7f8;
+  color: #582c83;
+  font-weight: 600;
+}
+
+.game-tab.active, .game-tab:hover {
+  background: #582c83;
+  color: #fff;
+}
+
+.leaderboard-table-container {
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 400px;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.leaderboard-table th, .leaderboard-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: #f1e7f8;
+}
+
+@media only screen and (max-width: 600px) {
+  .nav-bar {
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    font-size: 16px;
+  }
+
+  .nav-home {
+    min-width: 0;
+    margin: 6px 0 2px;
+    font-size: 24px;
+  }
+
+  #home-img {
+    width: 56px;
+  }
+
+  #nav-title {
+    padding-left: 8px;
+    font-size: 20px;
+  }
+  
+  .nav-pages {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    padding-bottom: 6px;
+  }
+
+  .nav-page {
+    padding: 6px;
+  }
+
+  .leaderboard-page {
+    width: 95%;
+    margin: 16px auto;
+  }
+
+  .leaderboard-board-heading {
+    flex-direction: column; /* stack heading elements vertically */
+    align-items: flex-start; 
+    padding: 16px;
+  }
+  
+  .board-filter, .board-filter select {
+    width: 100%;
+    margin-top: 8px; 
+  }
+  .board-filter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .game-tabs {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .game-tab {
+    flex: 1;
+    padding: 8px 12px;
+  }
+
+}
