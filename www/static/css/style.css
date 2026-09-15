@@ -22,7 +22,6 @@ table {
 
 /* Navigation bar header styles */
 
-
 .nav-bar {
   display: flex;
   align-items: center;
@@ -34,9 +33,10 @@ table {
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 750px) {
   .nav-bar{
-    display: flow-root;
+    display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     font-size: 18px;
@@ -54,7 +54,7 @@ table {
   font-size: 35;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 750px) {
   .nav-home{
     margin: 0px 10px;
     display: flex;
@@ -83,6 +83,12 @@ table {
 
 .nav-page {
   padding: 0px 30px;
+}
+
+@media (max-width: 750px) {
+  .nav-page {
+    padding: 0px 15px;
+  }
 }
 
 .nav-page a:hover {
