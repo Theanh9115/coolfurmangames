@@ -292,3 +292,84 @@ article {
 .leaderboard-table tbody tr:hover {
   background-color: #f1e7f8;
 }
+
+@media only screen and (max-width: 600px) {
+  .nav-bar {
+    align-items: center;
+    flex-direction: column;
+    gap: 0;
+    font-size: 16px;
+  }
+
+  .nav-home {
+    min-width: 0;
+    margin: 6px 0 2px;
+    font-size: 24px;
+  }
+
+  #home-img {
+    width: 56px;
+  }
+
+  #nav-title {
+    padding-left: 8px;
+    font-size: 20px;
+  }
+  
+  .nav-pages {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: 100%;
+    padding-bottom: 6px;
+  }
+
+  .nav-page {
+    padding: 6px;
+  }
+
+  .leaderboard-page {
+    width: 95%;
+    margin: 16px auto;
+  }
+
+  .leaderboard-board-heading {
+    flex-direction: column; /* stack heading elements vertically */
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .board-filter, .board-filter select {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .board-filter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .game-tabs {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .game-tab {
+    flex: 1;
+    padding: 8px 12px;
+  }
+
+}
+
+
+
+/* game 1 styles */
+
+canvas {
+  background: #eeeeee;
+  display: block;
+  margin: 0 auto;
+}
+
+button {
+  display: block;
+}
