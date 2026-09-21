@@ -56,6 +56,14 @@ h6 {
     flex-direction: column;
     gap: 10px;
   }
+
+  .nav-link {
+    font-size: 2rem;
+  }
+
+  #home-img {
+    min-width: 150px;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -149,23 +157,6 @@ main {
   justify-content: center;
   text-decoration: underline 1px;
 }
-/* 
-@media (max-width: 600px) {
-  #game-selection {
-    margin: 50px 20px;
-    border-radius: 50px;
-  }
-
-  .game-card {
-    padding: 0px;
-    border-radius: 25px;
-  }
-
-  .game-img {
-    width: 200px;
-    height: 200px;
-  }
-} */
 
 /* About page styles */
 
