@@ -57,7 +57,7 @@ h6 {
     gap: 10px;
   }
 
-  .nav-link {
+  .nav-link, #current-page {
     font-size: 2rem;
   }
 
@@ -116,6 +116,11 @@ h6 {
   color: #582c83;
 }
 
+#current-page {
+  text-decoration: none;
+  color: #c1a3de;
+}
+
 .nav-page {
   padding: 0px 30px;
 }
@@ -128,6 +133,7 @@ h6 {
 .nav-bar a:hover {
   color: red;
 }
+
 
 /* Add padding for main  */
 main {
