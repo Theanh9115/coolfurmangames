@@ -360,6 +360,10 @@ article {
     padding: 8px 12px;
   }
 
+  #platformer-canvas{
+    width: 325px;
+    height: 375px;
+  }
 }
 
 
