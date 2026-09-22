@@ -160,6 +160,11 @@ main {
 
 /* About page styles */
 
+#about-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
 .about-text section,
 article {
   padding: 8px 0px;
@@ -182,7 +187,13 @@ article {
   color: #4d4d4f;
 }
 
-/*Leaderboard page styles*/
+/* Leaderboard page styles */
+
+#leaderboard-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
 .leaderboard-page {
   width: 90%;
   max-width: 950px;
@@ -353,7 +364,14 @@ article {
 
 
 
-/* game 1 styles */
+/* Local scores page styles */
+
+#localscore-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+/* Game page styles */
 
 canvas {
   background: #eeeeee;
