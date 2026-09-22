@@ -1,11 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./static/css/style.css" />
-    <link rel="stylesheet" href="./static/css/localscore.css" />
-    <title>Leaderboard</title>
+    <title>Local Scores</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -18,9 +22,11 @@
           <h1 id="nav-title">Cool Furman Games!</h1>
         </div>
         <div class="nav-pages">
-          <div class="nav-page"><a class="nav-link" href="./about.html">About Us</a></div>
           <div class="nav-page">
-            <a class="nav-link" href="./leaderboards.html">Leaderboard</a>
+            <a class="nav-link" href="./about.html">About Us</a>
+          </div>
+          <div class="nav-page">
+            <a href="./leaderboards.html" id="leaderboard-page">Leaderboard</a>
           </div>
           <div class="nav-page">
             <a class="nav-link" href="./localscore.html">Local Scores</a>
@@ -36,7 +42,7 @@
       <section class="leaderboard-board">
         <div class="leaderboard-board-heading">
           <div>
-            <h2 id = "leaderboard-title">Top Scores</h2>
+            <h2 id="leaderboard-title">Top Scores</h2>
             <p class="board-note">Website-wide scores</p>
           </div>
           <label class="board-filter">
@@ -50,9 +56,30 @@
         </div>
         <div class="game-tabs">
           <!-- Game selection tabs, game 1 is being selected by default -->
-          <button class="game-tab active" type="button" role="tab" aria-selected="true">Game 1</button>
-          <button class="game-tab" type="button" role="tab" aria-selected="false">Game 2</button>
-          <button class="game-tab" type="button" role="tab" aria-selected="false">Game 3</button>
+          <button
+            class="game-tab active"
+            type="button"
+            role="tab"
+            aria-selected="true"
+          >
+            Game 1
+          </button>
+          <button
+            class="game-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Game 2
+          </button>
+          <button
+            class="game-tab"
+            type="button"
+            role="tab"
+            aria-selected="false"
+          >
+            Game 3
+          </button>
         </div>
         <!-- Leaderboard table -->
         <div class="leaderboard-table-container">
@@ -67,7 +94,7 @@
             </thead>
             <tbody id="leaderboard-body">
               <!-- Leaderboard rows will be dynamically inserted here -->
-               <tr>
+              <tr>
                 <td>1</td>
                 <td>Player1</td>
                 <td>1000</td>

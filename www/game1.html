@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="static/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./static/css/style.css" />
     <title>Game 1</title>
   </head>
 
@@ -15,7 +16,9 @@
           <h1 id="nav-title">Cool Furman Games!</h1>
         </div>
         <div class="nav-pages">
-          <div class="nav-page"><a class="nav-link" href="./about.html">About Us</a></div>
+          <div class="nav-page">
+            <a class="nav-link" href="./about.html">About Us</a>
+          </div>
           <div class="nav-page">
             <a class="nav-link" href="./leaderboards.html">Leaderboard</a>
           </div>
@@ -27,6 +30,14 @@
     </header>
     <main>
       <h1>Game 1</h1>
+
+      <canvas id="platformer-canvas" width="480" height="320">
+      </canvas>
+      <button id="run-button">Start Game</button>
+      <button id="stop-button">End Game</button>
+
+      <script src="./static/js/main.js"></script>
+      <script src="./static/js/game1.js"></script>
     </main>
   </body>
 </html>

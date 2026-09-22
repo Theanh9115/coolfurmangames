@@ -1,13 +1,16 @@
 /* Resetting margins, paddings, and borders for all elements */
 * {
   border: 0;
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 /* Setting base font properties */
 
 body {
-  font-family: sans-serif;
+  height: 100vh;
+  font-family: "Fredoka", sans-serif;
   line-height: 1.5;
   color: #333;
   background-color: #dfcbed;
@@ -20,30 +23,52 @@ table {
   border-spacing: 0;
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #582c83;
+}
+
 /* Navigation bar header styles */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 22px;
+  font-size: 1.5rem;
   background-color: white;
   color: #582c83;
   font-weight: 600;
   box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
-@media (max-width: 750px) {
-  .nav-bar{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 18px;
-    background-color: white;
-    color: #582c83;
-    font-weight: 600;
-    box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
+/* Add media queries for mobile nav bar */
+@media screen and (max-width: 800px) {
+  .nav-bar {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+
+  .nav-pages {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-link {
+    font-size: 2rem;
+  }
+
+  #home-img {
+    min-width: 150px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #nav-title {
+    display: none;
   }
 }
 
@@ -51,20 +76,12 @@ table {
   margin: 0px 20px;
   display: flex;
   align-items: center;
-  font-size: 35;
-}
-
-@media (max-width: 750px) {
-  .nav-home{
-    margin: 0px 10px;
-    display: flex;
-    align-items: center;
-    font-size: 25;
-  }
+  font-size: 1.2rem;
 }
 
 #nav-title {
   padding-left: 20px;
+  font-weight: 600;
 }
 
 #home-img {
@@ -85,14 +102,18 @@ table {
   padding: 0px 30px;
 }
 
-@media (max-width: 750px) {
-  .nav-page {
-    padding: 0px 15px;
-  }
+.nav-bar a {
+  text-decoration: none;
+  color: none;
 }
 
-.nav-page a:hover {
-  color: #cd1919;
+.nav-bar a:hover {
+  color: red;
+}
+
+/* Add padding for main  */
+main {
+  padding: 40px;
 }
 
 /* Home page: game button styles */
@@ -102,31 +123,33 @@ table {
   flex-direction: column;
   align-items: center;
   background-color: #f1e7f8;
-  margin: 50px 100px;
+  padding: 1em 1em;
   border-radius: 100px;
 }
 
 .game-card {
+  flex: 1 1;
   background-color: white;
   padding: 25px;
   margin: 75px 0px;
-  border-radius: 50px ;
+  border-radius: 50px;
+  max-width: 400px;
 }
 
 .game-button {
   display: flex;
   justify-content: center;
-  max-width: 420px;
-  padding: 0px;
+  padding: 8px;
   margin: 20px;
   border: double 10px #582c83;
   border-radius: 10px;
 }
 
-
 .game-img {
+  flex: 1 1;
   filter: blur(8px);
-  max-width: 400px;
+  width: 100%;
+  height: auto;
 }
 
 .game-desc {
@@ -135,34 +158,43 @@ table {
   text-decoration: underline 1px;
 }
 
-@media (max-width: 600px) {
-  #game-selection {
-    margin: 50px 20px;
-    border-radius: 50px;
-  }
-
-  .game-card {
-    padding: 0px;
-    border-radius: 25px;
-  }
-}
-
 /* About page styles */
 
-.about-text {
-  margin: 25px;
+#about-page {
+  color: #582c83;
+  text-decoration: underline;
 }
 
-#feature-list {
+.about-text section,
+article {
+  padding: 8px 0px;
+}
+
+.about-text #feature-list {
   list-style: circle;
+  padding: 5px 0px;
+}
+
+#feature-list li {
+  margin-left: 20px;
 }
 
 .role-text {
   font-weight: 500;
 }
 
-/*Leaderboard page styles*/
-.leaderboard-page{
+.team h3 {
+  color: #4d4d4f;
+}
+
+/* Leaderboard page styles */
+
+#leaderboard-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+.leaderboard-page {
   width: 90%;
   max-width: 950px;
   margin: 25px auto;
@@ -189,11 +221,11 @@ table {
   justify-content: space-between;
   gap: 16px;
   padding: 16px;
-  background:#f1e7f8;
+  background: #f1e7f8;
 }
 
 .leaderboard-board-heading h2 {
-  color:#333;
+  color: #333;
   font-size: 24px;
 }
 
@@ -214,7 +246,7 @@ table {
   border-radius: 4px;
   padding: 8px;
   background: #fff;
-  color:#333;
+  color: #333;
   font: inherit;
 }
 
@@ -234,7 +266,8 @@ table {
   font-weight: 600;
 }
 
-.game-tab.active, .game-tab:hover {
+.game-tab.active,
+.game-tab:hover {
   background: #582c83;
   color: #fff;
 }
@@ -251,7 +284,8 @@ table {
   margin-top: 16px;
 }
 
-.leaderboard-table th, .leaderboard-table td {
+.leaderboard-table th,
+.leaderboard-table td {
   padding: 12px 16px;
   text-align: left;
   border-bottom: 1px solid #ddd;
@@ -326,4 +360,25 @@ table {
     padding: 8px 12px;
   }
 
+}
+
+
+
+/* Local scores page styles */
+
+#localscore-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+/* Game page styles */
+
+canvas {
+  background: #eeeeee;
+  display: block;
+  margin: 0 auto;
+}
+
+button {
+  display: block;
 }
