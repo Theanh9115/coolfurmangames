@@ -363,3 +363,25 @@ canvas {
 button {
   display: block;
 }
+
+/* Game 2 */
+.tic-tac-toe {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 300px));
+  grid-template-rows: repeat(3, minmax(50px, 300px));
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+}
+
+.tic-tac-toe-child {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 200px;
+  aspect-ratio: 1 / 1;
+}
+
+.reset-btn {
+  border: 2px solid black;
+  width: 120px;
+  height: 50px;
+}
