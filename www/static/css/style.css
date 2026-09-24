@@ -46,7 +46,27 @@ h6 {
 }
 
 /* Add media queries for mobile nav bar */
-@media screen and (max-width: 800px) {
+@media only screen and (max-width: 800px) {
+  .nav-bar {
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+
+  .nav-pages {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .nav-link, #current-page {
+    font-size: 2rem;
+  }
+
+  #home-img {
+    min-width: 150px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
   .nav-bar {
     flex-direction: column;
     padding-bottom: 20px;
@@ -64,9 +84,7 @@ h6 {
   #home-img {
     min-width: 150px;
   }
-}
 
-@media screen and (max-width: 600px) {
   #nav-title {
     display: none;
   }
@@ -98,6 +116,11 @@ h6 {
   color: #582c83;
 }
 
+#current-page {
+  text-decoration: none;
+  color: #c1a3de;
+}
+
 .nav-page {
   padding: 0px 30px;
 }
@@ -110,6 +133,7 @@ h6 {
 .nav-bar a:hover {
   color: red;
 }
+
 
 /* Add padding for main  */
 main {
@@ -296,52 +320,18 @@ article {
 }
 
 @media only screen and (max-width: 600px) {
-  .nav-bar {
-    align-items: center;
-    flex-direction: column;
-    gap: 0;
-    font-size: 16px;
-  }
-
-  .nav-home {
-    min-width: 0;
-    margin: 6px 0 2px;
-    font-size: 24px;
-  }
-
-  #home-img {
-    width: 56px;
-  }
-
-  #nav-title {
-    padding-left: 8px;
-    font-size: 20px;
-  }
-  
-  .nav-pages {
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 4px;
-    width: 100%;
-    padding-bottom: 6px;
-  }
-
-  .nav-page {
-    padding: 6px;
-  }
-
   .leaderboard-page {
     width: 95%;
     margin: 16px auto;
   }
-
   .leaderboard-board-heading {
     flex-direction: column; /* stack heading elements vertically */
     align-items: flex-start;
     padding: 16px;
   }
 
-  .board-filter, .board-filter select {
+  .board-filter,
+  .board-filter select {
     width: 100%;
     margin-top: 8px;
   }
@@ -358,11 +348,6 @@ article {
   .game-tab {
     flex: 1;
     padding: 8px 12px;
-  }
-
-  #platformer-canvas{
-    width: 325px;
-    height: 375px;
   }
 }
 
@@ -390,6 +375,28 @@ canvas {
 
 button {
   display: block;
+}
+
+/* Game 2 */
+.tic-tac-toe {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(50px, 300px));
+  grid-template-rows: repeat(3, minmax(50px, 300px));
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+}
+
+.tic-tac-toe-child {
+  border: 1px solid black;
+  text-align: center;
+  font-size: 200px;
+  aspect-ratio: 1 / 1;
+}
+
+.reset-btn {
+  border: 2px solid black;
+  width: 120px;
+  height: 50px;
 }
 
 /* dark mode*/
