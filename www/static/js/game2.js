@@ -107,97 +107,80 @@ function updateWinningStatus() {
     r2c1.innerHTML == player1.icon &&
     r3c1.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c2.innerHTML == player1.icon &&
     r2c2.innerHTML == player1.icon &&
     r3c2.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c3.innerHTML == player1.icon &&
     r2c3.innerHTML == player1.icon &&
     r3c3.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c1.innerHTML == player1.icon &&
     r2c2.innerHTML == player1.icon &&
     r3c3.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c3.innerHTML == player1.icon &&
     r2c2.innerHTML == player1.icon &&
     r3c1.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c1.innerHTML == player2.icon &&
     r1c2.innerHTML == player2.icon &&
     r1c3.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r2c1.innerHTML == player2.icon &&
     r2c2.innerHTML == player2.icon &&
     r2c3.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r3c1.innerHTML == player2.icon &&
     r3c2.innerHTML == player2.icon &&
     r3c3.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r1c1.innerHTML == player2.icon &&
     r2c1.innerHTML == player2.icon &&
     r3c1.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r1c2.innerHTML == player2.icon &&
     r2c2.innerHTML == player2.icon &&
     r3c2.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r1c3.innerHTML == player2.icon &&
     r2c3.innerHTML == player2.icon &&
     r3c3.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r1c1.innerHTML == player2.icon &&
     r2c2.innerHTML == player2.icon &&
     r3c3.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   } else if (
     r1c3.innerHTML == player2.icon &&
     r2c2.innerHTML == player2.icon &&
     r3c1.innerHTML == player2.icon
   ) {
-    console.log("This function ran");
     player2.win = true;
   }
-  console.log(r1c1.innerHTML);
-  console.log(player1.icon);
-  console.log(player1.win);
-  console.log("This function ran but error");
 }
 
 // Clear every game cell so the board can be reset.
