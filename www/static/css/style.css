@@ -57,7 +57,8 @@ h6 {
     gap: 10px;
   }
 
-  .nav-link, #current-page {
+  .nav-link,
+  #current-page {
     font-size: 2rem;
   }
 
@@ -133,7 +134,6 @@ h6 {
 .nav-bar a:hover {
   color: red;
 }
-
 
 /* Add padding for main  */
 main {
@@ -371,19 +371,34 @@ button {
 }
 
 /* Game 2 */
+.tic-tac-toe-tracker {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tic-tac-toe {
   display: grid;
-  grid-template-columns: repeat(3, minmax(50px, 300px));
-  grid-template-rows: repeat(3, minmax(50px, 300px));
+  grid-template-columns: repeat(3, minmax(50px, 200px));
+  grid-template-rows: repeat(3, minmax(50px, 200px));
   justify-content: center;
   aspect-ratio: 1 / 1;
 }
 
 .tic-tac-toe-child {
   border: 1px solid black;
-  text-align: center;
-  font-size: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   aspect-ratio: 1 / 1;
+}
+
+.tic-tac-toe-child svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .reset-btn {

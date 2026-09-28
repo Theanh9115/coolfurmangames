@@ -1,9 +1,16 @@
-const player1 = "X";
-const player2 = "O";
+// AI generated SVG for X and O
+const player1 = {
+  icon: '<svg viewBox="0 0 100 100" width="64" height="64" fill="none"><path d="M20 20L80 80M80 20L20 80" stroke="currentColor" stroke-width="10" stroke-linecap="round"></path></svg>',
+  mark: "X",
+  win: false,
+};
 
-const draw = 0;
-const player1Win = 1;
-const player2Win = 2;
+const player2 = {
+  icon: '<svg viewBox="0 0 100 100" width="64" height="64" fill="none"><circle cx="50" cy="50" r="32" stroke="currentColor" stroke-width="10"></circle></svg>',
+  mark: "O",
+  win: false,
+};
+
 let playerTurn = player1;
 
 let r1c1 = document.getElementById("r1c1");
@@ -22,17 +29,19 @@ let resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => initializeGame());
 
 function initializeGame() {
+  player1.win = false;
+  player2.win = false;
   playerTurn = player1;
   playerTurnSpan.innerText = "";
-  playerTurnSpan.innerText = playerTurn;
+  playerTurnSpan.innerText = playerTurn.mark;
   clearGrid();
 }
 
 function placeMove(e) {
-  if (e.target.innerText == "") {
-    e.target.innerText = playerTurn;
-    if (isGameEnd()) {
-      alert();
+  if (e.target.innerHTML == "") {
+    e.target.innerHTML = playerTurn.icon;
+    if (checkGameEnd() != null) {
+      alert(checkGameEnd());
       initializeGame();
     }
   } else {
@@ -44,139 +53,159 @@ function placeMove(e) {
 function switchTurn() {
   playerTurn = playerTurn == player1 ? player2 : player1;
   playerTurnSpan.innerText = "";
-  playerTurnSpan.innerText = playerTurn;
+  playerTurnSpan.innerText = playerTurn.mark;
 }
 
-function isGameEnd() {
+function checkGameEnd() {
+  updateWinningStatus();
+  console.log(player1.win);
+  console.log(player2.win);
+  if (player1.win) return "Player 1 is the winner!!!";
+  if (player2.win) return "Player 2 is the winner!!!";
   if (
-    checkWinner() == player1Win ||
-    checkWinner() == player2Win ||
-    checkWinner() ||
-    draw
-  )
-    return true;
-}
-
-function checkWinner() {
-  if (
-    r1c1.innerText == player1 &&
-    r1c2.innerText == player1 &&
-    r1c3.innerText == player1
+    r1c1.innerHTML != "" &&
+    r1c2.innerHTML != "" &&
+    r1c3.innerHTML != "" &&
+    r2c1.innerHTML != "" &&
+    r2c2.innerHTML != "" &&
+    r2c3.innerHTML != "" &&
+    r3c1.innerHTML != "" &&
+    r3c2.innerHTML != "" &&
+    r3c3.innerHTML != ""
   ) {
-    return player1Win;
-  } else if (
-    r2c1.innerText == player1 &&
-    r2c2.innerText == player1 &&
-    r2c3.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r3c1.innerText == player1 &&
-    r3c2.innerText == player1 &&
-    r3c3.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c1.innerText == player1 &&
-    r2c1.innerText == player1 &&
-    r3c1.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c2.innerText == player1 &&
-    r2c2.innerText == player1 &&
-    r3c2.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c3.innerText == player1 &&
-    r2c3.innerText == player1 &&
-    r3c3.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c1.innerText == player1 &&
-    r2c2.innerText == player1 &&
-    r3c3.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c3.innerText == player1 &&
-    r2c2.innerText == player1 &&
-    r3c1.innerText == player1
-  ) {
-    return player1Win;
-  } else if (
-    r1c1.innerText == player2 &&
-    r1c2.innerText == player2 &&
-    r1c3.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r2c1.innerText == player2 &&
-    r2c2.innerText == player2 &&
-    r2c3.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r3c1.innerText == player2 &&
-    r3c2.innerText == player2 &&
-    r3c3.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c1.innerText == player2 &&
-    r2c1.innerText == player2 &&
-    r3c1.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c2.innerText == player2 &&
-    r2c2.innerText == player2 &&
-    r3c2.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c3.innerText == player2 &&
-    r2c3.innerText == player2 &&
-    r3c3.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c1.innerText == player2 &&
-    r2c2.innerText == player2 &&
-    r3c3.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c3.innerText == player2 &&
-    r2c2.innerText == player2 &&
-    r3c1.innerText == player2
-  ) {
-    return player2Win;
-  } else if (
-    r1c1.innerText != "" &&
-    r1c2.innerText != "" &&
-    r1c3.innerText != "" &&
-    r2c1.innerText != "" &&
-    r2c2.innerText != "" &&
-    r2c3.innerText != "" &&
-    r3c1.innerText != "" &&
-    r3c2.innerText != "" &&
-    r3c3.innerText != ""
-  ) {
-    return draw;
+    return "The game is draw!!!";
   }
+  return null;
+}
+
+function updateWinningStatus() {
+  if (
+    r1c1.innerHTML == player1.icon &&
+    r1c2.innerHTML == player1.icon &&
+    r1c3.innerHTML == player1.icon
+  ) {
+    console.log("update first row");
+    player1.win = true;
+  } else if (
+    r2c1.innerHTML == player1.icon &&
+    r2c2.innerHTML == player1.icon &&
+    r2c3.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r3c1.innerHTML == player1.icon &&
+    r3c2.innerHTML == player1.icon &&
+    r3c3.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c1.innerHTML == player1.icon &&
+    r2c1.innerHTML == player1.icon &&
+    r3c1.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c2.innerHTML == player1.icon &&
+    r2c2.innerHTML == player1.icon &&
+    r3c2.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c3.innerHTML == player1.icon &&
+    r2c3.innerHTML == player1.icon &&
+    r3c3.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c1.innerHTML == player1.icon &&
+    r2c2.innerHTML == player1.icon &&
+    r3c3.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c3.innerHTML == player1.icon &&
+    r2c2.innerHTML == player1.icon &&
+    r3c1.innerHTML == player1.icon
+  ) {
+    console.log("This function ran");
+    player1.win = true;
+  } else if (
+    r1c1.innerHTML == player2.icon &&
+    r1c2.innerHTML == player2.icon &&
+    r1c3.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r2c1.innerHTML == player2.icon &&
+    r2c2.innerHTML == player2.icon &&
+    r2c3.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r3c1.innerHTML == player2.icon &&
+    r3c2.innerHTML == player2.icon &&
+    r3c3.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r1c1.innerHTML == player2.icon &&
+    r2c1.innerHTML == player2.icon &&
+    r3c1.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r1c2.innerHTML == player2.icon &&
+    r2c2.innerHTML == player2.icon &&
+    r3c2.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r1c3.innerHTML == player2.icon &&
+    r2c3.innerHTML == player2.icon &&
+    r3c3.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r1c1.innerHTML == player2.icon &&
+    r2c2.innerHTML == player2.icon &&
+    r3c3.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  } else if (
+    r1c3.innerHTML == player2.icon &&
+    r2c2.innerHTML == player2.icon &&
+    r3c1.innerHTML == player2.icon
+  ) {
+    console.log("This function ran");
+    player2.win = true;
+  }
+  console.log(r1c1.innerHTML);
+  console.log(player1.icon);
+  console.log(player1.win);
+  console.log("This function ran but error");
 }
 
 function clearGrid() {
-  r1c1.innerText = "";
-  r1c2.innerText = "";
-  r1c3.innerText = "";
-  r2c1.innerText = "";
-  r2c2.innerText = "";
-  r2c3.innerText = "";
-  r3c1.innerText = "";
-  r3c2.innerText = "";
-  r3c3.innerText = "";
+  r1c1.innerHTML = "";
+  r1c2.innerHTML = "";
+  r1c3.innerHTML = "";
+  r2c1.innerHTML = "";
+  r2c2.innerHTML = "";
+  r2c3.innerHTML = "";
+  r3c1.innerHTML = "";
+  r3c2.innerHTML = "";
+  r3c3.innerHTML = "";
 }
