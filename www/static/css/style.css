@@ -371,9 +371,11 @@ button {
 }
 
 /* Game 2 */
-.tic-tac-toe-tracker {
+.tic-tac-toe-info {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
 }
 
 .tic-tac-toe {

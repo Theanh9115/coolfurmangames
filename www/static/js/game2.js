@@ -28,6 +28,7 @@ let playerTurnSpan = document.querySelector(".player");
 let resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => initializeGame());
 
+// Reset the board and player state to start a fresh game.
 function initializeGame() {
   player1.win = false;
   player2.win = false;
@@ -37,31 +38,34 @@ function initializeGame() {
   clearGrid();
 }
 
+// Place the current player's icon in the clicked cell if it is empty.
 function placeMove(e) {
   if (e.target.innerHTML == "") {
     e.target.innerHTML = playerTurn.icon;
-    if (checkGameEnd() != null) {
-      alert(checkGameEnd());
-      initializeGame();
-    }
   } else {
     placeMove(e);
   }
   switchTurn();
 }
 
+// Swap turns after each valid move and update the turn indicator.
 function switchTurn() {
   playerTurn = playerTurn == player1 ? player2 : player1;
   playerTurnSpan.innerText = "";
   playerTurnSpan.innerText = playerTurn.mark;
 }
 
+// Check whether the current board state is a win or a draw.
 function checkGameEnd() {
   updateWinningStatus();
-  console.log(player1.win);
-  console.log(player2.win);
-  if (player1.win) return "Player 1 is the winner!!!";
-  if (player2.win) return "Player 2 is the winner!!!";
+  if (player1.win) {
+    alert("Player 1 is the winner!!!");
+    initializeGame();
+  }
+  if (player2.win) {
+    alert("Player 2 is the winner!!!");
+    initializeGame();
+  }
   if (
     r1c1.innerHTML != "" &&
     r1c2.innerHTML != "" &&
@@ -73,32 +77,30 @@ function checkGameEnd() {
     r3c2.innerHTML != "" &&
     r3c3.innerHTML != ""
   ) {
-    return "The game is draw!!!";
+    alert("The game is draw!!!");
+    initializeGame();
   }
-  return null;
 }
 
+// Mark the winner if any row, column, or diagonal matches the same icon.
 function updateWinningStatus() {
   if (
     r1c1.innerHTML == player1.icon &&
     r1c2.innerHTML == player1.icon &&
     r1c3.innerHTML == player1.icon
   ) {
-    console.log("update first row");
     player1.win = true;
   } else if (
     r2c1.innerHTML == player1.icon &&
     r2c2.innerHTML == player1.icon &&
     r2c3.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r3c1.innerHTML == player1.icon &&
     r3c2.innerHTML == player1.icon &&
     r3c3.innerHTML == player1.icon
   ) {
-    console.log("This function ran");
     player1.win = true;
   } else if (
     r1c1.innerHTML == player1.icon &&
@@ -198,6 +200,7 @@ function updateWinningStatus() {
   console.log("This function ran but error");
 }
 
+// Clear every game cell so the board can be reset.
 function clearGrid() {
   r1c1.innerHTML = "";
   r1c2.innerHTML = "";

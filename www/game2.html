@@ -36,7 +36,7 @@
     </header>
     <main>
       <h1>Game 2</h1>
-      <div class="tic-tac-toe-tracker">
+      <div class="tic-tac-toe-info">
         <div>
           Turn:
           <span class="player"></span>
@@ -47,47 +47,110 @@
         <div
           class="tic-tac-toe-child"
           id="r1c1"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r1c2"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r1c3"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r2c1"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r2c2"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r2c3"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r3c1"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // AI: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r3c2"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // AI: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
         <div
           class="tic-tac-toe-child"
           id="r3c3"
-          onclick="placeMove(event)"
+          onclick="
+            placeMove(event);
+            // AI: let the browser paint the updated DOM first,
+            // then evaluate the board for a win/draw.
+            requestAnimationFrame(() => {
+              requestAnimationFrame(checkGameEnd);
+            });
+          "
         ></div>
       </div>
     </main>
