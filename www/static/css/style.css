@@ -211,6 +211,36 @@ article {
   color: #4d4d4f;
 }
 
+/* Game page styles */
+
+#paladin-jump {
+  width: 500px;
+  height: 600px;
+}
+
+#breakout-mobile-warning {
+  display: none;
+}
+
+#breakout-canvas, #breakout-run-button {
+  display:block;
+}
+
+@media only screen and (max-width: 600px) {
+  #paladin-jump {
+    width: 90%;
+    height: 500px;
+  }
+
+  #breakout-canvas, #breakout-run-button {
+    display: none;
+  }
+
+  #breakout-mobile-warning {
+    display: block;
+  }
+}
+
 /* Leaderboard page styles */
 
 #leaderboard-page {
@@ -319,6 +349,12 @@ article {
   background-color: #f1e7f8;
 }
 
+#toggle-theme{
+  width: 35px;
+  height: 35px;
+  align-self:flex-start;
+}
+
 @media only screen and (max-width: 600px) {
   .leaderboard-page {
     width: 95%;
@@ -348,6 +384,9 @@ article {
   .game-tab {
     flex: 1;
     padding: 8px 12px;
+  }
+  #toggle-theme{
+  align-self:center;
   }
 }
 
@@ -407,4 +446,31 @@ button {
   border: 2px solid black;
   width: 120px;
   height: 50px;
+}
+
+/* dark mode*/
+body.dark{
+  color: #945eca;
+  background-color: rgb(48, 2, 45);
+}
+
+.nav-bar.dark{
+  background-color: rgb(70, 19, 81);
+  box-shadow: 5px 5px 5px hsl(276, 22%, 50%);
+}
+
+.nav-link.dark, #nav-title.dark {
+  color: #945eca;
+}
+
+#game-selection.dark {
+  background-color: rgb(70, 19, 81);
+}
+
+.game.dark {
+  background-color: #986dc4;
+}
+
+.game-button.dark {
+  border: double 10px #582c83;
 }
