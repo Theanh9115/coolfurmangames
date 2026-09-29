@@ -22,9 +22,9 @@ themeToggle.addEventListener("click" , () => {
         for (const nav of navL){
             nav.classList.add("dark");}
         for (const g of game){
-        g.classList.add("dark");}
+            g.classList.add("dark");}
         for (const g of gameB){
-        g.classList.add("dark");}
+            g.classList.add("dark");}
 
         gameS.classList.add("dark");
         localStorage.setItem("theme", "dark");
@@ -34,11 +34,11 @@ themeToggle.addEventListener("click" , () => {
         title.classList.remove("dark");
         navB.classList.remove("dark");
         for (const nav of navL){
-        nav.classList.remove("dark");}
+            nav.classList.remove("dark");}
         for (const g of game){
-        g.classList.remove("dark");}
+            g.classList.remove("dark");}
         for (const g of gameB){
-        g.classList.remove("dark");}
+            g.classList.remove("dark");}
 
         gameS.classList.remove("dark");
         }

@@ -319,6 +319,12 @@ article {
   background-color: #f1e7f8;
 }
 
+#toggle-theme{
+  width: 35px;
+  height: 35px;
+  align-self:flex-start;
+}
+
 @media only screen and (max-width: 600px) {
   .leaderboard-page {
     width: 95%;
@@ -349,13 +355,9 @@ article {
     flex: 1;
     padding: 8px 12px;
   }
-}
-
-#toggle-theme{
-  width: 35px;
-  height: 35px;
+  #toggle-theme{
   align-self:center;
-  filter: grayscale();
+  }
 }
 
 /* Local scores page styles */
