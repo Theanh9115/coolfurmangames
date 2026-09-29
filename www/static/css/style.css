@@ -57,7 +57,8 @@ h6 {
     gap: 10px;
   }
 
-  .nav-link, #current-page {
+  .nav-link,
+  #current-page {
     font-size: 2rem;
   }
 
@@ -134,7 +135,6 @@ h6 {
   color: red;
 }
 
-
 /* Add padding for main  */
 main {
   padding: 40px;
@@ -209,6 +209,36 @@ article {
 
 .team h3 {
   color: #4d4d4f;
+}
+
+/* Game page styles */
+
+#paladin-jump {
+  width: 500px;
+  height: 600px;
+}
+
+#breakout-mobile-warning {
+  display: none;
+}
+
+#breakout-canvas, #breakout-run-button {
+  display:block;
+}
+
+@media only screen and (max-width: 600px) {
+  #paladin-jump {
+    width: 90%;
+    height: 500px;
+  }
+
+  #breakout-canvas, #breakout-run-button {
+    display: none;
+  }
+
+  #breakout-mobile-warning {
+    display: block;
+  }
 }
 
 /* Leaderboard page styles */
@@ -380,19 +410,36 @@ button {
 }
 
 /* Game 2 */
+.tic-tac-toe-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
 .tic-tac-toe {
   display: grid;
-  grid-template-columns: repeat(3, minmax(50px, 300px));
-  grid-template-rows: repeat(3, minmax(50px, 300px));
+  grid-template-columns: repeat(3, minmax(50px, 200px));
+  grid-template-rows: repeat(3, minmax(50px, 200px));
   justify-content: center;
   aspect-ratio: 1 / 1;
 }
 
 .tic-tac-toe-child {
   border: 1px solid black;
-  text-align: center;
-  font-size: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   aspect-ratio: 1 / 1;
+}
+
+.tic-tac-toe-child svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .reset-btn {
