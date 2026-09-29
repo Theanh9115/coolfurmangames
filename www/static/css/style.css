@@ -211,6 +211,36 @@ article {
   color: #4d4d4f;
 }
 
+/* Game page styles */
+
+#paladin-jump {
+  width: 500px;
+  height: 600px;
+}
+
+#breakout-mobile-warning {
+  display: none;
+}
+
+#breakout-canvas, #breakout-run-button {
+  display:block;
+}
+
+@media only screen and (max-width: 600px) {
+  #paladin-jump {
+    width: 90%;
+    height: 500px;
+  }
+
+  #breakout-canvas, #breakout-run-button {
+    display: none;
+  }
+
+  #breakout-mobile-warning {
+    display: block;
+  }
+}
+
 /* Leaderboard page styles */
 
 #leaderboard-page {
