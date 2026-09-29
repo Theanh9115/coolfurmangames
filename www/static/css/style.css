@@ -353,6 +353,8 @@ article {
   width: 35px;
   height: 35px;
   align-self:flex-start;
+  margin-right: 10px;
+  margin-top: 5px;
 }
 
 @media only screen and (max-width: 600px) {

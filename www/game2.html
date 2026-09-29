@@ -50,7 +50,7 @@
           id="r1c1"
           onclick="
             placeMove(event);
-            // W3C/HTML rendering: let the browser paint the updated DOM first,
+            // AI: let the browser paint the updated DOM first,
             // then evaluate the board for a win/draw.
             requestAnimationFrame(() => {
               requestAnimationFrame(checkGameEnd);
