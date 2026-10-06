@@ -1,0 +1,18 @@
+{
+  "users": [
+    {
+      "username": "The Anh",
+      "game1Score": 999,
+      "game2Score": 999,
+      "game3Score": 999,
+      "date": "2026-9-29"
+    },
+    {
+      "username": "La kia",
+      "game1Score": 999,
+      "game2Score": 999,
+      "game3Score": 999,
+      "date": "2026-9-29"
+    }
+  ]
+}

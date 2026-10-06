@@ -31,129 +31,139 @@
           <div class="nav-page">
             <a class="nav-link" href="./localscore.html">Local Scores</a>
           </div>
+          <div class="theme-btn">
+            <img id="toggle-theme" src="./static/img/themeButton.png" />
+          </div>
         </div>
-        <img id="toggle-theme" src="./static/img/themeButton.png" />
       </nav>
     </header>
     <main>
-      <h1>Game 2</h1>
+      <h1>Tic Tac Toe</h1>
       <div class="tic-tac-toe-info">
         <div>
-          Turn:
-          <span class="turn"></span>
+          <div>
+            <h2>Turn:</h2>
+            <span class="turn"></span>
+          </div>
+          <div>
+            <h2>Score:</h2>
+            <span class="score"></span>
+          </div>
         </div>
-        <button type="submit" class="reset-btn">New Game</button>
       </div>
-      <div class="tic-tac-toe">
-        <div
-          class="tic-tac-toe-child"
-          id="r1c1"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r1c2"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r1c3"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r2c1"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r2c2"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r2c3"
-          onclick="
-            placeMove(event);
-            // AI rendering: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r3c1"
-          onclick="
-            placeMove(event);
-            // AI: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r3c2"
-          onclick="
-            placeMove(event);
-            // AI: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
-        <div
-          class="tic-tac-toe-child"
-          id="r3c3"
-          onclick="
-            placeMove(event);
-            // AI: let the browser paint the updated DOM first,
-            // then evaluate the board for a win/draw.
-            requestAnimationFrame(() => {
-              requestAnimationFrame(checkGameEnd);
-            });
-          "
-        ></div>
+      <div class="tic-tac-toe-container">
+        <div class="tic-tac-toe-gameboard">
+          <div
+            class="tic-tac-toe-child"
+            id="r1c1"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r1c2"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r1c3"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r2c1"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r2c2"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r2c3"
+            onclick="
+              placeMove(event);
+              // AI rendering: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r3c1"
+            onclick="
+              placeMove(event);
+              // AI: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r3c2"
+            onclick="
+              placeMove(event);
+              // AI: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+          <div
+            class="tic-tac-toe-child"
+            id="r3c3"
+            onclick="
+              placeMove(event);
+              // AI: let the browser paint the updated DOM first,
+              // then evaluate the board for a win/draw.
+              requestAnimationFrame(() => {
+                requestAnimationFrame(checkGameEnd);
+              });
+            "
+          ></div>
+        </div>
       </div>
+      <button type="submit" class="reset-btn">New Game</button>
     </main>
     <script src="./static/js/game2.js"></script>
     <script src="./static/js/main.js"></script>

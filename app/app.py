@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
+import json
 
 app = Flask(__name__)
 
@@ -11,6 +12,10 @@ def home():
 def hello():
     return "Hello, World!"
 
-# @app.route("/coolfurmangames")
-# def main():
-#     return render_template("main.html")
+@app.route("/score", methods=['GET'])
+def getScore():
+    with open("./user-data.json", "r") as file:
+        user_data = json.load(file)
+        for user in user_data["users"]:
+            user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
+    return jsonify(user_data)

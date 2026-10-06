@@ -222,8 +222,9 @@ article {
   display: none;
 }
 
-#breakout-canvas, #breakout-run-button {
-  display:block;
+#breakout-canvas,
+#breakout-run-button {
+  display: block;
 }
 
 @media only screen and (max-width: 600px) {
@@ -232,7 +233,8 @@ article {
     height: 500px;
   }
 
-  #breakout-canvas, #breakout-run-button {
+  #breakout-canvas,
+  #breakout-run-button {
     display: none;
   }
 
@@ -349,10 +351,14 @@ article {
   background-color: #f1e7f8;
 }
 
-#toggle-theme{
+#toggle-theme {
   width: 35px;
   height: 35px;
-  align-self:flex-start;
+  align-self: flex-start;
+}
+
+.theme-btn {
+  padding: 0px 10px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -385,8 +391,8 @@ article {
     flex: 1;
     padding: 8px 12px;
   }
-  #toggle-theme{
-  align-self:center;
+  #toggle-theme {
+    align-self: center;
   }
 }
 
@@ -417,12 +423,21 @@ button {
   padding-bottom: 10px;
 }
 
-.tic-tac-toe {
+.tic-tac-toe-container {
+  margin: auto;
+  max-width: 600px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.tic-tac-toe-gameboard {
+  flex: 1 1;
   display: grid;
-  grid-template-columns: repeat(3, minmax(50px, 200px));
-  grid-template-rows: repeat(3, minmax(50px, 200px));
-  justify-content: center;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   aspect-ratio: 1 / 1;
+  overflow: hidden;
 }
 
 .tic-tac-toe-child {
@@ -430,8 +445,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  aspect-ratio: 1 / 1;
 }
 
 .tic-tac-toe-child svg {
@@ -443,23 +456,26 @@ button {
 }
 
 .reset-btn {
+  display: block;
+  margin: 20px auto;
   border: 2px solid black;
   width: 120px;
   height: 50px;
 }
 
 /* dark mode*/
-body.dark{
+body.dark {
   color: #945eca;
   background-color: rgb(48, 2, 45);
 }
 
-.nav-bar.dark{
+.nav-bar.dark {
   background-color: rgb(70, 19, 81);
   box-shadow: 5px 5px 5px hsl(276, 22%, 50%);
 }
 
-.nav-link.dark, #nav-title.dark {
+.nav-link.dark,
+#nav-title.dark {
   color: #945eca;
 }
 
