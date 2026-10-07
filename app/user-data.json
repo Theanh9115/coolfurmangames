@@ -4,15 +4,29 @@
       "username": "The Anh",
       "game1Score": 999,
       "game2Score": 999,
+      "game3Score": 888,
+      "date": "2026-9-29"
+    },
+    {
+      "username": "La'Kia",
+      "game1Score": 888,
+      "game2Score": 888,
       "game3Score": 999,
       "date": "2026-9-29"
     },
     {
-      "username": "La kia",
-      "game1Score": 999,
-      "game2Score": 999,
-      "game3Score": 999,
-      "date": "2026-9-29"
+      "username" : "Charlie",
+      "game1Score": 1238470891,
+      "game2Score": 523,
+      "game3Score": 123,
+      "date": "2026-10-6"
+    },
+    {
+      "username" : "Kai",
+      "game1Score": 1312,
+      "game2Score": 5322,
+      "game3Score": 582,
+      "date": "2026-10-5"
     }
   ]
 }

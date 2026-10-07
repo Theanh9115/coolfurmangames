@@ -306,7 +306,7 @@ article {
   font: inherit;
 }
 
-.game-tabs {
+#game-tabs {
   display: flex;
   gap: 4px;
   padding: 12px 0 0;
@@ -354,17 +354,14 @@ article {
 #toggle-theme {
   width: 35px;
   height: 35px;
-<<<<<<< HEAD
   align-self: flex-start;
 }
 
 .theme-btn {
   padding: 0px 10px;
-=======
   align-self:flex-start;
   margin-right: 10px;
   margin-top: 5px;
->>>>>>> 05fd488cf0003b28f0f03b53d0ae23cdeac149ac
 }
 
 @media only screen and (max-width: 600px) {

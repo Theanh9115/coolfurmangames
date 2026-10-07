@@ -5,7 +5,6 @@ console.log("main.js loaded - edit me in www/static/js/main.js");
 /* Got elements from all relevant parts that should be effected by darkmode toggle */
 const themeToggle = document.getElementById("toggle-theme");
 const body = document.body;
-<<<<<<< HEAD
 const navL = document.getElementsByClassName("nav-link");
 const navB = document.getElementsByClassName("nav-bar")[0];
 const gameB = document.querySelectorAll("game-button");
@@ -49,7 +48,7 @@ themeToggle.addEventListener("click", () => {
     gameS.classList.remove("dark");
   }
 });
-=======
+
 const bodyElems = document.body.getElementsByTagName("*");
 
 /* toggle from user pressing the button, makes all elements inherent "dark" classname */
@@ -60,7 +59,6 @@ themeToggle.addEventListener("click" , () => {
     else{
         lightMode()}
 })
->>>>>>> 05fd488cf0003b28f0f03b53d0ae23cdeac149ac
 
 function lightMode(){
     body.classList.replace("dark", "light");
@@ -78,10 +76,4 @@ const theme = localStorage.getItem("theme");
 
 if (theme == "dark"){
     darkMode();
-<<<<<<< HEAD
 }
-
-*/
-=======
-}
->>>>>>> 05fd488cf0003b28f0f03b53d0ae23cdeac149ac

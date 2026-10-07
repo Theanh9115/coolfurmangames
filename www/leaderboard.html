@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./static/css/style.css" />
-    <title>Local Scores</title>
+    <title>Leaderboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -37,6 +37,7 @@
         </div>
       </nav>
     </header>
+
     <main class="leaderboard-page">
       <header class="leaderboard-header">
         <h1>Leaderboard</h1>
@@ -57,30 +58,24 @@
             </select>
           </label>
         </div>
-        <div class="game-tabs">
+        <div id="game-tabs">
           <!-- Game selection tabs, game 1 is being selected by default -->
-          <button
-            class="game-tab active"
+          <button class="game-tab active" id="game1-button"
             type="button"
             role="tab"
-            aria-selected="true"
-          >
-            Game 1
+            aria-selected="true">
+          Game 1
           </button>
-          <button
-            class="game-tab"
+          <button class="game-tab" id="game2-button"
             type="button"
             role="tab"
-            aria-selected="false"
-          >
+            aria-selected="false">
             Game 2
           </button>
-          <button
-            class="game-tab"
+          <button class="game-tab" id="game3-button"
             type="button"
             role="tab"
-            aria-selected="false"
-          >
+            aria-selected="false">
             Game 3
           </button>
         </div>
@@ -91,10 +86,7 @@
               <tr>
                 <th scope="col">Rank</th>
                 <th scope="col">Username</th>
-                <th scope="col">Game 1 Score</th>
-                <th scope="col">Game 2 Score</th>
-                <th scope="col">Game 3 Score</th>
-                <th scope="col">Total Score</th>
+                <th scope="col">Score</th>
                 <th scope="col">Date</th>
               </tr>
             </thead>
@@ -104,8 +96,9 @@
           </table>
         </div>
       </section>
-      <script src="./static/js/main.js"></script>
-      <!-- <script src="./static/js/leaderboard.js"></script> -->
     </main>
+
+    <script src="./static/js/main.js"></script>
+    <script src="./static/js/leaderboard.js"></script>
   </body>
 </html>
