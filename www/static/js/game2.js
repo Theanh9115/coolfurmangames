@@ -14,15 +14,7 @@ const player2 = {
 let playerTurn = player1;
 
 // Get the cells' div
-let r1c1 = document.getElementById("r1c1");
-let r1c2 = document.getElementById("r1c2");
-let r1c3 = document.getElementById("r1c3");
-let r2c1 = document.getElementById("r2c1");
-let r2c2 = document.getElementById("r2c2");
-let r2c3 = document.getElementById("r2c3");
-let r3c1 = document.getElementById("r3c1");
-let r3c2 = document.getElementById("r3c2");
-let r3c3 = document.getElementById("r3c3");
+let ticTacToeChildren = document.getElementsByClassName("tic-tac-toe-child")
 
 // Display turn
 let playerTurnSpan = document.querySelector(".turn");
@@ -68,17 +60,13 @@ function checkGameEnd() {
     alert("Player 2 is the winner!!!");
     initializeGame();
   }
-  if (
-    r1c1.innerHTML != "" &&
-    r1c2.innerHTML != "" &&
-    r1c3.innerHTML != "" &&
-    r2c1.innerHTML != "" &&
-    r2c2.innerHTML != "" &&
-    r2c3.innerHTML != "" &&
-    r3c1.innerHTML != "" &&
-    r3c2.innerHTML != "" &&
-    r3c3.innerHTML != ""
-  ) {
+
+  let checker = 0;
+  for (const elem of ticTacToeChildren){
+    if (elem.innerHTML == ""){break}
+    checker += 1;
+  }
+  if (checker == ticTacToeChildren.length){
     alert("The game is draw!!!");
     initializeGame();
   }
@@ -187,13 +175,6 @@ function updateWinningStatus() {
 
 // Clear every game cell so the board can be reset.
 function clearGrid() {
-  r1c1.innerHTML = "";
-  r1c2.innerHTML = "";
-  r1c3.innerHTML = "";
-  r2c1.innerHTML = "";
-  r2c2.innerHTML = "";
-  r2c3.innerHTML = "";
-  r3c1.innerHTML = "";
-  r3c2.innerHTML = "";
-  r3c3.innerHTML = "";
+    for (const elem of ticTacToeChildren){
+      elem.innerHTML = "";}
 }
