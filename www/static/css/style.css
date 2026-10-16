@@ -124,6 +124,7 @@ h6 {
 
 .nav-page {
   padding: 0px 30px;
+  align-items: center;
 }
 
 .nav-bar a {
@@ -319,8 +320,11 @@ article {
   font: inherit;
 }
 
-.game-tabs {
+#game-tabs {
   display: flex;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
   gap: 4px;
   padding: 12px 0 0;
 }
@@ -367,7 +371,7 @@ article {
 #toggle-theme{
   width: 35px;
   height: 35px;
-  align-self:center;
+  align-self: center;
   margin-right: 10px;
   margin-top: 5px;
 }
@@ -393,7 +397,9 @@ article {
     flex-direction: column;
   }
 
-  .game-tabs {
+  #game-tabs {
+    display: flex;
+    justify-content: center;
     padding-left: 0;
     padding-right: 0;
   }
@@ -402,8 +408,8 @@ article {
     flex: 1;
     padding: 8px 12px;
   }
-  #toggle-theme{
-  align-self:center;
+  #toggle-theme {
+    align-self:center;
   }
 }
 
