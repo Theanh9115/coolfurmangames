@@ -11,11 +11,12 @@ game2Button.addEventListener("click", changeActiveTab);
 const game3Button = document.getElementById("game3-button");
 game3Button.addEventListener("click", changeActiveTab);
 
-getScores();
+const leaderboardFilter = document.getElementById("leaderboard-filter");
+leaderboardFilter.addEventListener("change", getScores(leaderboardFilter.value));
 
 // Fetch scores
-async function getScores(game) {
-  const url = "/score";
+async function getScores(filter) {
+  const url = `/score/${filter}`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -26,7 +27,7 @@ async function getScores(game) {
 
   data = await response.json();
 
-  updateLeaderboard();
+  updateLeaderboard(data);
 }
 
 function clearLeaderboard() {
@@ -36,19 +37,20 @@ function clearLeaderboard() {
   }
 }
 
-async function updateLeaderboard() {
+async function updateLeaderboard(data) {
   // Sort leaderboard by total score
-  data["users"].sort((a, b) => b["totalScore"] - a["totalScore"]);
+  data.sort((a, b) => b["totalScore"] - a["totalScore"]);
 
   // Create new row per user in JSON data and add it to the leaderboard
-  for (let i = 0; i < data["users"].length; i++) {
-    user = data["users"][i];
+  // for (let i = 0; i < data["users"].length; i++) 
+  let rankNum = 1
+  for (const user of data) {
     // Create row for the user and all of their associated info
     const newRow = document.createElement("tr");
     // Leaderboard rank
     const rank = document.createElement("td");
-    rank.textContent = i + 1;
-    // Username
+    rank.textContent = rankNum;
+    // Username 
     const username = document.createElement("td");
     username.textContent = user.username;
     // Paladin-game high score
@@ -93,6 +95,7 @@ async function updateLeaderboard() {
 
     // Append row to the leaderboard
     leaderboardBody.appendChild(newRow);
+    rankNum++;
   }
 }
 
@@ -112,52 +115,5 @@ function changeActiveTab() {
   }
 
   clearLeaderboard();
-  getScores();
+  getScores(leaderboardFilter.value);
 }
-
-// fetch("/score")
-//   // .then((response) => {
-//   //   if (!response.ok) {
-//   //     throw new Error("Failed to fetch leaderboard data");
-//   //   }
-//   //   return response.json();
-//   // })
-//   .then((data) => {
-//     data["users"].sort((a, b) => b["totalScore"] - a["totalScore"]);
-
-//     data["users"].forEach((user, index) => {
-//       const newRow = document.createElement("tr");
-//       const rank = document.createElement("td");
-//       const username = document.createElement("td");
-//       const game1Score = document.createElement("td");
-//       const game2Score = document.createElement("td");
-//       const game3Score = document.createElement("td");
-//       const totalScore = document.createElement("td");
-//       const date = document.createElement("td");
-
-//       rank.textContent = index + 1;
-//       username.textContent = user["username"];
-//       game1Score.textContent = user["game1Score"];
-//       game2Score.textContent = user["game2Score"];
-//       game3Score.textContent = user["game3Score"];
-//       totalScore.textContent = user["totalScore"];
-//       date.textContent = user["date"] || "N/A";
-
-//       [
-//         rank,
-//         username,
-//         game1Score,
-//         game2Score,
-//         game3Score,
-//         totalScore,
-//         date,
-//       ].forEach((cell) => {
-//         newRow.appendChild(cell);
-//       });
-
-//       leaderboardBody.appendChild(newRow);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Leaderboard error:", error);
-//   });
