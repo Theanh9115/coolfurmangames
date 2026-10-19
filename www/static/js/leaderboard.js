@@ -19,7 +19,9 @@ async function getScores(game) {
   const response = await fetch(url);
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch leaderboard data. Status: ${response.status}`);
+    throw new Error(
+      `Failed to fetch leaderboard data. Status: ${response.status}`,
+    );
   }
 
   data = await response.json();
@@ -46,7 +48,7 @@ async function updateLeaderboard() {
     // Leaderboard rank
     const rank = document.createElement("td");
     rank.textContent = i + 1;
-    // Username 
+    // Username
     const username = document.createElement("td");
     username.textContent = user.username;
     // Paladin-game high score
@@ -67,16 +69,20 @@ async function updateLeaderboard() {
 
     // Package all user info into a list
     // Certain scores will be included depending on active tab
-    if (game1Button.className == "game-tab active" || 
-        game1Button.className == "game-tab active dark") {
+    if (
+      game1Button.className == "game-tab active" ||
+      game1Button.className == "game-tab active dark"
+    ) {
       cell = [rank, username, game1Score, date];
-    }
-    else if (game2Button.className == "game-tab active" ||
-             game2Button.className == "game-tab active dark") {
+    } else if (
+      game2Button.className == "game-tab active" ||
+      game2Button.className == "game-tab active dark"
+    ) {
       cell = [rank, username, game2Score, date];
-    }
-    else if (game3Button.className == "game-tab active" ||
-             game3Button.className == "game-tab active dark") {
+    } else if (
+      game3Button.className == "game-tab active" ||
+      game3Button.className == "game-tab active dark"
+    ) {
       cell = [rank, username, game3Score, date];
     }
 
@@ -96,12 +102,10 @@ function changeActiveTab() {
     btn.className = "game-tab";
   }
   currentButton.className = "game-tab active";
-  
+
   clearLeaderboard();
   getScores();
 }
-
-
 
 // fetch("/score")
 //   // .then((response) => {
