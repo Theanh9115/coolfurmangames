@@ -1,18 +1,18 @@
 
-let squirrel = document.querySelector(".squirrel");
+// let squirrel = document.querySelector(".squirrel");
 
-window.onload = function (){
-    canvas = document.getElementById("flappy-furman");
-    context = canvas.getContent("2d");
+// window.onload = function (){
+//     canvas = document.getElementById("flappy-furman");
+//     context = canvas.getContent("2d");
 
-    squirrel = document.getElementsByClassName("squirrel");
+//     squirrel = document.getElementsByClassName("squirrel");
 
-    document.getElementById("flappy-furman-start").addEventListener("click", load);
-    document.getElementById("flappy-furman-end").addEventListener("click", restart);
+//     document.getElementById("flappy-furman-start").addEventListener("click", load);
+//     document.getElementById("flappy-furman-end").addEventListener("click", restart);
 
-    canvas.addEventListener("click", jump);
+//     canvas.addEventListener("click", jump);
     
-    document.addEventListener("keydown", (e) => {
-    if (e.code === 'Space') jump();})
+//     document.addEventListener("keydown", (e) => {
+//     if (e.code === 'Space') jump();})
 
-}
+// }

@@ -99,9 +99,17 @@ async function updateLeaderboard() {
 function changeActiveTab() {
   currentButton = event.currentTarget;
   for (const btn of gameButtons) {
-    btn.className = "game-tab";
+    if (localStorage.getItem("theme") == "dark") {
+      btn.className = "game-tab dark";
+    } else {
+      btn.className = "game-tab";
+    }
   }
-  currentButton.className = "game-tab active";
+  if (localStorage.getItem("theme") == "dark") {
+    currentButton.className = "game-tab active dark";
+  } else {
+    currentButton.className = "game-tab active";
+  }
 
   clearLeaderboard();
   getScores();
