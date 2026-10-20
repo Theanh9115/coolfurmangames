@@ -12,8 +12,11 @@ const game3Button = document.getElementById("game3-button");
 game3Button.addEventListener("click", changeActiveTab);
 const gameButtonList = [game1Button, game2Button, game3Button];
 
-const leaderboardFilter = document.getElementById("leaderboard-filter");
-leaderboardFilter.addEventListener("change", getScores(leaderboardFilter.value));
+const leaderboardFilter = document.getElementById("time-filter");
+leaderboardFilter.addEventListener("change", resetLeaderboard);
+
+// Retrieve scores upon page entry
+getScores(leaderboardFilter.value);
 
 // Fetch scores
 async function getScores(filter) {
@@ -31,11 +34,15 @@ async function getScores(filter) {
   updateLeaderboard(data);
 }
 
-function clearLeaderboard() {
+function resetLeaderboard() {
+  // Clear leaderboard
   const rows = leaderboardBody.querySelectorAll("tr");
   for (const row of rows) {
     row.remove();
   }
+
+  // Refresh scores
+  getScores(leaderboardFilter.value)
 }
 
 async function updateLeaderboard(data) {
@@ -107,6 +114,5 @@ function changeActiveTab() {
     currentButton.className = "game-tab active";
   }
 
-  clearLeaderboard();
-  getScores(leaderboardFilter.value);
+  resetLeaderboard();
 }

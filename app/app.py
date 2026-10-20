@@ -26,28 +26,24 @@ def getScore():
         user_data = json.load(file)
         data = []
         for user in user_data["users"]:
+            # Add total score to json data
+            user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
+
             # Convert date into parsable format
             user_date = user["date"].split("-")
+
             # Filter results based on sort filter 
-            user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
-            data.append(user)
-
-            # if (filter == "All time"):
-            #     user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
-            #     data.append(user)
-            # elif (filter == "This year" and current_year == user_date[0]):
-            #     user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
-            #     data.append(user)
-
-
-            # if (filter != "All time"):
-            #     if (filter == "This year" and user_date[0] != current_year):
-            #         continue
-            #     elif (filter == "This month" and user_date[1] != current_month):
-            #         continue
-
-            # else:
-            #     user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
-            #     data.append(user)
+            if (filter == "Today" 
+                and current_date != user_date):
+                continue
+            elif (filter == "This year" 
+                  and current_date[0] != user_date[0]):
+                continue
+            elif (filter == "This month"
+                  and (current_date[1] != user_date[1]
+                  or current_date[0] != user_date[0])):
+                continue
+            else:
+                data.append(user)
 
     return jsonify(data)
