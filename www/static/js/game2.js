@@ -11,10 +11,29 @@ const player2 = {
   win: false,
 };
 
+const winningLines = [
+  ["r1c1", "r1c2", "r1c3"],
+  ["r2c1", "r2c2", "r2c3"],
+  ["r3c1", "r3c2", "r3c3"],
+  ["r1c1", "r2c1", "r3c1"],
+  ["r1c2", "r2c2", "r3c2"],
+  ["r1c3", "r2c3", "r3c3"],
+  ["r1c1", "r2c2", "r3c3"],
+  ["r1c3", "r2c2", "r3c1"],
+];
+
+function updateWinningStatus() {
+  for (const player of [player1, player2]) {
+    player.win = winningLines.some((line) =>
+      line.every((id) => document.getElementById(id).innerHTML === player.icon),
+    );
+  }
+}
+
 let playerTurn = player1;
 
 // Get the cells' div
-let ticTacToeChildren = document.getElementsByClassName("tic-tac-toe-child")
+let ticTacToeChildren = document.getElementsByClassName("tic-tac-toe-child");
 
 // Display turn
 let playerTurnSpan = document.querySelector(".turn");
@@ -62,119 +81,21 @@ function checkGameEnd() {
   }
 
   let checker = 0;
-  for (const elem of ticTacToeChildren){
-    if (elem.innerHTML == ""){break}
+  for (const elem of ticTacToeChildren) {
+    if (elem.innerHTML == "") {
+      break;
+    }
     checker += 1;
   }
-  if (checker == ticTacToeChildren.length){
+  if (checker == ticTacToeChildren.length) {
     alert("The game is draw!!!");
     initializeGame();
   }
 }
 
-// Mark the winner if any row, column, or diagonal matches the same icon.
-function updateWinningStatus() {
-  if (
-    r1c1.innerHTML == player1.icon &&
-    r1c2.innerHTML == player1.icon &&
-    r1c3.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r2c1.innerHTML == player1.icon &&
-    r2c2.innerHTML == player1.icon &&
-    r2c3.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r3c1.innerHTML == player1.icon &&
-    r3c2.innerHTML == player1.icon &&
-    r3c3.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c1.innerHTML == player1.icon &&
-    r2c1.innerHTML == player1.icon &&
-    r3c1.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c2.innerHTML == player1.icon &&
-    r2c2.innerHTML == player1.icon &&
-    r3c2.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c3.innerHTML == player1.icon &&
-    r2c3.innerHTML == player1.icon &&
-    r3c3.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c1.innerHTML == player1.icon &&
-    r2c2.innerHTML == player1.icon &&
-    r3c3.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c3.innerHTML == player1.icon &&
-    r2c2.innerHTML == player1.icon &&
-    r3c1.innerHTML == player1.icon
-  ) {
-    player1.win = true;
-  } else if (
-    r1c1.innerHTML == player2.icon &&
-    r1c2.innerHTML == player2.icon &&
-    r1c3.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r2c1.innerHTML == player2.icon &&
-    r2c2.innerHTML == player2.icon &&
-    r2c3.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r3c1.innerHTML == player2.icon &&
-    r3c2.innerHTML == player2.icon &&
-    r3c3.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r1c1.innerHTML == player2.icon &&
-    r2c1.innerHTML == player2.icon &&
-    r3c1.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r1c2.innerHTML == player2.icon &&
-    r2c2.innerHTML == player2.icon &&
-    r3c2.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r1c3.innerHTML == player2.icon &&
-    r2c3.innerHTML == player2.icon &&
-    r3c3.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r1c1.innerHTML == player2.icon &&
-    r2c2.innerHTML == player2.icon &&
-    r3c3.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  } else if (
-    r1c3.innerHTML == player2.icon &&
-    r2c2.innerHTML == player2.icon &&
-    r3c1.innerHTML == player2.icon
-  ) {
-    player2.win = true;
-  }
-}
-
 // Clear every game cell so the board can be reset.
 function clearGrid() {
-    for (const elem of ticTacToeChildren){
-      elem.innerHTML = "";}
+  for (const elem of ticTacToeChildren) {
+    elem.innerHTML = "";
+  }
 }

@@ -223,13 +223,14 @@ article {
 
 /* Tic-Tac-Toe */
 
-  #breakout-canvas, #breakout-run-button {
-    display: none;
-  }
+#breakout-canvas,
+#breakout-run-button {
+  display: none;
+}
 
-  #breakout-mobile-warning {
-    display: block;
-  }
+#breakout-mobile-warning {
+  display: block;
+}
 
 /* Leaderboard page styles */
 
@@ -280,7 +281,6 @@ article {
 
 .board-filter {
   display: flex;
-  align-items: center;
   gap: 8px;
   font-weight: 600;
 }
@@ -342,7 +342,7 @@ article {
   background-color: #f1e7f8;
 }
 
-#toggle-theme{
+#toggle-theme {
   width: 35px;
   height: 35px;
   align-self: center;
@@ -359,7 +359,6 @@ article {
 }
 
 @media only screen and (max-width: 600px) {
-
   .score-mobile {
     display: inline;
   }
@@ -383,7 +382,7 @@ article {
   .heading-mobile {
     display: inline;
   }
-  
+
   /* Adjust leaderboard page layout for smaller screens */
   .leaderboard-table-container {
     padding: 8px;
@@ -409,11 +408,11 @@ article {
     word-break: normal;
   }
 
-   .leaderboard-table th:nth-child(1),
+  .leaderboard-table th:nth-child(1),
   .leaderboard-table td:nth-child(1) {
     width: 12%;
   }
-  
+
   .leaderboard-table th:nth-child(2),
   .leaderboard-table td:nth-child(2) {
     width: 34%;
@@ -433,7 +432,6 @@ article {
     font-size: 11px;
     white-space: nowrap;
   }
-
 
   .leaderboard-page {
     width: 95%;
@@ -467,7 +465,7 @@ article {
     padding: 8px 12px;
   }
   #toggle-theme {
-    align-self:center;
+    align-self: center;
   }
 }
 
@@ -567,7 +565,6 @@ button {
 
 .leaderboard-board-heading {
   display: flex;
-  align-items: flex-end;
   justify-content: space-between;
   gap: 16px;
   padding: 16px;
