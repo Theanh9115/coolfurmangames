@@ -880,3 +880,53 @@ body.dark .menu-toggle span {
     background-color: #434143;
   }
 }
+
+/* Keep the leaderboard within the screen on small phones. */
+@media (max-width: 600px) {
+  .leaderboard-table-container {
+    overflow-x: hidden;
+    padding: 8px;
+  }
+
+  .leaderboard-table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 6px;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px 5px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .leaderboard-table th:nth-child(1),
+  .leaderboard-table td:nth-child(1) {
+    width: 12%;
+  }
+
+  .leaderboard-table th:nth-child(2),
+  .leaderboard-table td:nth-child(2) {
+    width: 34%;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(3),
+  .leaderboard-table td:nth-child(3) {
+    width: 22%;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(4),
+  .leaderboard-table td:nth-child(4) {
+    width: 34%;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}

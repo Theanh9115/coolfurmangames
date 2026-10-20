@@ -47,8 +47,11 @@ function resetLeaderboard() {
 
 // Create a table cell for a score with both full and mobile-friendly formats
 function createScoreCell(score) {
+
+  // Create a table cell
   const cell = document.createElement("td");
 
+  // Create span elements for both full and mobile-friendly formats
   const fullScore = document.createElement("span");
   fullScore.className = "score-desktop";
   fullScore.textContent = String(score);
@@ -58,11 +61,13 @@ function createScoreCell(score) {
   mobileScore.textContent = formatScore(score);
 
   cell.append(fullScore, mobileScore); // Append both formats to the cell
+
+  // Add click event listener to toggle between full and mobile-friendly formats
   cell.addEventListener("click", () => {
   cell.classList.toggle("show-full-score");
 });
 
-  return cell;
+  return cell; // Return the cell with both formats and the click event listener
 }
 
 async function updateLeaderboard(data) {
