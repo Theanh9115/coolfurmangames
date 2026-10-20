@@ -376,7 +376,91 @@ article {
   margin-top: 5px;
 }
 
+.heading-mobile {
+  display: none;
+}
+
+.score-mobile {
+  display: none;
+}
+
 @media only screen and (max-width: 600px) {
+
+  .score-mobile {
+    display: inline;
+  }
+
+  .score-desktop {
+    display: none;
+  }
+
+  .show-full-score .score-mobile {
+    display: none;
+  }
+
+  .show-full-score .score-desktop {
+    display: inline;
+  }
+
+  .heading-desktop {
+    display: none;
+  }
+
+  .heading-mobile {
+    display: inline;
+  }
+  
+  /* Adjust leaderboard page layout for smaller screens */
+  .leaderboard-table-container {
+    padding: 8px;
+    overflow-x: hidden;
+  }
+
+  .leaderboard-table {
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 6px; /* Add spacing between rows */
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px 5px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+   .leaderboard-table th:nth-child(1),
+  .leaderboard-table td:nth-child(1) {
+    width: 12%;
+  }
+  
+  .leaderboard-table th:nth-child(2),
+  .leaderboard-table td:nth-child(2) {
+    width: 34%;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(3),
+  .leaderboard-table td:nth-child(3) {
+    width: 22%;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(4),
+  .leaderboard-table td:nth-child(4) {
+    width: 34%;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+
   .leaderboard-page {
     width: 95%;
     margin: 16px auto;

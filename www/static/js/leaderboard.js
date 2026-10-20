@@ -38,6 +38,26 @@ function clearLeaderboard() {
   }
 }
 
+// Create a table cell for a score with both full and mobile-friendly formats
+function createScoreCell(score) {
+  const cell = document.createElement("td");
+
+  const fullScore = document.createElement("span");
+  fullScore.className = "score-desktop";
+  fullScore.textContent = String(score);
+
+  const mobileScore = document.createElement("span");
+  mobileScore.className = "score-mobile";
+  mobileScore.textContent = formatScore(score);
+
+  cell.append(fullScore, mobileScore); // Append both formats to the cell
+  cell.addEventListener("click", () => {
+  cell.classList.toggle("show-full-score");
+});
+
+  return cell;
+}
+
 async function updateLeaderboard(data) {
   // Sort leaderboard by total score
   data.sort((a, b) => b["totalScore"] - a["totalScore"]);
@@ -55,20 +75,16 @@ async function updateLeaderboard(data) {
     const username = document.createElement("td");
     username.textContent = user.username;
     // Paladin-game high score
-    const game1Score = document.createElement("td");
-    game1Score.textContent = user.game1Score;
+    const game1Score = createScoreCell(user.game1Score);
     game1Button.score = game1Score
     // Tic tac toe high score
-    const game2Score = document.createElement("td");
-    game2Score.textContent = user.game2Score;
+    const game2Score = createScoreCell(user.game2Score);
     game2Button.score = game2Score
     // Game 3 high score
-    const game3Score = document.createElement("td");
-    game3Score.textContent = user.game3Score;
+    const game3Score = createScoreCell(user.game3Score);
     game3Button.score = game3Score
     // Total score across all games
-    const totalScore = document.createElement("td");
-    totalScore.textContent = user.totalScore;
+    const totalScore = createScoreCell(user.totalScore);
     // Date of score
     const date = document.createElement("td");
     date.textContent = user.date || "N/A";
@@ -109,4 +125,21 @@ function changeActiveTab() {
 
   clearLeaderboard();
   getScores(leaderboardFilter.value);
+}
+
+// Format score for display
+function formatScore(score) {
+  const numericScore = Number(score);
+
+  // Check if the score is a valid number
+  if (!Number.isFinite(numericScore)) {
+    return "N/A";
+  }
+
+  // Format the score based on its value
+  if (numericScore >= 1000000000) {
+    return `${(numericScore / 1000000000).toFixed(1)}B`;
+  }
+  
+  return String(numericScore);
 }
