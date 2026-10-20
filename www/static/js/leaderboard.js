@@ -10,12 +10,17 @@ const game2Button = document.getElementById("game2-button");
 game2Button.addEventListener("click", changeActiveTab);
 const game3Button = document.getElementById("game3-button");
 game3Button.addEventListener("click", changeActiveTab);
+const gameButtonList = [game1Button, game2Button, game3Button];
 
-getScores();
+const leaderboardFilter = document.getElementById("time-filter");
+leaderboardFilter.addEventListener("change", resetLeaderboard);
+
+// Retrieve scores upon page entry
+getScores(leaderboardFilter.value);
 
 // Fetch scores
-async function getScores() {
-  const url = "/score";
+async function getScores(filter) {
+  const url = `/score?filter=${encodeURIComponent(filter)}`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -26,59 +31,48 @@ async function getScores() {
 
   data = await response.json();
 
-  updateLeaderboard();
+  updateLeaderboard(data);
 }
 
-function clearLeaderboard() {
+function resetLeaderboard() {
+  // Clear leaderboard
   const rows = leaderboardBody.querySelectorAll("tr");
   for (const row of rows) {
     row.remove();
   }
+
+  // Refresh scores
+  getScores(leaderboardFilter.value);
 }
 
-async function updateLeaderboard() {
-  if (
-    game1Button.className == "game-tab active" ||
-    game1Button.className == "game-tab active dark"
-  ) {
-    // Sort by Game 1 score
-    data["users"].sort((a, b) => b.game1Score - a.game1Score);
-  }
-  if (
-    game2Button.className == "game-tab active" ||
-    game2Button.className == "game-tab active dark"
-  ) {
-    // Sort by Game 2 score
-    data["users"].sort((a, b) => b.game2Score - a.game2Score);
-  }
-  if (
-    game3Button.className == "game-tab active" ||
-    game3Button.className == "game-tab active dark"
-  ) {
-    // Sort by Game 3 score
-    data["users"].sort((a, b) => b.game3Score - a.game3Score);
-  }
+async function updateLeaderboard(data) {
+  // Sort leaderboard by total score
+  data.sort((a, b) => b["totalScore"] - a["totalScore"]);
 
   // Create new row per user in JSON data and add it to the leaderboard
-  for (let i = 0; i < data["users"].length; i++) {
-    user = data["users"][i];
+  // for (let i = 0; i < data["users"].length; i++)
+  let rankNum = 1;
+  for (const user of data) {
     // Create row for the user and all of their associated info
     const newRow = document.createElement("tr");
     // Leaderboard rank
     const rank = document.createElement("td");
-    rank.textContent = i + 1;
+    rank.textContent = rankNum;
     // Username
     const username = document.createElement("td");
     username.textContent = user.username;
     // Paladin-game high score
     const game1Score = document.createElement("td");
     game1Score.textContent = user.game1Score;
+    game1Button.score = game1Score;
     // Tic tac toe high score
     const game2Score = document.createElement("td");
     game2Score.textContent = user.game2Score;
+    game2Button.score = game2Score;
     // Game 3 high score
     const game3Score = document.createElement("td");
     game3Score.textContent = user.game3Score;
+    game3Button.score = game3Score;
     // Total score across all games
     const totalScore = document.createElement("td");
     totalScore.textContent = user.totalScore;
@@ -88,21 +82,10 @@ async function updateLeaderboard() {
 
     // Package all user info into a list
     // Certain scores will be included depending on active tab
-    if (
-      game1Button.className == "game-tab active" ||
-      game1Button.className == "game-tab active dark"
-    ) {
-      cells = [rank, username, game1Score, date];
-    } else if (
-      game2Button.className == "game-tab active" ||
-      game2Button.className == "game-tab active dark"
-    ) {
-      cells = [rank, username, game2Score, date];
-    } else if (
-      game3Button.className == "game-tab active" ||
-      game3Button.className == "game-tab active dark"
-    ) {
-      cells = [rank, username, game3Score, date];
+    for (const button of gameButtonList) {
+      if (button.className.includes("game-tab active")) {
+        cells = [rank, username, button.score, date];
+      }
     }
 
     // Append all values to the row
@@ -112,6 +95,7 @@ async function updateLeaderboard() {
 
     // Append row to the leaderboard
     leaderboardBody.appendChild(newRow);
+    rankNum++;
   }
 }
 
@@ -132,6 +116,5 @@ function changeActiveTab(event) {
     currentButton.className = "game-tab active";
   }
 
-  clearLeaderboard();
-  getScores();
+  resetLeaderboard();
 }

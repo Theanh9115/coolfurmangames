@@ -27,6 +27,20 @@
       "game2Score": 5322,
       "game3Score": 582,
       "date": "2026-10-5"
+    },
+    {
+      "username" : "Billy Bob",
+      "game1Score": 10,
+      "game2Score": 5,
+      "game3Score": 16,
+      "date": "2026-10-20"
+    },
+    {
+      "username" : "John Furman",
+      "game1Score": 10,
+      "game2Score": 5,
+      "game3Score": 16,
+      "date": "2020-10-26"
     }
   ]
 }
