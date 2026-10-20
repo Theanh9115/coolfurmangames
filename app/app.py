@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, request, render_template, jsonify
 import json
 from datetime import date
 
@@ -19,8 +19,9 @@ today = current_date[2]
 current_month = current_date[1]
 current_year = current_date[0]
 
-@app.route("/score/<filter>", methods=['GET'])
-def getScore(filter):
+@app.route("/score", methods=['GET'])
+def getScore():
+    filter = request.args.get('filter', default="All time")
     with open("./user-data.json", "r") as file:
         user_data = json.load(file)
         data = []

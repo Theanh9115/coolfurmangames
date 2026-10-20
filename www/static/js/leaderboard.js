@@ -10,13 +10,14 @@ const game2Button = document.getElementById("game2-button");
 game2Button.addEventListener("click", changeActiveTab);
 const game3Button = document.getElementById("game3-button");
 game3Button.addEventListener("click", changeActiveTab);
+const gameButtonList = [game1Button, game2Button, game3Button];
 
 const leaderboardFilter = document.getElementById("leaderboard-filter");
 leaderboardFilter.addEventListener("change", getScores(leaderboardFilter.value));
 
 // Fetch scores
 async function getScores(filter) {
-  const url = `/score/${filter}`;
+  const url = `/score?filter=${encodeURIComponent(filter)}`;
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -56,12 +57,15 @@ async function updateLeaderboard(data) {
     // Paladin-game high score
     const game1Score = document.createElement("td");
     game1Score.textContent = user.game1Score;
+    game1Button.score = game1Score
     // Tic tac toe high score
     const game2Score = document.createElement("td");
     game2Score.textContent = user.game2Score;
+    game2Button.score = game2Score
     // Game 3 high score
     const game3Score = document.createElement("td");
     game3Score.textContent = user.game3Score;
+    game3Button.score = game3Score
     // Total score across all games
     const totalScore = document.createElement("td");
     totalScore.textContent = user.totalScore;
@@ -71,21 +75,10 @@ async function updateLeaderboard(data) {
 
     // Package all user info into a list
     // Certain scores will be included depending on active tab
-    if (
-      game1Button.className == "game-tab active" ||
-      game1Button.className == "game-tab active dark"
-    ) {
-      cell = [rank, username, game1Score, date];
-    } else if (
-      game2Button.className == "game-tab active" ||
-      game2Button.className == "game-tab active dark"
-    ) {
-      cell = [rank, username, game2Score, date];
-    } else if (
-      game3Button.className == "game-tab active" ||
-      game3Button.className == "game-tab active dark"
-    ) {
-      cell = [rank, username, game3Score, date];
+    for (const button of gameButtonList) {
+      if (button.className.includes("game-tab active")) {
+        cell = [rank, username, button.score, date];
+      }
     }
 
     // Append all values to the row
