@@ -7,11 +7,11 @@ let gameFrame;
 
 // Player variables
 let playerX = gameWindow.width / 2;
-let playerY = gameWindow.height / 2;
+let playerY = gameWindow.height - 50;
 const playerWidth = 10;
 const playerHeight = 15;
 let playerXVel = 0;
-let playerYVel = 0;
+let playerYVel = -9;
 
 const gravity = -0.1;
 const terminalVelocity = 15;
@@ -42,20 +42,18 @@ function keyUpHandler(e) {
 }
 
 function handleMovementInput() {
-  // Move only if their respective direction keys are pressed
-  if (keysPressed["d"] && !keysPressed["a"]) {
-    playerXVel = 3;
-  }
-  if (keysPressed["a"] && !keysPressed["d"]) {
-    playerXVel = -3;
-  }
-  // Stop moving if both or none of movement keys are pressed
-  if (
-    (!keysPressed["d"] && !keysPressed["a"]) ||
-    (keysPressed["d"] && keysPressed["a"])
-  ) {
-    playerXVel = 0;
-  }
+    // Move only if their respective direction keys are pressed
+    if (keysPressed["d"] && !keysPressed["a"]) {
+        playerXVel = 4;
+    }
+    if (keysPressed["a"] && !keysPressed["d"]) {
+        playerXVel = -4;
+    }
+    // Stop moving if both or none of movement keys are pressed
+    if ((!keysPressed["d"] && !keysPressed["a"]) ||
+        (keysPressed["d"] && keysPressed["a"])) {
+            playerXVel = 0;
+     } 
 }
 
 function collisionDetection() {
@@ -82,56 +80,93 @@ function drawPlayer() {
 }
 
 function generatePlatforms() {
-  // Generate 10 platforms in random positions
-  for (let i = 0; i < 10; i++) {
-    platforms.push({
-      x: Math.floor(Math.random() * gameWindow.width - platWidth),
-      y: Math.floor(Math.random() * gameWindow.height - platHeight),
-    });
-  }
+    // Generate 7 platforms on top half of screen
+    for (let i = 0; i < 7; i++) {
+        platforms.push(
+        {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
+        y: Math.floor(Math.random() * ((gameWindow.height / 2) - platHeight))});
+    }
+
+    // Generate 15 platforms on bottom half of screen
+    for (let i = 0; i < 15; i++) {
+        platforms.push(
+        {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
+        y: Math.floor(Math.random() * (gameWindow.height - (gameWindow.height / 2)) + (gameWindow.height / 2)) 
+        });
+    }
+
+    // Sort platforms from highest to lowest y value
+    platforms.sort((a,b) => b.y - a.y);
 }
 
 function drawPlatforms() {
-  ctx.beginPath();
-  for (const platform of platforms) {
-    ctx.rect(platform.x, platform.y, platWidth, platHeight);
-    ctx.fillStyle = "#090043";
-    ctx.fill();
-  }
-  ctx.closePath();
+    ctx.beginPath();
+    for (const platform of platforms) {
+        ctx.rect(platform.x, platform.y, platWidth, platHeight);
+        ctx.fillStyle = "#090043";
+        ctx.fill();
+    }
+    ctx.closePath();
 }
 
 function checkBounds() {
-  if (playerX < 0) {
-    playerX = gameWindow.width;
-  }
-  if (playerX > gameWindow.width) {
-    playerX = 0;
-  }
-  if (playerY > gameWindow.height) {
-    playerY = 0;
-  }
+    if (playerX < 0) {
+        playerX = gameWindow.width;
+    }
+    if (playerX > gameWindow.width) {
+        playerX = 0;
+    }
+    if (playerY > gameWindow.height) {
+        playerY = 0;
+    }
+
+    // Move platforms and lock player height upon progression
+    if (playerY < gameWindow.height / 2) {
+        playerY = gameWindow.height / 2;
+
+        for (const platform of platforms) {
+            platform.y -= playerYVel;
+        }
+    }
+
+    // When platform moves off-screen, remove it
+    for (const platform of platforms) {
+        if (platform.y > gameWindow.height) {
+            // platforms.splice(platforms.indexOf(platform), 1);
+            platforms.shift()
+            console.log("Platform removed!")
+        }
+    }
+}
+
+function checkPlatformGeneration() {
+    // Generate platforms between 30-40 pixels of each other
+    if (platforms[platforms.length - 1].y > Math.random() * (60-50) + 50) {
+        platforms.push(
+        {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
+        y: 0});
+    }
 }
 
 function draw() {
   ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
 
-  drawPlayer();
-  drawPlatforms();
-  // drawFloor();
+    drawPlayer();
+    drawPlatforms();
 
-  handleMovementInput();
-  checkBounds();
-  collisionDetection();
+    handleMovementInput();
+    checkBounds();
+    checkPlatformGeneration();
+    collisionDetection();
 
-  playerX += playerXVel;
-  playerY += playerYVel - gravity;
-  playerYVel += 0.25;
-  if (playerYVel > terminalVelocity) {
-    playerYVel = terminalVelocity;
-  }
+    playerX += playerXVel;
+    playerY += playerYVel - gravity;
+    playerYVel += 0.25;
+    if (playerYVel > terminalVelocity) {
+        playerYVel = terminalVelocity;
+    }
 
-  gameFrame = requestAnimationFrame(draw);
+    gameFrame = requestAnimationFrame(draw)
 }
 
 function startGame() {
