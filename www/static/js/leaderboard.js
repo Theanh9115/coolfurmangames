@@ -14,7 +14,7 @@ game3Button.addEventListener("click", changeActiveTab);
 getScores();
 
 // Fetch scores
-async function getScores(game) {
+async function getScores() {
   const url = "/score";
   const response = await fetch(url);
 
@@ -37,8 +37,27 @@ function clearLeaderboard() {
 }
 
 async function updateLeaderboard() {
-  // Sort leaderboard by total score
-  data["users"].sort((a, b) => b["totalScore"] - a["totalScore"]);
+  if (
+    game1Button.className == "game-tab active" ||
+    game1Button.className == "game-tab active dark"
+  ) {
+    // Sort by Game 1 score
+    data["users"].sort((a, b) => b.game1Score - a.game1Score);
+  }
+  if (
+    game2Button.className == "game-tab active" ||
+    game2Button.className == "game-tab active dark"
+  ) {
+    // Sort by Game 2 score
+    data["users"].sort((a, b) => b.game2Score - a.game2Score);
+  }
+  if (
+    game3Button.className == "game-tab active" ||
+    game3Button.className == "game-tab active dark"
+  ) {
+    // Sort by Game 3 score
+    data["users"].sort((a, b) => b.game3Score - a.game3Score);
+  }
 
   // Create new row per user in JSON data and add it to the leaderboard
   for (let i = 0; i < data["users"].length; i++) {
@@ -73,22 +92,22 @@ async function updateLeaderboard() {
       game1Button.className == "game-tab active" ||
       game1Button.className == "game-tab active dark"
     ) {
-      cell = [rank, username, game1Score, date];
+      cells = [rank, username, game1Score, date];
     } else if (
       game2Button.className == "game-tab active" ||
       game2Button.className == "game-tab active dark"
     ) {
-      cell = [rank, username, game2Score, date];
+      cells = [rank, username, game2Score, date];
     } else if (
       game3Button.className == "game-tab active" ||
       game3Button.className == "game-tab active dark"
     ) {
-      cell = [rank, username, game3Score, date];
+      cells = [rank, username, game3Score, date];
     }
 
     // Append all values to the row
-    for (const value of cell) {
-      newRow.appendChild(value);
+    for (const cell of cells) {
+      newRow.appendChild(cell);
     }
 
     // Append row to the leaderboard
@@ -96,8 +115,9 @@ async function updateLeaderboard() {
   }
 }
 
-function changeActiveTab() {
+function changeActiveTab(event) {
   currentButton = event.currentTarget;
+  // Change the theme of the tab buttons
   for (const btn of gameButtons) {
     if (localStorage.getItem("theme") == "dark") {
       btn.className = "game-tab dark";
@@ -105,6 +125,7 @@ function changeActiveTab() {
       btn.className = "game-tab";
     }
   }
+  // Change the theme of current tab
   if (localStorage.getItem("theme") == "dark") {
     currentButton.className = "game-tab active dark";
   } else {
@@ -114,50 +135,3 @@ function changeActiveTab() {
   clearLeaderboard();
   getScores();
 }
-
-// fetch("/score")
-//   // .then((response) => {
-//   //   if (!response.ok) {
-//   //     throw new Error("Failed to fetch leaderboard data");
-//   //   }
-//   //   return response.json();
-//   // })
-//   .then((data) => {
-//     data["users"].sort((a, b) => b["totalScore"] - a["totalScore"]);
-
-//     data["users"].forEach((user, index) => {
-//       const newRow = document.createElement("tr");
-//       const rank = document.createElement("td");
-//       const username = document.createElement("td");
-//       const game1Score = document.createElement("td");
-//       const game2Score = document.createElement("td");
-//       const game3Score = document.createElement("td");
-//       const totalScore = document.createElement("td");
-//       const date = document.createElement("td");
-
-//       rank.textContent = index + 1;
-//       username.textContent = user["username"];
-//       game1Score.textContent = user["game1Score"];
-//       game2Score.textContent = user["game2Score"];
-//       game3Score.textContent = user["game3Score"];
-//       totalScore.textContent = user["totalScore"];
-//       date.textContent = user["date"] || "N/A";
-
-//       [
-//         rank,
-//         username,
-//         game1Score,
-//         game2Score,
-//         game3Score,
-//         totalScore,
-//         date,
-//       ].forEach((cell) => {
-//         newRow.appendChild(cell);
-//       });
-
-//       leaderboardBody.appendChild(newRow);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Leaderboard error:", error);
-//   });
