@@ -12,8 +12,11 @@ const game3Button = document.getElementById("game3-button");
 game3Button.addEventListener("click", changeActiveTab);
 const gameButtonList = [game1Button, game2Button, game3Button];
 
-const leaderboardFilter = document.getElementById("leaderboard-filter");
-leaderboardFilter.addEventListener("change", getScores(leaderboardFilter.value));
+const leaderboardFilter = document.getElementById("time-filter");
+leaderboardFilter.addEventListener("change", resetLeaderboard);
+
+// Retrieve scores upon page entry
+getScores(leaderboardFilter.value);
 
 // Fetch scores
 async function getScores(filter) {
@@ -31,11 +34,15 @@ async function getScores(filter) {
   updateLeaderboard(data);
 }
 
-function clearLeaderboard() {
+function resetLeaderboard() {
+  // Clear leaderboard
   const rows = leaderboardBody.querySelectorAll("tr");
   for (const row of rows) {
     row.remove();
   }
+
+  // Refresh scores
+  getScores(leaderboardFilter.value);
 }
 
 // Create a table cell for a score with both full and mobile-friendly formats
@@ -63,15 +70,15 @@ async function updateLeaderboard(data) {
   data.sort((a, b) => b["totalScore"] - a["totalScore"]);
 
   // Create new row per user in JSON data and add it to the leaderboard
-  // for (let i = 0; i < data["users"].length; i++) 
-  let rankNum = 1
+  // for (let i = 0; i < data["users"].length; i++)
+  let rankNum = 1;
   for (const user of data) {
     // Create row for the user and all of their associated info
     const newRow = document.createElement("tr");
     // Leaderboard rank
     const rank = document.createElement("td");
     rank.textContent = rankNum;
-    // Username 
+    // Username
     const username = document.createElement("td");
     username.textContent = user.username;
     // Paladin-game high score
@@ -93,13 +100,13 @@ async function updateLeaderboard(data) {
     // Certain scores will be included depending on active tab
     for (const button of gameButtonList) {
       if (button.className.includes("game-tab active")) {
-        cell = [rank, username, button.score, date];
+        cells = [rank, username, button.score, date];
       }
     }
 
     // Append all values to the row
-    for (const value of cell) {
-      newRow.appendChild(value);
+    for (const cell of cells) {
+      newRow.appendChild(cell);
     }
 
     // Append row to the leaderboard
@@ -108,8 +115,9 @@ async function updateLeaderboard(data) {
   }
 }
 
-function changeActiveTab() {
+function changeActiveTab(event) {
   currentButton = event.currentTarget;
+  // Change the theme of the tab buttons
   for (const btn of gameButtons) {
     if (localStorage.getItem("theme") == "dark") {
       btn.className = "game-tab dark";
@@ -117,14 +125,14 @@ function changeActiveTab() {
       btn.className = "game-tab";
     }
   }
+  // Change the theme of current tab
   if (localStorage.getItem("theme") == "dark") {
     currentButton.className = "game-tab active dark";
   } else {
     currentButton.className = "game-tab active";
   }
 
-  clearLeaderboard();
-  getScores(leaderboardFilter.value);
+  resetLeaderboard();
 }
 
 // Format score for display

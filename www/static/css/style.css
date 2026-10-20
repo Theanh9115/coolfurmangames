@@ -1,26 +1,20 @@
-/* Resetting margins, paddings, and borders for all elements */
+/* ========================================
+   1. GLOBAL STYLES
+======================================== */
+
 * {
-  border: 0;
   margin: 0;
   padding: 0;
+  border: 0;
   box-sizing: border-box;
 }
 
-/* Setting base font properties */
-
 body {
-  height: 100vh;
+  min-height: 100vh;
   font-family: "Fredoka", sans-serif;
   line-height: 1.5;
   color: #333;
   background-color: #dfcbed;
-}
-
-/* Setting table properties */
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
 }
 
 h1,
@@ -32,149 +26,123 @@ h6 {
   color: #582c83;
 }
 
-/* Navigation bar header styles */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+main {
+  padding: 25px;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background-color: #eee;
+}
+
+button {
+  display: block;
+}
+
+/* ========================================
+   2. NAVIGATION BAR
+======================================== */
 
 .nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.5rem;
-  background-color: white;
-  color: #582c83;
-  font-weight: 600;
-  box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
-}
-
-/* Add media queries for mobile nav bar */
-@media only screen and (max-width: 800px) {
-  .nav-bar {
-    flex-direction: column;
-    padding-bottom: 20px;
-  }
-
-  .nav-pages {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-link,
-  #current-page {
-    font-size: 2rem;
-  }
-
-  #home-img {
-    min-width: 150px;
-  }
-}
-
-@media only screen and (max-width: 600px) {
-  .nav-bar {
-    flex-direction: column;
-    padding-bottom: 20px;
-  }
-
-  .nav-pages {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .nav-link {
-    font-size: 2rem;
-  }
-
-  #home-img {
-    min-width: 150px;
-  }
-
-  #nav-title {
-    display: none;
-  }
-}
-
-.nav-home {
-  margin: 0px 20px;
-  display: flex;
-  align-items: center;
   font-size: 1.2rem;
-}
-
-#nav-title {
-  padding-left: 20px;
   font-weight: 600;
-}
-
-#home-img {
-  width: 100px;
-}
-
-.nav-pages {
-  display: flex;
-  justify-content: end;
-}
-
-.nav-link {
-  text-decoration: none;
   color: #582c83;
-}
-
-#current-page {
-  text-decoration: none;
-  color: #c1a3de;
-}
-
-.nav-page {
-  padding: 0px 30px;
-  align-items: center;
+  background-color: white;
+  box-shadow: 5px 5px 5px hsl(0, 0%, 50%);
 }
 
 .nav-bar a {
   text-decoration: none;
-  color: none;
+  color: inherit;
 }
 
 .nav-bar a:hover {
   color: red;
 }
 
-/* Add padding for main  */
-main {
-  padding: 40px;
+.nav-home {
+  display: flex;
+  align-items: center;
+  margin: 0 20px;
+  font-size: 1.2rem;
 }
 
-/* Home page: game button styles */
+#nav-title {
+  padding-left: 20px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+#home-img {
+  width: 50px;
+}
+
+.nav-pages {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.nav-page {
+  display: flex;
+  align-items: center;
+  padding: 0 30px;
+}
+
+.nav-link {
+  color: #582c83;
+  text-decoration: none;
+}
+
+#current-page {
+  color: #c1a3de;
+  text-decoration: none;
+}
+
+/* ========================================
+   3. HOME PAGE
+======================================== */
 
 #game-selection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #f1e7f8;
-  padding: 1em 1em;
+  padding: 1em;
   border-radius: 100px;
+  background-color: #f1e7f8;
 }
 
 .game-card {
   flex: 1 1;
-  background-color: white;
-  padding: 25px;
-  margin: 75px 0px;
-  border-radius: 50px;
   max-width: 400px;
+  margin: 75px 0;
+  padding: 25px;
+  border-radius: 50px;
+  background-color: white;
 }
 
 .game-button {
   display: flex;
   justify-content: center;
-  padding: 8px;
   margin: 20px;
-  border: double 10px #582c83;
+  padding: 8px;
+  border: 10px double #582c83;
   border-radius: 10px;
 }
 
 .game-img {
   flex: 1 1;
-  filter: blur(8px);
   width: 100%;
   height: auto;
+  filter: blur(8px);
 }
 
 .game-desc {
@@ -183,7 +151,9 @@ main {
   text-decoration: underline 1px;
 }
 
-/* About page styles */
+/* ========================================
+   4. ABOUT PAGE
+======================================== */
 
 #about-page {
   color: #582c83;
@@ -192,12 +162,12 @@ main {
 
 .about-text section,
 article {
-  padding: 8px 0px;
+  padding: 8px 0;
 }
 
 .about-text #feature-list {
+  padding: 5px 0;
   list-style: circle;
-  padding: 5px 0px;
 }
 
 #feature-list li {
@@ -212,41 +182,46 @@ article {
   color: #4d4d4f;
 }
 
-/* Game page styles */
+/* ========================================
+   5. GAME PAGES
+======================================== */
+
+/* Paladin Jump */
 
 #paladin-jump {
   width: 500px;
   height: 600px;
 }
 
+/* Breakout */
+
 #breakout-mobile-warning {
   display: none;
 }
 
-#breakout-canvas, #breakout-run-button {
-  display:block;
+#breakout-canvas,
+#breakout-run-button {
+  display: block;
 }
 
-#flappy-furman{
+/* Flappy Furman */
+
+#flappy-furman {
   width: 450px;
   height: 300px;
   background-color: cyan;
 }
 
-.squirrel{
-  width: 50px;
-  height: 40px;
-  position:sticky;
-  z-index: 300;
+.squirrel {
+  position: sticky;
   top: 65vh;
   left: 33vw;
+  z-index: 300;
+  width: 50px;
+  height: 40px;
 }
 
-@media only screen and (max-width: 600px) {
-  #paladin-jump {
-    width: 90%;
-    height: 500px;
-  }
+/* Tic-Tac-Toe */
 
   #breakout-canvas, #breakout-run-button {
     display: none;
@@ -519,8 +494,8 @@ button {
 /* Game 2 */
 .tic-tac-toe-info {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 10px;
 }
 
@@ -529,16 +504,16 @@ button {
   grid-template-columns: repeat(3, minmax(50px, 200px));
   grid-template-rows: repeat(3, minmax(50px, 200px));
   justify-content: center;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 1;
 }
 
 .tic-tac-toe-child {
-  border: 1px solid black;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  aspect-ratio: 1 / 1;
+  border: 1px solid black;
+  aspect-ratio: 1;
 }
 
 .tic-tac-toe-child svg {
@@ -550,28 +525,169 @@ button {
 }
 
 .reset-btn {
-  border: 2px solid black;
   width: 120px;
   height: 50px;
+  border: 2px solid black;
 }
 
-/* dark mode options for the whole site */
-body.dark{
+/* ========================================
+   6. LEADERBOARD PAGE
+======================================== */
+
+#leaderboard-page,
+#localscore-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+/* Page Layout */
+
+.leaderboard-page {
+  width: 90%;
+  max-width: 950px;
+  margin: 25px auto;
+}
+
+.leaderboard-header {
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: #582c83;
+}
+
+/* Board Container */
+
+.leaderboard-board {
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.271);
+}
+
+.leaderboard-board-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background-color: #f1e7f8;
+}
+
+.leaderboard-board-heading h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.board-note {
+  font-size: 16px;
+  color: #080808a4;
+}
+
+/* Board Filter */
+
+.board-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.board-filter select {
+  padding: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  background-color: white;
+  color: #333;
+  font: inherit;
+}
+
+/* Game Tabs */
+
+#game-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 0 0;
+}
+
+.game-tab {
+  padding: 12px 24px;
+  border: 1px solid #582c83;
+  background-color: #f1e7f8;
+  color: #582c83;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}
+
+.game-tab.active,
+.game-tab:hover {
+  background-color: #582c83;
+  color: white;
+}
+
+/* Leaderboard Table */
+
+.leaderboard-table-container {
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 400px;
+  margin-top: 16px;
+  border-collapse: collapse;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: #f1e7f8;
+}
+
+/* Theme Toggle */
+
+#toggle-theme {
+  width: 35px;
+  height: 35px;
+  align-self: center;
+  margin-right: 10px;
+}
+
+/* ========================================
+   7. DARK MODE
+======================================== */
+
+/* Global */
+
+body.dark {
   color: #a991c1;
-  background-color: rgb(54, 54, 54);
+  background-color: #363636;
 }
 
-h1.dark, h2.dark{
+h1.dark,
+h2.dark {
   color: #976da7;
 }
 
-h3.dark, h4.dark, p.dark{
+h3.dark,
+h4.dark,
+p.dark {
   color: #a991c1;
 }
 
-/* nav dark */
-.nav-bar.dark{
-  background-color: rgb(35, 34, 34);
+/* Navigation */
+
+.nav-bar.dark {
+  background-color: #232222;
   box-shadow: 5px 5px 5px hsl(300, 1%, 39%);
 }
 
@@ -579,18 +695,19 @@ h3.dark, h4.dark, p.dark{
   color: purple;
 }
 
-.nav-link.dark, #nav-title.dark {
+.nav-link.dark,
+#nav-title.dark {
   color: #a991c1;
 }
 
 #current-page.dark {
-  text-decoration: none;
-  color:#613f6e;
+  color: #613f6e;
 }
 
-/* leaderboard dark */
+/* Home */
+
 #game-selection.dark {
-  background-color:  #434143;
+  background-color: #434143;
 }
 
 .game.dark {
@@ -598,15 +715,17 @@ h3.dark, h4.dark, p.dark{
 }
 
 .game-button.dark {
-  border: double 10px #434143;
+  border-color: #434143;
 }
 
-.game-card.dark{
+.game-card.dark {
   background-color: #2e2c2c;
 }
 
+/* Leaderboard */
+
 .leaderboard-board.dark {
-  background: #434143;
+  background-color: #434143;
   box-shadow: 0 4px 6px rgba(108, 105, 105, 0.74);
 }
 
@@ -615,7 +734,7 @@ h3.dark, h4.dark, p.dark{
 }
 
 .leaderboard-board-heading.dark h2 {
-  color:#976da7;
+  color: #976da7;
 }
 
 .leaderboard-table.dark tbody.dark tr:hover {
@@ -623,32 +742,142 @@ h3.dark, h4.dark, p.dark{
 }
 
 .board-filter.dark select.dark {
-  border: 1px solid #2e2c2c;
-  background:#4d4d4f;
-  color:#a991c1;
+  border-color: #2e2c2c;
+  background-color: #4d4d4f;
+  color: #a991c1;
 }
 
 .game-tab.dark {
-  border: 1px solid #434143;
-  background: #2e2c2c;
+  border-color: #434143;
+  background-color: #2e2c2c;
   color: #976da7;
 }
 
 .game-tab.active.dark,
 .game-tab:hover.dark {
-  background: rgba(108, 105, 105, 0.74);
+  background-color: rgba(108, 105, 105, 0.74);
   color: #a991c1;
 }
 
 thead.dark {
-  color: #976da7
+  color: #976da7;
 }
 
-/* about page dark*/
+/* About */
+
 .team.dark {
-  color: #976da7
+  color: #976da7;
 }
 
 article.dark h3.dark {
   color: #a299a8;
+}
+
+/* ========================================
+   8. RESPONSIVE DESIGN
+======================================== */
+
+/* Hamburger hidden on desktop */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 32px;
+  height: 26px;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  width: 100%;
+  height: 3px;
+  border-radius: 3px;
+  background-color: #582c83;
+  transition:
+    transform 0.3s,
+    opacity 0.3s;
+}
+
+/* Mobile navigation */
+@media (max-width: 800px) {
+  .nav-bar {
+    position: relative;
+    flex-direction: row;
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+
+  #home-img {
+    width: 50px;
+    min-width: 0;
+  }
+
+  #nav-title {
+    font-size: 24px;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-pages {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    gap: 0;
+    padding-top: 12px;
+  }
+
+  .nav-pages.open {
+    display: flex;
+  }
+
+  .nav-page {
+    width: 100%;
+    padding: 0;
+  }
+
+  .nav-link,
+  #current-page {
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1.2rem;
+  }
+
+  .nav-page:hover {
+    background-color: #f1e7f8;
+  }
+
+  /* Animate hamburger into X */
+  .menu-toggle.active span:nth-child(1) {
+    transform: translateY(11.5px) rotate(45deg);
+  }
+
+  .menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle.active span:nth-child(3) {
+    transform: translateY(-11.5px) rotate(-45deg);
+  }
+}
+
+/* Small phones */
+@media (max-width: 600px) {
+  #nav-title {
+    display: none;
+  }
+}
+
+/* Dark mode */
+body.dark .menu-toggle span {
+  background-color: #a991c1;
+}
+
+@media (max-width: 800px) {
+  body.dark .nav-page:hover {
+    background-color: #434143;
+  }
 }

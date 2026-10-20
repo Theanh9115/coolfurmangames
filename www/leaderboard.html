@@ -22,6 +22,18 @@
           /></a>
           <h1 id="nav-title">Cool Furman Games!</h1>
         </div>
+        <button
+          id="menu-toggle"
+          class="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-pages"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="nav-pages">
           <div class="nav-page">
             <a class="nav-link" href="./about.html">About Us</a>
@@ -50,7 +62,7 @@
           </div>
           <label class="board-filter">
             <span>View</span>
-            <select id="leaderboard-filter">
+            <select id="time-filter">
               <option>All time</option>
               <option>This year</option>
               <option>This month</option>
@@ -60,22 +72,18 @@
         </div>
         <div id="game-tabs">
           <!-- Game selection tabs, game 1 is being selected by default -->
-          <button class="game-tab active" id="game1-button"
+          <button
+            class="game-tab active"
+            id="game1-button"
             type="button"
             role="tab"
-            aria-selected="true">
-          Game 1
+          >
+            Game 1
           </button>
-          <button class="game-tab" id="game2-button"
-            type="button"
-            role="tab"
-            aria-selected="false">
+          <button class="game-tab" id="game2-button" type="button" role="tab">
             Game 2
           </button>
-          <button class="game-tab" id="game3-button"
-            type="button"
-            role="tab"
-            aria-selected="false">
+          <button class="game-tab" id="game3-button" type="button" role="tab">
             Game 3
           </button>
         </div>
@@ -117,5 +125,6 @@
 
     <script src="./static/js/main.js"></script>
     <script src="./static/js/leaderboard.js"></script>
+    <script src="./static/js/hamburger.js"></script>
   </body>
 </html>
