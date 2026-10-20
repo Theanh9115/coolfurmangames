@@ -223,6 +223,274 @@ article {
 
 /* Tic-Tac-Toe */
 
+  #breakout-canvas, #breakout-run-button {
+    display: none;
+  }
+
+  #breakout-mobile-warning {
+    display: block;
+  }
+
+/* Leaderboard page styles */
+
+#leaderboard-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+.leaderboard-page {
+  width: 90%;
+  max-width: 950px;
+  margin: 25px auto;
+}
+.leaderboard-header {
+  margin-bottom: 24px;
+}
+
+.leaderboard-header h1 {
+  font-size: 40px;
+  font-weight: 600;
+  color: #582c83;
+}
+
+.leaderboard-board {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.271);
+}
+
+.leaderboard-board-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px;
+  background: #f1e7f8;
+}
+
+.leaderboard-board-heading h2 {
+  color: #333;
+  font-size: 24px;
+}
+
+.board-note {
+  font-size: 16px;
+  color: #080808a4;
+}
+
+.board-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.board-filter select {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 8px;
+  background: #fff;
+  color: #333;
+  font: inherit;
+}
+
+#game-tabs {
+  display: flex;
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+  gap: 4px;
+  padding: 12px 0 0;
+}
+
+.game-tab {
+  cursor: pointer;
+  text-align: center;
+  padding: 12px 24px;
+  border: 1px solid #582c83;
+  background: #f1e7f8;
+  color: #582c83;
+  font-weight: 600;
+}
+
+.game-tab.active,
+.game-tab:hover {
+  background: #582c83;
+  color: #fff;
+}
+
+.leaderboard-table-container {
+  overflow-x: auto;
+  padding: 16px;
+}
+
+.leaderboard-table {
+  width: 100%;
+  min-width: 400px;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-table tbody tr:hover {
+  background-color: #f1e7f8;
+}
+
+#toggle-theme{
+  width: 35px;
+  height: 35px;
+  align-self: center;
+  margin-right: 10px;
+  margin-top: 5px;
+}
+
+.heading-mobile {
+  display: none;
+}
+
+.score-mobile {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .score-mobile {
+    display: inline;
+  }
+
+  .score-desktop {
+    display: none;
+  }
+
+  .show-full-score .score-mobile {
+    display: none;
+  }
+
+  .show-full-score .score-desktop {
+    display: inline;
+  }
+
+  .heading-desktop {
+    display: none;
+  }
+
+  .heading-mobile {
+    display: inline;
+  }
+  
+  /* Adjust leaderboard page layout for smaller screens */
+  .leaderboard-table-container {
+    padding: 8px;
+    overflow-x: hidden;
+  }
+
+  .leaderboard-table {
+    min-width: 0;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 6px; /* Add spacing between rows */
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px 5px;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    vertical-align: middle;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+
+   .leaderboard-table th:nth-child(1),
+  .leaderboard-table td:nth-child(1) {
+    width: 12%;
+  }
+  
+  .leaderboard-table th:nth-child(2),
+  .leaderboard-table td:nth-child(2) {
+    width: 34%;
+    text-align: left;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(3),
+  .leaderboard-table td:nth-child(3) {
+    width: 22%;
+    white-space: normal;
+  }
+
+  .leaderboard-table th:nth-child(4),
+  .leaderboard-table td:nth-child(4) {
+    width: 34%;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+
+  .leaderboard-page {
+    width: 95%;
+    margin: 16px auto;
+  }
+  .leaderboard-board-heading {
+    flex-direction: column; /* stack heading elements vertically */
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  .board-filter,
+  .board-filter select {
+    width: 100%;
+    margin-top: 8px;
+  }
+  .board-filter {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #game-tabs {
+    display: flex;
+    justify-content: center;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .game-tab {
+    flex: 1;
+    padding: 8px 12px;
+  }
+  #toggle-theme {
+    align-self:center;
+  }
+}
+
+/* Local scores page styles */
+
+#localscore-page {
+  color: #582c83;
+  text-decoration: underline;
+}
+
+/* Game page styles */
+
+canvas {
+  background: #eeeeee;
+  display: block;
+  margin: 0 auto;
+}
+
+button {
+  display: block;
+}
+
+/* Game 2 */
 .tic-tac-toe-info {
   display: flex;
   align-items: center;
