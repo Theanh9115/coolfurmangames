@@ -16,11 +16,13 @@ let playerYVel = -9;
 const gravity = -0.1;
 const terminalVelocity = 15;
 
+let score = 0;
+
 // Platform variables
 const platWidth = 50;
 const platHeight = 5;
 let platforms = [];
-generatePlatforms();
+let initializePlatforms = true;
 
 // Event listener initialization
 keysPressed = {};
@@ -30,11 +32,6 @@ document.addEventListener("keyup", keyUpHandler);
 function keyDownHandler(e) {
   keysPressed[e.key.toLowerCase()] = true;
 
-  // Temp: randomize platform position
-  if (keysPressed["r"]) {
-    platforms = [];
-    generatePlatforms();
-  }
 }
 
 function keyUpHandler(e) {
@@ -79,26 +76,6 @@ function drawPlayer() {
   ctx.closePath();
 }
 
-function generatePlatforms() {
-    // Generate 7 platforms on top half of screen
-    for (let i = 0; i < 7; i++) {
-        platforms.push(
-        {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
-        y: Math.floor(Math.random() * ((gameWindow.height / 2) - platHeight))});
-    }
-
-    // Generate 15 platforms on bottom half of screen
-    for (let i = 0; i < 15; i++) {
-        platforms.push(
-        {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
-        y: Math.floor(Math.random() * (gameWindow.height - (gameWindow.height / 2)) + (gameWindow.height / 2)) 
-        });
-    }
-
-    // Sort platforms from highest to lowest y value
-    platforms.sort((a,b) => b.y - a.y);
-}
-
 function drawPlatforms() {
     ctx.beginPath();
     for (const platform of platforms) {
@@ -126,6 +103,7 @@ function checkBounds() {
 
         for (const platform of platforms) {
             platform.y -= playerYVel;
+            score += 0.1;
         }
     }
 
@@ -139,34 +117,85 @@ function checkBounds() {
     }
 }
 
-function checkPlatformGeneration() {
+function generatePlatforms() {
+    // Platform initialization
+    // Only runs when game first starts
+    if (initializePlatforms) {
+        // Generate 7 platforms on top half of screen
+        for (let i = 0; i < 7; i++) {
+            platforms.push(
+            {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
+            y: Math.floor(Math.random() * ((gameWindow.height / 2) - platHeight))});
+        }
+
+        // Generate 15 platforms on bottom half of screen
+        for (let i = 0; i < 15; i++) {
+            platforms.push(
+            {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
+            y: Math.floor(Math.random() * (gameWindow.height - (gameWindow.height / 2)) + (gameWindow.height / 2)) 
+            });
+        }
+
+        // Sort platforms from highest to lowest y value
+        platforms.sort((a,b) => b.y - a.y);
+
+        initializePlatforms = false;
+    }
     // Generate platforms between 30-40 pixels of each other
     if (platforms[platforms.length - 1].y > Math.random() * (60-50) + 50) {
         platforms.push(
         {x: Math.floor(Math.random() * (gameWindow.width - platWidth)),
         y: 0});
     }
+    
 }
 
-function draw() {
-  ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
-
-    drawPlayer();
-    drawPlatforms();
-
-    handleMovementInput();
-    checkBounds();
-    checkPlatformGeneration();
-    collisionDetection();
-
+function updateVerticalMovement() {
     playerX += playerXVel;
     playerY += playerYVel - gravity;
     playerYVel += 0.25;
     if (playerYVel > terminalVelocity) {
         playerYVel = terminalVelocity;
     }
+}
 
-    gameFrame = requestAnimationFrame(draw)
+function drawScore() {
+    let drawOrder = [
+        {rect: () => ctx.rect(0, 0, gameWindow.width, 40), color: "white"},
+        {rect: () => ctx.rect(0, 41, gameWindow.width, 1), color: "#b9adc0"},
+        {rect: () => ctx.rect(0, 42, gameWindow.width, 1), color: "#8558a57b"}];
+
+    // Draw banner with drop shadow behind text
+    let i = 0;
+    while (i < drawOrder.length) {
+        ctx.beginPath();
+        drawOrder[i].rect();
+        ctx.fillStyle = drawOrder[i].color;
+        ctx.fill();
+        ctx.closePath();
+        i++;
+    }
+    
+    // Draw score text
+    ctx.font = "24px Fredoka, sans-serif";
+    ctx.fillStyle = "black";
+    let intScore = Math.trunc(score) // Hides decimals in score output
+    ctx.fillText(`Score: ${intScore}`, 10, 30)
+}
+
+function draw() {
+    ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
+
+    generatePlatforms();
+    drawPlayer();
+    drawPlatforms();
+    handleMovementInput();
+    checkBounds();
+    collisionDetection();
+    updateVerticalMovement();
+    drawScore();
+
+    gameFrame = requestAnimationFrame(draw);
 }
 
 function startGame() {
