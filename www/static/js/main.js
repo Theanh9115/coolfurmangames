@@ -1,5 +1,3 @@
-console.log("main.js loaded - edit me in www/static/js/main.js");
-
 /* I have received help in putting this code together from geeksforgeeks and stackoverflow */
 
 /* Got elements from all relevant parts that should be effected by darkmode toggle */

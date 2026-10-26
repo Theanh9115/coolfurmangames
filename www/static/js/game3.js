@@ -1,18 +1,19 @@
+// canvas = document.getElementById("flappy-furman");
+// gameWindow.width = gameWindow.clientWidth;
+// gameWindow.height = gameWindow.clientHeight;
+// const context = gameWindow.getContext("2d");
 
-// let squirrel = document.querySelector(".squirrel");
+// const gravity = -.2
 
-// window.onload = function (){
-//     canvas = document.getElementById("flappy-furman");
-//     context = canvas.getContent("2d");
+// document.getElementById("flappy-furman-start").addEventListener("click", load);
+// document.getElementById("flappy-furman-end").addEventListener("click", restart);
 
-//     squirrel = document.getElementsByClassName("squirrel");
-
-//     document.getElementById("flappy-furman-start").addEventListener("click", load);
-//     document.getElementById("flappy-furman-end").addEventListener("click", restart);
-
-//     canvas.addEventListener("click", jump);
-    
-//     document.addEventListener("keydown", (e) => {
-//     if (e.code === 'Space') jump();})
-
+// function drawPlayer() {
+//     ctx.beginPath();
+//     ctx.rect(playerX, playerY, playerWidth, playerHeight);
+//     ctx.closePath();
 // }
+// canvas.addEventListener("click", jump);
+
+// document.addEventListener("keydown", (e) => {
+// if (e.code === 'Space') jump();})
