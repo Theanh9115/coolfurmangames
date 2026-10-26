@@ -2,8 +2,8 @@
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./static/css/style.css" />
-    <link rel="icon" type="image/png" href="./static/img/controller.png" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="icon" type="image/png" href="/static/img/controller.png" />
     <title>Leaderboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,8 +17,8 @@
     <header>
       <nav class="nav-bar">
         <div class="nav-home">
-          <a href="./main.html">
-            <img id="home-img" src="./static/img/FG-Logo(alt).png" alt=""
+          <a href="/main.html">
+            <img id="home-img" src="/static/img/FG-Logo(alt).png" alt=""
           /></a>
           <h1 id="nav-title">Cool Furman Games!</h1>
         </div>
@@ -36,15 +36,15 @@
         </button>
         <div class="nav-pages">
           <div class="nav-page">
-            <a class="nav-link" href="./about.html">About Us</a>
+            <a class="nav-link" href="/about.html">About Us</a>
           </div>
           <div class="nav-page">
             <p id="current-page">Leaderboard</p>
           </div>
           <div class="nav-page">
-            <a class="nav-link" href="./localscore.html">Local Scores</a>
+            <a class="nav-link" href="/localscore.html">Local Scores</a>
           </div>
-          <img id="toggle-theme" src="./static/img/themeButton.png" />
+          <img id="toggle-theme" src="/static/img/themeButton.png" />
         </div>
       </nav>
     </header>
@@ -60,43 +60,45 @@
             <h2 id="leaderboard-title">Top Scores</h2>
             <p class="board-note">Website-wide scores</p>
           </div>
-          <label class="board-filter">
-            <span>View</span>
-            <select id="time-filter">
-              <option>All time</option>
-              <option>This year</option>
-              <option>This month</option>
-              <option>Today</option>
+          <form class="board-filter" method="get">
+            <input type="hidden" name="game" value="{{ selected_game }}" />
+            <label for="time-filter">View</label>
+            <select id="time-filter" name="filter">
+              {# Create options of time filter #}
+              {% for time_filter in time_filters %}
+              {# Include selected attribute for the one is selected #}
+              <option value="{{ time_filter }}" {% if time_filter == selected_filter %}selected{% endif %}>
+                {{ time_filter }}
+              </option>
+              {% endfor %}
             </select>
-          </label>
+            <button type="submit">Apply</button>
+          </form>
         </div>
-        <div id="game-tabs">
-          <!-- Game selection tabs, game 1 is being selected by default -->
+        {# Display the game tabs #}
+        <form id="game-tabs" method="get">
+          <input type="hidden" name="filter" value="{{ selected_filter }}" />
+          {% for game_id, game_name in [
+            ("game1", "Game 1"),
+            ("game2", "Game 2"),
+            ("game3", "Game 3")
+          ] %}
           <button
-            class="game-tab active"
-            id="game1-button"
-            type="button"
+            class="game-tab {% if game_id == selected_game %}active{% endif %}"
+            type="submit"
+            name="game"
+            value="{{ game_id }}"
             role="tab"
+            aria-selected="{{ 'true' if game_id == selected_game else 'false' }}"
           >
-            Game 1
+            {{ game_name }}
           </button>
-          <button class="game-tab" id="game2-button" type="button" role="tab">
-            Game 2
-          </button>
-          <button class="game-tab" id="game3-button" type="button" role="tab">
-            Game 3
-          </button>
-        </div>
-        <!-- Leaderboard table -->
+          {% endfor %}
+        </form>
         <div class="leaderboard-table-container">
           <table class="leaderboard-table">
             <thead>
               <tr>
-                <!-- <th scope="col">Rank</th>
-                <th scope="col">Username</th>
-                <th scope="col">Score</th>
-                <th scope="col">Date</th> -->
-
                 <th scope="col">
                   <span class="heading-desktop">Rank</span>
                   <span class="heading-mobile">#</span>
@@ -116,15 +118,25 @@
               </tr>
             </thead>
             <tbody id="leaderboard-body">
-              <!-- Leaderboard rows will be dynamically inserted here -->
+              {% for user in users %}
+              <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user[score_field] }}</td>
+                <td>{{ user.date }}</td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="4">No scores found for this time period.</td>
+              </tr>
+              {% endfor %}
             </tbody>
           </table>
         </div>
       </section>
     </main>
 
-    <script src="./static/js/main.js"></script>
-    <script src="./static/js/leaderboard.js"></script>
-    <script src="./static/js/hamburger.js"></script>
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/hamburger.js"></script>
   </body>
 </html>

@@ -489,11 +489,26 @@ button {
 }
 
 /* Game 2 */
-.tic-tac-toe-info {
+.tic-tac-toe-controls {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-bottom: 10px;
+}
+
+.player {
+  padding: 8px 14px;
+  border: 2px solid #582c83;
+  border-radius: 999px;
+  background-color: #f1e7f8;
+  color: #582c83;
+  font-weight: 600;
+}
+
+body.dark .player {
+  border-color: #a991c1;
+  background-color: #232222;
+  color: #a991c1;
 }
 
 .tic-tac-toe {
@@ -501,6 +516,8 @@ button {
   grid-template-columns: repeat(3, minmax(50px, 200px));
   grid-template-rows: repeat(3, minmax(50px, 200px));
   justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
   aspect-ratio: 1;
 }
 
