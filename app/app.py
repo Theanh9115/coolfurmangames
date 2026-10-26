@@ -72,28 +72,9 @@ def load_users():
     return users
 
 
-<<<<<<< HEAD
-            # if (filter != "All time"):
-            #     if (filter == "This year" and user_date[0] != current_year):
-            #         continue
-            #     elif (filter == "This month" and user_date[1] != current_month):
-            #         continue
-
-            # else:
-            #     user["totalScore"] = user["game1Score"] + user["game2Score"] + user["game3Score"]
-            #     data.append(user)
-
-    return jsonify(data)
-
-# @app.route("/<game_title>")
-# def get_game(game_title):
-#     return render_template("games.html", game_title=game_title)
-    
-=======
 # @app.route("/score", methods=["GET"])
 # def get_score():
 #     selected_filter = request.args.get("filter", "All time")
 #     if selected_filter not in TIME_FILTERS:
 #         selected_filter = "All time"
 #     return jsonify(get_users_for_filter(selected_filter))
->>>>>>> 6f38389a079d3db07dce671981d57118945c92a2
