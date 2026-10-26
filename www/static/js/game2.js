@@ -25,7 +25,9 @@ const winningLines = [
 function updateWinningStatus() {
   for (const player of [player1, player2]) {
     player.win = winningLines.some((line) =>
-      line.every((id) => document.getElementById(id).innerHTML === player.icon),
+      line.every(
+        (id) => document.getElementById(id).dataset.mark === player.mark,
+      ),
     );
   }
 }
@@ -35,9 +37,6 @@ let playerTurn = player1;
 // Get the cells' div
 let ticTacToeChildren = document.getElementsByClassName("tic-tac-toe-child");
 
-// Display turn
-let playerTurnSpan = document.querySelector(".turn");
-
 let resetBtn = document.querySelector(".reset-btn");
 resetBtn.addEventListener("click", () => initializeGame());
 
@@ -46,26 +45,24 @@ function initializeGame() {
   player1.win = false;
   player2.win = false;
   playerTurn = player1;
-  playerTurnSpan.innerText = "";
-  playerTurnSpan.innerText = playerTurn.mark;
   clearGrid();
 }
 
 // Place the current player's icon in the clicked cell if it is empty.
 function placeMove(e) {
-  if (e.target.innerHTML == "") {
-    e.target.innerHTML = playerTurn.icon;
-  } else {
-    placeMove(e);
+  const cell = e.currentTarget;
+  if (cell.innerHTML !== "") {
+    return;
   }
+
+  cell.innerHTML = playerTurn.icon;
+  cell.dataset.mark = playerTurn.mark;
   switchTurn();
 }
 
 // Swap turns after each valid move and update the turn indicator.
 function switchTurn() {
   playerTurn = playerTurn == player1 ? player2 : player1;
-  playerTurnSpan.innerText = "";
-  playerTurnSpan.innerText = playerTurn.mark;
 }
 
 // Check whether the current board state is a win or a draw.
@@ -74,10 +71,12 @@ function checkGameEnd() {
   if (player1.win) {
     alert("Player 1 is the winner!!!");
     initializeGame();
+    return;
   }
   if (player2.win) {
     alert("Player 2 is the winner!!!");
     initializeGame();
+    return;
   }
 
   let checker = 0;
@@ -97,5 +96,6 @@ function checkGameEnd() {
 function clearGrid() {
   for (const elem of ticTacToeChildren) {
     elem.innerHTML = "";
+    delete elem.dataset.mark;
   }
 }
