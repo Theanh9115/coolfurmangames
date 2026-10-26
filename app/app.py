@@ -51,3 +51,8 @@ def getScore():
             #     data.append(user)
 
     return jsonify(data)
+
+# @app.route("/<game_title>")
+# def get_game(game_title):
+#     return render_template("games.html", game_title=game_title)
+    
