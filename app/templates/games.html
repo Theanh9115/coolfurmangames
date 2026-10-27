@@ -1,34 +1,18 @@
 {% extends "template.html" %}
 
-<!-- {% block title %} {{game_title}} {% endblock %} -->
+{% block title %} {{ game_name }} {% endblock %}
 
-<!-- {% block data %}
+{% block data %}
 
-<main id="game-content"></main>
-
-<script>
-  localStorage.setItem("paladin-jump","<main><h1>Paladin Jump</h1></main>");
-  localStorage.setItem("tic-tac-toe","<main><h1>Tic Tac Toe</h1></main>");
-  localStorage.setItem("flappy-furman","<main><h1>Flappy Furman</h1><main>");
-
-  const slug = decodeURIComponent(
-  window.location.pathname.split("/").filter(Boolean).pop()).toLowerCase();
-  const storedHtml = localStorage.getItem(slug);
-  const target = document.getElementById("game-content");
-
-  console.log({ slug, storedHtml}); 
-
-  if (storedHtml) {
-  const parsed = new DOMParser().parseFromString(storedHtml, "text/html");
-  const gameMain = parsed.querySelector("main");
-  const java = parsed.querySelector("script");
-  target.innerHTML = gameMain ? gameMain.innerHTML : java ? java.innerHTML: storedHtml;
-} else {
-  target.textContent = "Game content not found.";
-}
-</script>
-
-
-{% endblock %} -->
+{% if game_name not in games.keys() %}
+  No game here...
+{% endif %}
+{% for key, val in games.items() %}
+  {% if key == game_name %}
+    {{ val | safe }}
+    <script src = "{{ scripts[key] | safe }}"></script>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
 
 

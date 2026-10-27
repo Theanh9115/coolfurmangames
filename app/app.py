@@ -78,3 +78,28 @@ def load_users():
 #     if selected_filter not in TIME_FILTERS:
 #         selected_filter = "All time"
 #     return jsonify(get_users_for_filter(selected_filter))
+
+@app.route("/<game_name>")
+def get_game(game_name):
+    games = {
+        "paladin-jump": """<main><h1 id='game-title'>Paladin Jump</h1><canvas id='paladin-jump'></canvas>
+                        <button id='paladin-run-button'>Start Game</button></main>""",
+        "tic-tac-toe": """<main><h1>Game 2</h1><div class="tic-tac-toe-controls"><span class="player" role="status"></span>
+                        <span class="tic-tac-toe-score" role="status">Score:</span>
+                        <button type="submit" class="reset-btn">New Game</button></div>
+                        <div class="tic-tac-toe"><divclass="tic-tac-toe-child"id="r1c1"></div>
+                        <div class="tic-tac-toe-child" id="r1c2"></div><div class="tic-tac-toe-child" id="r1c3"></div>
+                        <div class="tic-tac-toe-child" id="r2c1"></div><div class="tic-tac-toe-child" id="r2c2"></div>
+                        <div class="tic-tac-toe-child" id="r2c3"></div><div class="tic-tac-toe-child" id="r3c1"></div>
+                        <div class="tic-tac-toe-child" id="r3c2"></div><div class="tic-tac-toe-child" id="r3c3"></div></div></main>""",
+        "flappy-furman": """<main><h1 id="game-title">Flappy Furman</h1><div class = "game-3">
+                        <canvas id="flappy-furman"></canvas><button id="flappy-furman-start">Start Game</button>
+                        <button id="flappy-furman-end">Reset Game</button></div></main>"""
+    }
+    scripts = {
+        "paladin-jump": "/static/js/paladin-jump.js",
+        "tic-tac-toe": "/static/js/game2.js",
+        "flappy-furman": "/static/js/game3.js"
+    }
+    return render_template("games.html", game_name=game_name, games=games, scripts=scripts)
+    

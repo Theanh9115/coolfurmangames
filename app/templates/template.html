@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./static/css/style.css" />
     <link rel="icon" type="image/png" href="./static/img/controller.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,7 +21,18 @@
             <img id="home-img" src="./static/img/FG-Logo(alt).png" alt=""
           /></a>
           <h1 id="nav-title">Cool Furman Games!</h1>
-        </div>
+        <div>
+        <button
+          id="menu-toggle"
+          class="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-pages">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
         <div class="nav-pages">
           <div class="nav-page">
             <a class="nav-link" href="./about.html">About Us</a>
@@ -37,5 +49,6 @@
         {% block data %}
         {% endblock %}
       <script src="./static/js/main.js"></script>
+      <script src="/static/js/hamburger.js"></script>
   </body>
 </html>
