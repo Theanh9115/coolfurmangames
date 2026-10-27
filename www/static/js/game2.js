@@ -24,15 +24,21 @@ const colScores = Array(size).fill(0);
 let diagonalScore = 0;
 let antiDiagonalScore = 0;
 let moveCount = 0;
-let score = 0;
+let p1Score = 0;
+let p2Score = 0;
 let playerTurn = player1;
 let gameOver = false;
 let computerMoveTimeout = null;
+let playAgainstComputer = false;
 
 // Update indicators
 function updateUI() {
   turnIndicator.textContent = `${playerTurn.mark} to move`;
-  scoreIndicator.textContent = `Score: ${score}`;
+  if (playAgainstComputer) {
+    scoreIndicator.textContent = `Score: ${p1Score}`;
+  } else {
+    scoreIndicator.textContent = `Player 1 Score: ${p1Score} | Player 2 Score: ${p2Score}`;
+  }
 }
 
 // Reset the game
@@ -94,7 +100,9 @@ function makeMove(index) {
     gameOver = true;
 
     if (currentPlayer === player1) {
-      score++;
+      p1Score++;
+    } else if (!playAgainstComputer) {
+      p2Score++;
     }
 
     updateUI();
@@ -118,14 +126,14 @@ function makeMove(index) {
 
 // Computer randomly chooses an empty cell
 function makeComputerMove() {
-  if (gameOver || playerTurn !== player2) return;
+  if (!playAgainstComputer || gameOver || playerTurn !== player2) return;
 
   turnIndicator.textContent = "Computer is thinking...";
 
   computerMoveTimeout = setTimeout(() => {
     computerMoveTimeout = null;
 
-    if (gameOver || playerTurn !== player2) return;
+    if (!playAgainstComputer || gameOver || playerTurn !== player2) return;
 
     const emptyIndices = cells
       .map((cell, index) => (!cell.dataset.mark ? index : -1))
@@ -141,10 +149,12 @@ function makeComputerMove() {
 // Event listeners
 cells.forEach((cell, index) => {
   cell.addEventListener("click", () => {
-    if (playerTurn !== player1 || gameOver) return;
+    if (gameOver || (playAgainstComputer && playerTurn !== player1)) return;
 
     if (makeMove(index)) {
-      makeComputerMove();
+      if (playAgainstComputer && playerTurn === player2) {
+        makeComputerMove();
+      }
     }
   });
 });

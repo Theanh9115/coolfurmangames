@@ -844,8 +844,10 @@ article.dark h3.dark {
 
   .menu-toggle {
     display: flex;
+    flex: 0 0 auto;
+    margin-left: auto;
   }
-
+  
   .nav-pages {
     display: none;
     flex-direction: column;

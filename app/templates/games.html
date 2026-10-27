@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+
+{% block title %} {{ game_name }} {% endblock %}
+
+{% block data %}
+
+{% if game_name not in games.keys() %}
+  No game here...
+{% endif %}
+{% for key, val in games.items() %}
+  {% if key == game_name %}
+    {{ val | safe }}
+    <script src = "{{ scripts[key] | safe }}"></script>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
+
+

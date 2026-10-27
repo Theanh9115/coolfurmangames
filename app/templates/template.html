@@ -2,14 +2,53 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>My Flask Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./static/css/style.css" />
+    <link rel="icon" type="image/png" href="./static/img/controller.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
-    <h1>Hello from Furman</h1>
-    <p>This page is rendered by Furman via a template in app/templates/.</p>
-    <p>
-      Try editing this file - your change will show up on refresh, no rebuild
-      needed.
-    </p>
+    <header>
+      <nav class="nav-bar">
+        <div class="nav-home">
+          <a href="./main.html">
+            <img id="home-img" src="./static/img/FG-Logo(alt).png" alt=""
+          /></a>
+          <h1 id="nav-title">Cool Furman Games!</h1>
+          </div>
+        <button
+          id="menu-toggle"
+          class="menu-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+          aria-controls="nav-pages">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="nav-pages">
+          <div class="nav-page">
+            <a class="nav-link" href="./about.html">About Us</a>
+          </div>
+          <div class="nav-page">
+            <a class="nav-link" href="./leaderboard.html">Leaderboard</a>
+          </div>
+          <div class="nav-page">
+            <a class="nav-link" href="./localscore.html">Local Scores</a>
+          </div>
+          <img id="toggle-theme" src="./static/img/themeButton.png" />
+        </div>
+      </nav>
+        {% block data %}
+        {% endblock %}
+      <script src="./static/js/main.js"></script>
+      <script src="/static/js/hamburger.js"></script>
   </body>
 </html>
