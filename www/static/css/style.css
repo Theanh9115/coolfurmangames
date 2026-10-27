@@ -515,12 +515,40 @@ button {
   background: #f1e7f8;
   color: #582c83;
   font: inherit;
+  font-weight: 600;
   cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    transform 0.1s;
+}
+
+.tic-tac-toe-mode:hover {
+  background-color: #e4d2f2;
+}
+
+.tic-tac-toe-mode:active {
+  transform: scale(0.97);
 }
 
 .tic-tac-toe-mode.selected {
   background: #582c83;
   color: #fff;
+}
+
+body.dark .tic-tac-toe-mode {
+  border-color: #a991c1;
+  background: #232222;
+  color: #a991c1;
+}
+
+body.dark .tic-tac-toe-mode:hover {
+  background: #363036;
+}
+
+body.dark .tic-tac-toe-mode.selected {
+  background: #a991c1;
+  color: #232222;
 }
 
 .player {
@@ -623,7 +651,34 @@ body.dark .tic-tac-toe-child svg {
 .reset-btn {
   width: 120px;
   height: 50px;
-  border: 2px solid black;
+  border: 2px solid #582c83;
+  border-radius: 8px;
+  background-color: #582c83;
+  color: #fff;
+  font-weight: 600;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    transform 0.1s;
+}
+
+.reset-btn:hover {
+  background-color: #452166;
+}
+
+.reset-btn:active {
+  transform: scale(0.97);
+}
+
+body.dark .reset-btn {
+  border-color: #a991c1;
+  background-color: #a991c1;
+  color: #232222;
+}
+
+body.dark .reset-btn:hover {
+  background-color: #9279ad;
 }
 
 /* ========================================
