@@ -15,6 +15,9 @@ const turnIndicator = document.querySelector(".player");
 const scoreIndicator = document.querySelector(".tic-tac-toe-score");
 const resetBtn = document.querySelector(".reset-btn");
 const resultIndicator = document.querySelector(".game-result");
+const modeButtons = Array.from(document.querySelectorAll(".tic-tac-toe-mode"));
+const localModeButton = modeButtons[0];
+const computerModeButton = modeButtons[1];
 
 // Game state
 const size = Math.sqrt(cells.length);
@@ -159,7 +162,22 @@ cells.forEach((cell, index) => {
   });
 });
 
+function setGameMode(againstComputer) {
+  playAgainstComputer = againstComputer;
+
+  modeButtons.forEach((button) => {
+    button.classList.toggle(
+      "selected",
+      button === (againstComputer ? computerModeButton : localModeButton),
+    );
+  });
+
+  initializeGame();
+}
+
 resetBtn.addEventListener("click", initializeGame);
+localModeButton.addEventListener("click", () => setGameMode(false));
+computerModeButton.addEventListener("click", () => setGameMode(true));
 
 // Start
 initializeGame();
