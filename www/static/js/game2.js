@@ -1,165 +1,155 @@
-// AI generated SVG for X and O
+// Players
 const player1 = {
   icon: '<svg viewBox="0 0 100 100" width="64" height="64" fill="none"><path d="M20 20L80 80M80 20L20 80" stroke="currentColor" stroke-width="10" stroke-linecap="round"></path></svg>',
   mark: "X",
-  win: false,
 };
 
 const player2 = {
   icon: '<svg viewBox="0 0 100 100" width="64" height="64" fill="none"><circle cx="50" cy="50" r="32" stroke="currentColor" stroke-width="10"></circle></svg>',
   mark: "O",
-  win: false,
 };
 
-const winningLines = [
-  ["r1c1", "r1c2", "r1c3"],
-  ["r2c1", "r2c2", "r2c3"],
-  ["r3c1", "r3c2", "r3c3"],
-  ["r1c1", "r2c1", "r3c1"],
-  ["r1c2", "r2c2", "r3c2"],
-  ["r1c3", "r2c3", "r3c3"],
-  ["r1c1", "r2c2", "r3c3"],
-  ["r1c3", "r2c2", "r3c1"],
-];
-
-// Update each player's win status based on the current board.
-function updateWinningStatus() {
-  for (const player of [player1, player2]) {
-    player.win = winningLines.some((line) =>
-      line.every(
-        (id) => document.getElementById(id).dataset.mark === player.mark,
-      ),
-    );
-  }
-}
-
-let playerTurn = player1;
+// HTML elements
+const cells = Array.from(document.querySelectorAll(".tic-tac-toe-child"));
 const turnIndicator = document.querySelector(".player");
 const scoreIndicator = document.querySelector(".tic-tac-toe-score");
+const resetBtn = document.querySelector(".reset-btn");
+const resultIndicator = document.querySelector(".game-result");
+
+// Game state
+const size = Math.sqrt(cells.length);
+const rowScores = Array(size).fill(0);
+const colScores = Array(size).fill(0);
+
+let diagonalScore = 0;
+let antiDiagonalScore = 0;
+let moveCount = 0;
 let score = 0;
+let playerTurn = player1;
+let gameOver = false;
+let computerMoveTimeout = null;
 
-// Show which player is expected to move next.
-function updateTurnIndicator() {
-  turnIndicator.textContent =
-    playerTurn === player1 ? "Player 1 (X) to move" : "Player 2 (O) to move";
-}
-
-// Display the current score.
-function updateScoreIndicator() {
+// Update indicators
+function updateUI() {
+  turnIndicator.textContent = `${playerTurn.mark} to move`;
   scoreIndicator.textContent = `Score: ${score}`;
 }
 
-updateTurnIndicator();
-updateScoreIndicator();
-
-// Get the cells' div
-let ticTacToeChildren = document.getElementsByClassName("tic-tac-toe-child");
-for (const cell of ticTacToeChildren) {
-  cell.addEventListener("click", placeMove);
-}
-
-let resetBtn = document.querySelector(".reset-btn");
-resetBtn.addEventListener("click", () => initializeGame());
-
-// Reset the board and player state to start a fresh game.
+// Reset the game
 function initializeGame() {
-  player1.win = false;
-  player2.win = false;
+  clearTimeout(computerMoveTimeout);
+  computerMoveTimeout = null;
+
+  cells.forEach((cell) => {
+    cell.innerHTML = "";
+    delete cell.dataset.mark;
+  });
+
+  resultIndicator.textContent = "";
+  rowScores.fill(0);
+  colScores.fill(0);
+
+  diagonalScore = 0;
+  antiDiagonalScore = 0;
+  moveCount = 0;
+  gameOver = false;
   playerTurn = player1;
-  updateTurnIndicator();
-  clearGrid();
+
+  updateUI();
 }
 
-// Place the user's mark, check the game result, and let the computer respond.
-function placeMove(e) {
-  const cell = e.currentTarget;
-  if (playerTurn !== player1 || cell.dataset.mark) {
-    return;
-  }
+// Check if the latest move wins
+function checkWinner(index, player) {
+  const row = Math.floor(index / size);
+  const col = index % size;
+  const value = player === player1 ? 1 : -1;
 
-  cell.innerHTML = playerTurn.icon;
-  cell.dataset.mark = playerTurn.mark;
-  switchTurn();
+  rowScores[row] += value;
+  colScores[col] += value;
 
-  // Wait for the move to render before checking the game result.
-  requestAnimationFrame(() => {
-    requestAnimationFrame(() => {
-      if (!checkGameEnd()) {
-        makeComputerMove();
-      }
-    });
-  });
+  if (row === col) diagonalScore += value;
+  if (row + col === size - 1) antiDiagonalScore += value;
+
+  return [
+    rowScores[row],
+    colScores[col],
+    diagonalScore,
+    antiDiagonalScore,
+  ].some((sum) => Math.abs(sum) === size);
 }
 
-// Switch to the other player and refresh the turn indicator.
-function switchTurn() {
-  playerTurn = playerTurn == player1 ? player2 : player1;
-  updateTurnIndicator();
-}
+// Place a mark and handle the game result
+function makeMove(index) {
+  const cell = cells[index];
 
-// Check for a win or draw, score user wins, and reset finished games.
-function checkGameEnd() {
-  updateWinningStatus();
-  if (player1.win) {
-    score += 1;
-    updateScoreIndicator();
-    alert("Player 1 is the winner!!!");
-    initializeGame();
-    return true;
-  }
-  if (player2.win) {
-    alert("Player 2 is the winner!!!");
-    initializeGame();
-    return true;
-  }
+  if (gameOver || cell.dataset.mark) return false;
 
-  let checker = 0;
-  for (const elem of ticTacToeChildren) {
-    if (elem.innerHTML == "") {
-      break;
+  const currentPlayer = playerTurn;
+
+  cell.innerHTML = currentPlayer.icon;
+  cell.dataset.mark = currentPlayer.mark;
+  moveCount++;
+
+  if (checkWinner(index, currentPlayer)) {
+    gameOver = true;
+
+    if (currentPlayer === player1) {
+      score++;
     }
-    checker += 1;
-  }
-  if (checker == ticTacToeChildren.length) {
-    alert("The game is draw!!!");
-    initializeGame();
-    return true;
+
+    updateUI();
+    turnIndicator.textContent = "Game over";
+    resultIndicator.textContent = `${currentPlayer.mark} wins!`;
+    return false;
   }
 
-  return false;
+  if (moveCount === cells.length) {
+    gameOver = true;
+    turnIndicator.textContent = "Game over";
+    resultIndicator.textContent = "It's a draw!";
+    return false;
+  }
+
+  playerTurn = currentPlayer === player1 ? player2 : player1;
+  updateUI();
+
+  return true;
 }
 
-// Remove all marks from the board.
-function clearGrid() {
-  for (const elem of ticTacToeChildren) {
-    elem.innerHTML = "";
-    delete elem.dataset.mark;
-  }
-}
-
-// Place the computer's mark in a randomly selected empty cell.
+// Computer randomly chooses an empty cell
 function makeComputerMove() {
-  if (playerTurn !== player2) {
-    return;
-  }
+  if (gameOver || playerTurn !== player2) return;
 
-  // Get all empty cells
-  const emptyCells = Array.from(ticTacToeChildren).filter(
-    (cell) => !cell.dataset.mark,
-  );
+  turnIndicator.textContent = "Computer is thinking...";
 
-  // if no empty cells do nothing
-  if (emptyCells.length == 0) {
-    checkGameEnd();
-    return;
-  }
+  computerMoveTimeout = setTimeout(() => {
+    computerMoveTimeout = null;
 
-  const cell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-  cell.innerHTML = playerTurn.icon;
-  cell.dataset.mark = playerTurn.mark;
-  switchTurn();
+    if (gameOver || playerTurn !== player2) return;
 
-  requestAnimationFrame(() => {
-    requestAnimationFrame(checkGameEnd);
-  });
+    const emptyIndices = cells
+      .map((cell, index) => (!cell.dataset.mark ? index : -1))
+      .filter((index) => index !== -1);
+
+    if (emptyIndices.length === 0) return;
+
+    const randomIndex = Math.floor(Math.random() * emptyIndices.length);
+    makeMove(emptyIndices[randomIndex]);
+  }, 900);
 }
+
+// Event listeners
+cells.forEach((cell, index) => {
+  cell.addEventListener("click", () => {
+    if (playerTurn !== player1 || gameOver) return;
+
+    if (makeMove(index)) {
+      makeComputerMove();
+    }
+  });
+});
+
+resetBtn.addEventListener("click", initializeGame);
+
+// Start
+initializeGame();

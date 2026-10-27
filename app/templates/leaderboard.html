@@ -89,7 +89,6 @@
             name="game"
             value="{{ game_id }}"
             role="tab"
-            aria-selected="{{ 'true' if game_id == selected_game else 'false' }}"
           >
             {{ game_name }}
           </button>
@@ -118,9 +117,10 @@
               </tr>
             </thead>
             <tbody id="leaderboard-body">
-              {% for user in users %}
+              {% for index in range(users|length) %}
+              {% set user = users[index] %}
               <tr>
-                <td>{{ loop.index }}</td>
+                <td>{{ index + 1 }}</td>
                 <td>{{ user.username }}</td>
                 <td>{{ user[score_field] }}</td>
                 <td>{{ user.date }}</td>

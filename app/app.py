@@ -1,11 +1,10 @@
 from flask import Flask, request, render_template, jsonify
 import json
 from datetime import date
-from pathlib import Path
 
 app = Flask(__name__)
 
-USER_DATA_PATH = Path(__file__).with_name("user-data.json")
+USER_DATA_PATH = "./user-data.json"
 SCORE_FIELDS = {
     "game1": "game1Score",
     "game2": "game2Score",
@@ -44,9 +43,12 @@ def leaderboard():
 def get_users_for_filter(selected_filter):
     today = date.today()
     filtered_users = []
+    # Loop through user and get the users at a filter
     for user in load_users():
-        user_date_parts = [int(part) for part in user["date"].split("-")]
-        user_date = date(*user_date_parts)
+        # Split year month and day
+        year, month, day = map(int, user["date"].split("-"))
+        # Covert to date
+        user_date = date(year, month, day)
 
         if selected_filter == "Today" and user_date != today:
             continue
@@ -61,14 +63,10 @@ def get_users_for_filter(selected_filter):
     return filtered_users
 
 def load_users():
-    with USER_DATA_PATH.open(encoding="utf-8") as file:
+    with open(USER_DATA_PATH, "r") as file:
         user_data = json.load(file)
 
     users = user_data["users"]
-    for user in users:
-        user["totalScore"] = (
-            user["game1Score"] + user["game2Score"] + user["game3Score"]
-        )
     return users
 
 
