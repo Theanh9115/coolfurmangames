@@ -142,7 +142,7 @@ button {
   flex: 1 1;
   width: 100%;
   height: auto;
-  filter: blur(8px);
+  /* filter: blur(8px); */
 }
 
 .game-desc {
