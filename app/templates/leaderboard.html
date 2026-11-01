@@ -14,7 +14,7 @@
       <form class="board-filter" method="get">
         <input type="hidden" name="game" value="{{ selected_game }}" />
         <label for="time-filter">View</label>
-        <select id="time-filter" name="filter">
+        <select id="time-filter" name="filter" onchange="this.form.submit()">
           {# Create options of time filter #}
           {% for time_filter in time_filters %}
           {# Include selected attribute for the one is selected #}
@@ -23,7 +23,6 @@
           </option>
           {% endfor %}
         </select>
-        <button type="submit">Apply</button>
       </form>
     </div>
     {# Display the game tabs #}
