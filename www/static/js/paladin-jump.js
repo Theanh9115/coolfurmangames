@@ -1,9 +1,20 @@
-// Game window setup
-const gameWindow = document.getElementById("paladin-jump");
+// Initialize HTML elements
+const gameWindow = document.getElementById("paladin-jump-canvas");
+const killScreen = document.getElementById("paladin-jump-kill-screen");
+const restartButton = document.getElementById("paladin-jump-restart-button");
+const runButton = document.querySelector(".game-run-button");
+const gameCard = document.querySelector(".start-game-card");
+
+// Game window variables and parameters
 gameWindow.width = gameWindow.clientWidth;
 gameWindow.height = gameWindow.clientHeight;
 const ctx = gameWindow.getContext("2d");
 let gameFrame;
+let gameRunning = false;
+
+// Hide game and kill screens
+gameWindow.style.setProperty("display", "none");
+killScreen.style.setProperty("display", "none");
 
 // Player variables
 let playerX = gameWindow.width / 2;
@@ -12,10 +23,8 @@ const playerWidth = 10;
 const playerHeight = 15;
 let playerXVel = 0;
 let playerYVel = -9;
-
 const gravity = -0.1;
 const terminalVelocity = 15;
-
 let score = 0;
 
 // Platform variables
@@ -94,7 +103,8 @@ function checkBounds() {
         playerX = 0;
     }
     if (playerY > gameWindow.height) {
-        playerY = 0;
+        gameRunning = false;
+        killScreen.style.setProperty("display", "flex");
     }
 
     // Move platforms and lock player height upon progression
@@ -195,15 +205,22 @@ function draw() {
     updateVerticalMovement();
     drawScore();
 
-    gameFrame = requestAnimationFrame(draw);
+    if (gameRunning) gameFrame = requestAnimationFrame(draw);
 }
 
 function startGame() {
-  gameFrame = requestAnimationFrame(draw);
+    gameRunning = true;
+    initializePlatforms = true;
+    gameFrame = requestAnimationFrame(draw);
 }
 
-const runButton = document.getElementById("paladin-run-button");
 runButton.addEventListener("click", () => {
-  startGame();
-  runButton.disabled = true;
+    gameWindow.style.setProperty("display", "block");
+    gameCard.style.setProperty("display", "none");
+    startGame();
+});
+
+restartButton.addEventListener("click", () => {
+    killScreen.style.setProperty("display", "none");
+    startGame();
 });

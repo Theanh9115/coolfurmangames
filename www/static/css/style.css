@@ -7,11 +7,12 @@
   padding: 0;
   border: 0;
   box-sizing: border-box;
+  --font: "Fredoka", sans-serif;
 }
 
 body {
   min-height: 100vh;
-  font-family: "Fredoka", sans-serif;
+  font-family: var(--font);
   line-height: 1.5;
   color: #333;
   background-color: #dfcbed;
@@ -33,12 +34,6 @@ table {
 
 main {
   padding: 25px;
-}
-
-canvas {
-  display: block;
-  margin: 0 auto;
-  background-color: #eee;
 }
 
 button {
@@ -188,9 +183,47 @@ article {
 
 /* Paladin Jump */
 
-#paladin-jump {
+#paladin-jump-canvas {
   width: 500px;
   height: 600px;
+}
+
+#paladin-jump-start {
+  width: 500px;
+  height: 600px;
+}
+
+#paladin-jump-kill-screen {
+  position: absolute;
+  top: 150px;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+  border-radius: 30px;
+  border: 5px solid #881010;
+  text-align: center;
+  background-color: #df7171;
+}
+
+#paladin-jump-kill-screen h1 {
+  color: #881010;
+  font-size: 50px;
+}
+
+#paladin-jump-restart-button {
+  font-family: var(--font);
+  font-size: large;
+  font-weight: 600;
+  padding: 30px;
+  border-radius: 30px;
+  border: 5px solid #881010;
+  height: auto;
+  background-color: #ffdada;
+  color: #540000;
 }
 
 /* Breakout */
@@ -478,6 +511,54 @@ canvas {
 
 button {
   display: block;
+}
+
+.game-page-card {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 40px;
+  background-color: #fcaaff44
+}
+
+.start-game-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 50px;
+  border-radius: 40px;
+  border: 5px solid rgb(159, 85, 153);
+  background-color: #c8aec8;
+}
+
+.start-game-card-info {
+  padding: 30px;
+  background-color: #e3c6c6;
+  border-radius: 40px;
+  border: 5px solid #40201b55;
+}
+
+.start-game-card-info h1 {
+  padding: 15px 0px;
+}
+
+.start-game-card-info h3 {
+  padding: 30px 0px;
+}
+
+.game-run-button {
+  font-family: var(--font);
+  font-size: large;
+  font-weight: 600;
+  padding: 50px;
+  border-radius: 40px;
+  border: 5px solid #42884d;
+  height: 150px;
+  background-color: #71da76;
+  color: #00540a;
 }
 
 /* Game 2 */
