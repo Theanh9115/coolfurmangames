@@ -10,22 +10,26 @@ const player2 = {
 };
 
 // HTML elements
-const cells = Array.from(document.querySelectorAll(".tic-tac-toe-child"));
+const board = document.querySelector(".tic-tac-toe");
 const turnIndicator = document.querySelector(".player");
 const scoreIndicator = document.querySelector(".tic-tac-toe-score");
 const resetBtn = document.querySelector(".reset-btn");
 const resultIndicator = document.querySelector(".game-result");
 const modeButtons = Array.from(document.querySelectorAll(".tic-tac-toe-mode"));
+const sizeButtons = Array.from(document.querySelectorAll(".tic-tac-toe-size"));
 const localModeButton = modeButtons[0];
 const computerModeButton = modeButtons[1];
 
 // Game state
-const size = Math.sqrt(cells.length);
-const rowScores = Array(size).fill(0);
-const colScores = Array(size).fill(0);
-
-let diagonalScore = 0;
-let antiDiagonalScore = 0;
+let cells = [];
+let size = 3;
+let winLength = Math.min(5, size);
+const directions = [
+  [0, 1],
+  [1, 0],
+  [1, 1],
+  [1, -1],
+];
 let moveCount = 0;
 let p1Score = 0;
 let p2Score = 0;
@@ -34,7 +38,7 @@ let gameOver = false;
 let computerMoveTimeout = null;
 let playAgainstComputer = false;
 
-// Update indicators
+/** Refreshes the turn and score indicators to reflect the current game state. */
 function updateUI() {
   turnIndicator.textContent = `${playerTurn.mark} to move`;
   if (playAgainstComputer) {
@@ -44,7 +48,26 @@ function updateUI() {
   }
 }
 
-// Reset the game
+function createBoard(boardSize) {
+  size = boardSize;
+  winLength = Math.min(5, size);
+  cells = [];
+
+  board.innerHTML = "";
+  board.classList.toggle("five-by-five", size === 5);
+  board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+  board.style.gridTemplateRows = `repeat(${size}, minmax(0, 1fr))`;
+
+  for (let i = 0; i < size * size; i++) {
+    const cell = document.createElement("div");
+    cell.className = "tic-tac-toe-child";
+
+    board.appendChild(cell);
+    cells.push(cell);
+  }
+}
+
+/** Clears the board and resets the current round without changing cumulative scores. */
 function initializeGame() {
   clearTimeout(computerMoveTimeout);
   computerMoveTimeout = null;
@@ -55,11 +78,6 @@ function initializeGame() {
   });
 
   resultIndicator.textContent = "";
-  rowScores.fill(0);
-  colScores.fill(0);
-
-  diagonalScore = 0;
-  antiDiagonalScore = 0;
   moveCount = 0;
   gameOver = false;
   playerTurn = player1;
@@ -67,27 +85,54 @@ function initializeGame() {
   updateUI();
 }
 
-// Check if the latest move wins
+/**
+ * Checks whether the move at `index` completes a winning line for `player`.
+ *
+ * Counts contiguous matching marks in both directions along each line
+ * orientation, treating the latest move as the center of the line.
+ *
+ * @param {number} index - Flat index of the most recently played cell.
+ * @param {{ mark: string }} player - Player whose mark was placed.
+ * @returns {boolean} Whether a line contains at least `winLength` marks.
+ */
 function checkWinner(index, player) {
+  // Get the move row and column
   const row = Math.floor(index / size);
   const col = index % size;
-  const value = player === player1 ? 1 : -1;
 
-  rowScores[row] += value;
-  colScores[col] += value;
+  // Check consecutive marks for each direction
+  return directions.some(([rowStep, colStep]) => {
+    let count = 1;
 
-  if (row === col) diagonalScore += value;
-  if (row + col === size - 1) antiDiagonalScore += value;
+    for (const direction of [-1, 1]) {
+      let nextRow = row + rowStep * direction;
+      let nextCol = col + colStep * direction;
 
-  return [
-    rowScores[row],
-    colScores[col],
-    diagonalScore,
-    antiDiagonalScore,
-  ].some((sum) => Math.abs(sum) === size);
+      // Check the consecutive position contain player mark.
+      // Increment count if cell's mark is player mark, else end the loop and check the opposite direction
+      while (
+        nextRow >= 0 &&
+        nextRow < size &&
+        nextCol >= 0 &&
+        nextCol < size &&
+        cells[nextRow * size + nextCol].dataset.mark === player.mark
+      ) {
+        count++;
+        nextRow += rowStep * direction;
+        nextCol += colStep * direction;
+      }
+    }
+
+    return count >= winLength;
+  });
 }
 
-// Place a mark and handle the game result
+/**
+ * Places the current player's mark and updates the round state.
+ *
+ * @param {number} index - Flat index of the cell to play.
+ * @returns {boolean} Whether the round continues after this move.
+ */
 function makeMove(index) {
   const cell = cells[index];
 
@@ -127,7 +172,7 @@ function makeMove(index) {
   return true;
 }
 
-// Computer randomly chooses an empty cell
+/** Schedules a computer turn and plays a randomly selected empty cell. */
 function makeComputerMove() {
   if (!playAgainstComputer || gameOver || playerTurn !== player2) return;
 
@@ -150,18 +195,40 @@ function makeComputerMove() {
 }
 
 // Event listeners
-cells.forEach((cell, index) => {
-  cell.addEventListener("click", () => {
-    if (gameOver || (playAgainstComputer && playerTurn !== player1)) return;
+board.addEventListener("click", (event) => {
+  const cell = event.target;
+  const index = cells.indexOf(cell);
 
-    if (makeMove(index)) {
-      if (playAgainstComputer && playerTurn === player2) {
-        makeComputerMove();
-      }
-    }
+  if (index === -1 || gameOver) return;
+  if (playAgainstComputer && playerTurn === player2) return;
+
+  if (makeMove(index) && playAgainstComputer) {
+    makeComputerMove();
+  }
+});
+
+sizeButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const newSize = Number(button.dataset.size);
+
+    if (newSize === size) return;
+
+    sizeButtons.forEach((btn) => {
+      btn.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+
+    createBoard(newSize);
+    initializeGame();
   });
 });
 
+/**
+ * Selects local or computer play and starts a fresh round.
+ *
+ * @param {boolean} againstComputer - Whether the opponent is the computer.
+ */
 function setGameMode(againstComputer) {
   playAgainstComputer = againstComputer;
 
@@ -180,4 +247,5 @@ localModeButton.addEventListener("click", () => setGameMode(false));
 computerModeButton.addEventListener("click", () => setGameMode(true));
 
 // Start
+createBoard(size);
 initializeGame();
