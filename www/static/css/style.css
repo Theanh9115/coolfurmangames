@@ -186,6 +186,8 @@ article {
 #paladin-jump-canvas {
   width: 500px;
   height: 600px;
+  border-radius: 40px;
+  border: 5px solid #2e2034;
 }
 
 #paladin-jump-start {
@@ -226,15 +228,34 @@ article {
   color: #540000;
 }
 
-/* Breakout */
-
-#breakout-mobile-warning {
+#paladin-jump-move-buttons {
   display: none;
 }
 
-#breakout-canvas,
-#breakout-run-button {
-  display: block;
+/* Adjustments for mobile */
+@media only screen and (max-width: 600px) {
+  #paladin-jump-start {
+    width: 90%;
+    height: 700px;
+  }
+
+  #paladin-jump-canvas {
+    width: 90%;
+    height: 700px;
+  }
+
+  #paladin-jump-move-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+  }
+
+  #pj-move-left, #pj-move-right {
+    border: 2px black solid;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
 }
 
 /* Flappy Furman */
@@ -516,11 +537,13 @@ button {
 .game-page-card {
   position: relative;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 20px;
   border-radius: 40px;
-  background-color: #fcaaff44
+  background-color: #fcaaff44;
 }
 
 .start-game-card {
@@ -529,6 +552,7 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 50px;
+  margin: 0 auto;
   border-radius: 40px;
   border: 5px solid rgb(159, 85, 153);
   background-color: #c8aec8;

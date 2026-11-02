@@ -2,6 +2,10 @@
 const gameWindow = document.getElementById("paladin-jump-canvas");
 const killScreen = document.getElementById("paladin-jump-kill-screen");
 const restartButton = document.getElementById("paladin-jump-restart-button");
+const gameButtons = document.getElementById("paladin-jump-move-buttons");
+const buttonDisplay = window.getComputedStyle(gameButtons);
+const leftButton = document.getElementById("pj-move-left");
+const rightButton = document.getElementById("pj-move-right");
 const runButton = document.querySelector(".game-run-button");
 const gameCard = document.querySelector(".start-game-card");
 
@@ -9,57 +13,115 @@ const gameCard = document.querySelector(".start-game-card");
 gameWindow.width = gameWindow.clientWidth;
 gameWindow.height = gameWindow.clientHeight;
 const ctx = gameWindow.getContext("2d");
-let gameFrame;
 let gameRunning = false;
+
+// Delta time variables
+const fps = 59;
+const frameInterval = 1000 / fps;
+let previousTime = performance.now();
+let deltaTime, deltaTimeMultiplier;
 
 // Hide game and kill screens
 gameWindow.style.setProperty("display", "none");
 killScreen.style.setProperty("display", "none");
 
-// Player variables
-let playerX = gameWindow.width / 2;
-let playerY = gameWindow.height - 50;
+// Player initialization
 const playerWidth = 10;
 const playerHeight = 15;
-let playerXVel = 0;
-let playerYVel = -9;
 const gravity = -0.1;
 const terminalVelocity = 15;
-let score = 0;
+let playerX, playerY, playerXVel, playerYVel, score;
+let initializeMovement = false;
 
-// Platform variables
+// Platform initialization
 const platWidth = 50;
 const platHeight = 5;
-let platforms = [];
-let initializePlatforms = true;
+let platforms, initializePlatforms;
 
 // Event listener initialization
-keysPressed = {};
+let keysPressed = {};
 document.addEventListener("keydown", keyDownHandler);
 document.addEventListener("keyup", keyUpHandler);
 
+// Mobile movement button functionality
+let leftButtonHeld, rightButtonHeld;
+let mobileMovement = false;
+if (buttonDisplay.getPropertyValue("display") != "none") mobileMovement = true;
+
 function keyDownHandler(e) {
   keysPressed[e.key.toLowerCase()] = true;
-
 }
 
 function keyUpHandler(e) {
   keysPressed[e.key.toLowerCase()] = false;
 }
 
+function initializeGame() {
+    // Player variables
+    playerX = gameWindow.width / 2;
+    playerY = gameWindow.height - 50;
+    playerXVel = 0;
+    playerYVel = -9;
+    score = 0;
+    initializeMovement = true;
+
+    // Platform variables
+    platforms = [];
+    initializePlatforms = true;
+
+    // Reset movement key/button values
+    keysPressed = {};
+    leftButtonHeld = false;
+    rightButtonHeld = false;
+    leftButton.addEventListener("pointerdown", () => {leftButtonHeld = true});
+    leftButton.addEventListener("pointerup", () => {leftButtonHeld = false});
+    rightButton.addEventListener("pointerdown", () => {rightButtonHeld = true});
+    rightButton.addEventListener("pointerup", () => {rightButtonHeld = false});
+
+    // Game is fully visible, overlays are hidden
+    gameWindow.style.setProperty("display", "block");
+    gameWindow.style.setProperty("opacity", 1);
+    gameCard.style.setProperty("display", "none");
+    killScreen.style.setProperty("display", "none");
+
+    // Delta time variables
+    deltaTime = 0;
+    deltaTimeMultiplier = 1;
+
+    // Game is running
+    gameRunning = true;
+}
+
 function handleMovementInput() {
-    // Move only if their respective direction keys are pressed
-    if (keysPressed["d"] && !keysPressed["a"]) {
-        playerXVel = 4;
+    // Buttons move the player if in mobile view
+    if (mobileMovement) {
+        if (leftButtonHeld && !rightButtonHeld) {
+            playerXVel = -4 * deltaTimeMultiplier;
+        }
+        if (rightButtonHeld && !leftButtonHeld) {
+            playerXVel = 4 * deltaTimeMultiplier;
+        }
+        if ((!leftButtonHeld && !rightButtonHeld) ||
+            (leftButtonHeld && rightButtonHeld)) {
+                playerXVel = 0;
+        } 
     }
-    if (keysPressed["a"] && !keysPressed["d"]) {
-        playerXVel = -4;
+    // Arrow keys (A and D) move player otherwise
+    else {
+        // Move only if their respective direction keys are pressed
+        if (keysPressed["d"] && !keysPressed["a"]) {
+            playerXVel = 4 * deltaTimeMultiplier;
+        }
+
+        if (keysPressed["a"] && !keysPressed["d"]) {
+            playerXVel = -4 * deltaTimeMultiplier;
+        }
+        // Stop moving if both or none of movement keys are pressed
+        if ((!keysPressed["d"] && !keysPressed["a"]) ||
+            (keysPressed["d"] && keysPressed["a"])) {
+                playerXVel = 0;
+        }
     }
-    // Stop moving if both or none of movement keys are pressed
-    if ((!keysPressed["d"] && !keysPressed["a"]) ||
-        (keysPressed["d"] && keysPressed["a"])) {
-            playerXVel = 0;
-     } 
 }
 
 function collisionDetection() {
@@ -72,7 +134,7 @@ function collisionDetection() {
       playerY < platform.y &&
       playerYVel > 0
     ) {
-      playerYVel = -9;
+        playerYVel = -9;
     }
   }
 }
@@ -105,6 +167,7 @@ function checkBounds() {
     if (playerY > gameWindow.height) {
         gameRunning = false;
         killScreen.style.setProperty("display", "flex");
+        gameWindow.style.setProperty("opacity", 0.3);
     }
 
     // Move platforms and lock player height upon progression
@@ -112,8 +175,8 @@ function checkBounds() {
         playerY = gameWindow.height / 2;
 
         for (const platform of platforms) {
-            platform.y -= playerYVel;
-            score += 0.1;
+            platform.y -= playerYVel * deltaTimeMultiplier;
+            score += 0.1 * deltaTimeMultiplier;
         }
     }
 
@@ -162,10 +225,18 @@ function generatePlatforms() {
 
 function updateVerticalMovement() {
     playerX += playerXVel;
-    playerY += playerYVel - gravity;
-    playerYVel += 0.25;
-    if (playerYVel > terminalVelocity) {
-        playerYVel = terminalVelocity;
+    // Delta time will not affect Y values when first spawning in
+    if (initializeMovement) {
+        playerY += playerYVel;
+        initializeMovement = false;
+    }
+    // Delta time affects Y movement normally after spawning
+    else {
+        playerY += (playerYVel * deltaTimeMultiplier) - gravity;
+        playerYVel += 0.25 * deltaTimeMultiplier;
+        if (playerYVel > terminalVelocity) {
+            playerYVel = terminalVelocity;
+        }
     }
 }
 
@@ -189,13 +260,22 @@ function drawScore() {
     // Draw score text
     ctx.font = "24px Fredoka, sans-serif";
     ctx.fillStyle = "black";
-    let intScore = Math.trunc(score) // Hides decimals in score output
-    ctx.fillText(`Score: ${intScore}`, 10, 30)
+    let intScore = Math.trunc(score); // Hides decimals in score output
+    ctx.fillText(`Score: ${intScore}`, 20, 30);
 }
 
-function draw() {
+
+
+function draw(currentTime) {
+    // Clear canvas
     ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
 
+    // Matching frame rates
+    deltaTime = currentTime - previousTime;
+    deltaTimeMultiplier = deltaTime / frameInterval;
+    previousTime = currentTime;
+
+    // Progress game by 1 frame
     generatePlatforms();
     drawPlayer();
     drawPlatforms();
@@ -205,22 +285,20 @@ function draw() {
     updateVerticalMovement();
     drawScore();
 
-    if (gameRunning) gameFrame = requestAnimationFrame(draw);
+    if (gameRunning) requestAnimationFrame(draw);
 }
 
 function startGame() {
-    gameRunning = true;
-    initializePlatforms = true;
-    gameFrame = requestAnimationFrame(draw);
+    initializeGame();
+    requestAnimationFrame(draw);
 }
 
 runButton.addEventListener("click", () => {
-    gameWindow.style.setProperty("display", "block");
-    gameCard.style.setProperty("display", "none");
+    initializeGame();
     startGame();
 });
 
 restartButton.addEventListener("click", () => {
-    killScreen.style.setProperty("display", "none");
+    initializeGame();
     startGame();
 });
