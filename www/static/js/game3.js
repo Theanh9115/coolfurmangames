@@ -17,23 +17,50 @@ let clicked = false;
 let gameOver = false;
 let score = 0;
 let attempts = 0;
-const pipes = [];
-const pipeGap = 175;
+let constant;
+const pipe = [];
+const pipeGap = 200;
+const pipeN = new Image()
+const pipeS = new Image()
 const sqrlImg = new Image();
-sqrlImg.src = "/static/img/squirrel-standing.png";
 
+sqrlImg.src = "/static/img/squirrel-standing.png";
+pipeN.src = "/static/img/northpipe.png";
+pipeS.src = "/static/img/southpipe.png";
+
+pipe[0] = {
+  x: canvas.width,
+  y: 0,
+};
 
 function drawSquirrel() {
     context.drawImage(sqrlImg, squirrel.x - squirrel.radius, squirrel.y - squirrel.radius, 
                 squirrel.radius * 2, squirrel.radius * 2);
 }
 
-// function drawPipes() {
-//     for (let i = 0; i = canvas.height || squirrel.y &let;= 0) {
-//         gameOver = true;
-//     }
-// }
-document.addEventListener("keydown", moveUp)
+function drawPipes(){
+    for (var i = 0; i < pipe.length; i++) {
+        constant = pipeN.height + pipeGap;
+        context.drawImage(pipeN, pipe[i].x, pipe[i].y);
+        context.drawImage(pipeS, pipe[i].x, canvas.height + constant);
+        pipe[i].x-= 1.5;
+
+        if (pipe[i].x == 150){
+        pipe.push({
+            x: canvas.width,
+            y: Math.floor(Math.random() * (pipeN.height) - pipeN.height)})
+    }
+        if ((squirrel.x + squirrel.width >= pipe[i].x &&
+            squirrel.x <= pipe[i].x + pipeN.width &&
+            (squirrel.y <= pipe[i].y + pipeN.height ||
+            squirrel.y + squirrel.height >= pipe[i].y + constant)) ||
+        squirrel.y + squirrel.height >= canvas.height - pipeN.height
+        ) {
+            restartGame();
+        }
+        if (pipe[i].x == 3) {
+            score += 10;
+}}}
 
 function startGame(){
     if (!clicked){
@@ -43,33 +70,36 @@ function startGame(){
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawSquirrel();
         squirrelMovement();
-        requestAnimationFrame(startGame)
+        drawPipes();
+        requestAnimationFrame(startGame);
         
+        document.addEventListener("keydown", moveUp);
         context.fillStyle = "#000";
         context.font = "20px Fredoka";
         context.fillText("Score : " + score, 10, canvas.height - 10);
-        
     }
     else{
         context.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(deathScreen())
+        requestAnimationFrame(deathScreen)
     }
 }
 function squirrelMovement(){
     squirrel.y += squirrel.gravity;
+
     if (squirrel.y >= canvas.height && attempts < 3){
         attempts += 1;
         restartGame();
-    }
-}
+}}
 
 function instructions(){
-    context.font = "25px Sans";
+    context.font = "30px Sans";
     context.fillStyle = "#3f1954";
-    context.fillRect(50, 100, canvas.width / 2 + 75, canvas.height / 2 +20, "#a05cc5")
-    context.textAlign = "center";
-    context.fillText("Welcome to Flappy Furman! Press space to start.", 
-        canvas.width / 2 - 200, canvas.height / 2);
+    // context.strokeStyle = "#a05cc5";
+    // context.fillRect(50, 25, canvas.width / 2 + 100, canvas.height / 2 + 100)
+    context.fillText("Welcome to Flappy Furman!", 
+        canvas.width / 2 - 150, canvas.height / 2);
+    context.fillText("Press space to start.", 
+        canvas.width / 2 - 150, canvas.height / 2 + 30)
     clicked = true;
 }
 
@@ -89,10 +119,7 @@ function restartGame() {
     squirrel.y = canvas.height / 2;
     score = 0;
     gameOver = false;
-    startGame();
 }
 
 document.getElementById("flappy-furman-start").addEventListener("click", () =>
     { startGame(); });
-document.getElementById("flappy-furman-end").addEventListener("click", () => 
-    { gameOver=true; startGame()});
