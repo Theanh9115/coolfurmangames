@@ -52,14 +52,30 @@
 
     <main>
       <!-- Paladin Jump -->
-      <h1 id="game-title">Paladin Jump</h1>
-      <canvas id="paladin-jump"></canvas>
-      <button id="paladin-run-button">Start Game</button>
-    </main>
-    <script src="./static/js/main.js"></script>
+      <div class="game-page-card">
+        <canvas id="paladin-jump-canvas"></canvas>
+        <div class="start-game-card" id="paladin-jump-start">
+          <div class="start-game-card-info">
+            <h1>Paladin Jump!</h2>
+            <h3>Get the highest score you can by jumping from platform to platform!</h3>
+          </div>
+          <button class="game-run-button">Start Game</button>
+        </div>
 
+        <div id="paladin-jump-kill-screen">
+          <h1>You died!</h1>
+          <button id="paladin-jump-restart-button">Restart</button>
+        </div>
+        
+        <div id="paladin-jump-move-buttons">
+          <button id="pj-move-left">←</h1>
+          <button id="pj-move-right">→</h1>
+        </div>
+      </div>
+    </main>
+
+    <script src="./static/js/main.js"></script>
     <script src="./static/js/paladin-jump.js"></script>
     <script src="./static/js/hamburger.js"></script>
-    <!-- <script src="./static/js/game1.js"></script> -->
   </body>
 </html>
