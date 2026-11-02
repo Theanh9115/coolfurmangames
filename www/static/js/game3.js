@@ -18,7 +18,7 @@ let gameOver = false;
 let score = 0;
 let attempts = 0;
 let constant;
-const pipe = [];
+let pipe = [];
 const pipeGap = 200;
 const pipeN = new Image()
 const pipeS = new Image()
@@ -29,9 +29,11 @@ pipeN.src = "/static/img/northpipe.png";
 pipeS.src = "/static/img/southpipe.png";
 
 pipe[0] = {
-  x: canvas.width,
-  y: 0,
+  x: canvas.width / 2,
+  y: canvas.height / 2,
 };
+
+document.addEventListener("keydown", moveUp);
 
 function drawSquirrel() {
     context.drawImage(sqrlImg, squirrel.x - squirrel.radius, squirrel.y - squirrel.radius, 
@@ -40,62 +42,44 @@ function drawSquirrel() {
 
 function drawPipes(){
     for (var i = 0; i < pipe.length; i++) {
+        //draws pipes
         constant = pipeN.height + pipeGap;
         context.drawImage(pipeN, pipe[i].x, pipe[i].y);
-        context.drawImage(pipeS, pipe[i].x, canvas.height + constant);
-        pipe[i].x-= 1.5;
+        context.drawImage(pipeS, pipe[i].x, pipe[i].y + constant);
+        pipe[i].x -= 1;
 
-        if (pipe[i].x == 150){
+        // adds to pipe 
+        if (pipe[i].x == squirrel.x){
         pipe.push({
             x: canvas.width,
-            y: Math.floor(Math.random() * (pipeN.height) - pipeN.height)})
-    }
+            y: Math.floor((Math.random() * pipeN.height) - pipeN.y)
+        })}
+            
+
+        //collision detection (does not work atm)
         if ((squirrel.x + squirrel.width >= pipe[i].x &&
             squirrel.x <= pipe[i].x + pipeN.width &&
             (squirrel.y <= pipe[i].y + pipeN.height ||
             squirrel.y + squirrel.height >= pipe[i].y + constant)) ||
-        squirrel.y + squirrel.height >= canvas.height - pipeN.height
+            squirrel.y + squirrel.height >= canvas.height - context.height
         ) {
             restartGame();
         }
-        if (pipe[i].x == 3) {
+        // updates score
+        if (pipe[i].x == squirrel.x) {
             score += 10;
 }}}
 
-function startGame(){
-    if (!clicked){
-        requestAnimationFrame(instructions())
-    }
-    if (!gameOver){
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        drawSquirrel();
-        squirrelMovement();
-        drawPipes();
-        requestAnimationFrame(startGame);
-        
-        document.addEventListener("keydown", moveUp);
-        context.fillStyle = "#000";
-        context.font = "20px Fredoka";
-        context.fillText("Score : " + score, 10, canvas.height - 10);
-    }
-    else{
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        requestAnimationFrame(deathScreen)
-    }
-}
 function squirrelMovement(){
     squirrel.y += squirrel.gravity;
-
-    if (squirrel.y >= canvas.height && attempts < 3){
-        attempts += 1;
-        restartGame();
-}}
+    if (squirrel.y >= canvas.height){
+        restartGame()
+    }
+}
 
 function instructions(){
     context.font = "30px Sans";
     context.fillStyle = "#3f1954";
-    // context.strokeStyle = "#a05cc5";
-    // context.fillRect(50, 25, canvas.width / 2 + 100, canvas.height / 2 + 100)
     context.fillText("Welcome to Flappy Furman!", 
         canvas.width / 2 - 150, canvas.height / 2);
     context.fillText("Press space to start.", 
@@ -112,13 +96,42 @@ function deathScreen(){
 
 function moveUp(){
     squirrel.y -= 40;
+    squirrel.gravity
 }
 
 function restartGame() {
-    // pipes.length = 0;
-    squirrel.y = canvas.height / 2;
-    score = 0;
-    gameOver = false;
+    if (attempts == 3){
+        gameOver = true;
+        startGame()
+    }
+    else{
+        attempts += 1;
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        pipes.length = 0;
+        squirrel.y = canvas.height / 2;
+        score = 0;
+    }
+}
+
+function startGame(){
+    if (!clicked){
+        requestAnimationFrame(instructions)
+    }
+    if (!gameOver){
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        drawSquirrel();
+        squirrelMovement();
+        drawPipes();
+        requestAnimationFrame(startGame);
+        
+        context.fillStyle = "#000";
+        context.font = "20px Fredoka";
+        context.fillText("Score : " + score, 10, canvas.height - 10);
+    }
+    else{
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        requestAnimationFrame(deathScreen)
+    }
 }
 
 document.getElementById("flappy-furman-start").addEventListener("click", () =>
