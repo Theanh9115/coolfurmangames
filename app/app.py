@@ -85,19 +85,20 @@ def get_game(game_name):
                 <div class="game-page-card">
                     <canvas id="paladin-jump-canvas"></canvas>
                     <div class="start-game-card" id="paladin-jump-start">
-                    <div class="start-game-card-info">
-                        <h1>Paladin Jump!</h2>
-                        <h3>Get the highest score you can by jumping from platform to platform!</h3>
-                    </div>
-                    <button class="game-run-button">Start Game</button>
-                    </div>
+                        <div class="start-game-card-info">
+                            <h1>Paladin Jump!</h2>
+                            <h3>Get the highest score you can by jumping from platform to platform!</h3>
+                        </div>
+                        <button class="game-run-button">Start Game</button>
+                        </div>
                     <div id="paladin-jump-kill-screen">
-                    <h1>You died!</h1>
-                    <button id="paladin-jump-restart-button">Restart</button>
+                        <h1>You died!</h1>
+                        <h2 id="paladin-jump-kill-score">Score: </h2>
+                        <button id="paladin-jump-restart-button">Restart</button>
                     </div>
                     <div id="paladin-jump-move-buttons">
-                    <button id="pj-move-left">←</h1>
-                    <button id="pj-move-right">→</h1>
+                        <button id="pj-move-left">←</h1>
+                        <button id="pj-move-right">→</h1>
                     </div>
                 </div>
             </main>

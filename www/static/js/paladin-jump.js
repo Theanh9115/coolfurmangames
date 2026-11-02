@@ -1,6 +1,7 @@
 // Initialize HTML elements
 const gameWindow = document.getElementById("paladin-jump-canvas");
 const killScreen = document.getElementById("paladin-jump-kill-screen");
+const killScreenScore = document.getElementById("paladin-jump-kill-score");
 const restartButton = document.getElementById("paladin-jump-restart-button");
 const gameButtons = document.getElementById("paladin-jump-move-buttons");
 const buttonDisplay = window.getComputedStyle(gameButtons);
@@ -166,6 +167,7 @@ function checkBounds() {
     }
     if (playerY > gameWindow.height) {
         gameRunning = false;
+        killScreenScore.textContent = `Score: ${Math.trunc(score)}`
         killScreen.style.setProperty("display", "flex");
         gameWindow.style.setProperty("opacity", 0.3);
     }
