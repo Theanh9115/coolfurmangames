@@ -142,6 +142,7 @@ function makeMove(index) {
 
   cell.innerHTML = currentPlayer.icon;
   cell.dataset.mark = currentPlayer.mark;
+  // count number of moves
   moveCount++;
 
   if (checkWinner(index, currentPlayer)) {
