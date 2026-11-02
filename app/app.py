@@ -82,9 +82,24 @@ def get_game(game_name):
     games = {
         "paladin-jump": """
             <main>
-                <h1 id='game-title'>Paladin Jump</h1>
-                <canvas id='paladin-jump'></canvas>
-                <button id='paladin-run-button'>Start Game</button>
+                <div class="game-page-card">
+                    <canvas id="paladin-jump-canvas"></canvas>
+                    <div class="start-game-card" id="paladin-jump-start">
+                    <div class="start-game-card-info">
+                        <h1>Paladin Jump!</h2>
+                        <h3>Get the highest score you can by jumping from platform to platform!</h3>
+                    </div>
+                    <button class="game-run-button">Start Game</button>
+                    </div>
+                    <div id="paladin-jump-kill-screen">
+                    <h1>You died!</h1>
+                    <button id="paladin-jump-restart-button">Restart</button>
+                    </div>
+                    <div id="paladin-jump-move-buttons">
+                    <button id="pj-move-left">←</h1>
+                    <button id="pj-move-right">→</h1>
+                    </div>
+                </div>
             </main>
         """,
 
@@ -93,31 +108,40 @@ def get_game(game_name):
                 <h1>Game 2</h1>
                 <div class="tic-tac-toe-controls">
                     <span class="player" role="status"></span>
-                    <span class="tic-tac-toe-score" role="status">Score:</span>
-                    <button type="submit" class="reset-btn">New Game</button>
+                    <button type="button" class="reset-btn">New Game</button>
                 </div>
-                    <div class="tic-tac-toe">
-                        <divclass="tic-tac-toe-child"id="r1c1"></div>
-                        <div class="tic-tac-toe-child" id="r1c2"></div>
-                        <div class="tic-tac-toe-child" id="r1c3"></div>
-                        <div class="tic-tac-toe-child" id="r2c1"></div>
-                        <div class="tic-tac-toe-child" id="r2c2"></div>
-                        <div class="tic-tac-toe-child" id="r2c3"></div>
-                        <div class="tic-tac-toe-child" id="r3c1"></div>
-                        <div class="tic-tac-toe-child" id="r3c2"></div>
-                        <div class="tic-tac-toe-child" id="r3c3"></div>
-                    </div>
-                </main>""",
+                <div class="tic-tac-toe-mode-selector">
+                    <button class="tic-tac-toe-mode selected" type="button">Local</button>
+                    <button class="tic-tac-toe-mode" type="button">Vs Computer</button>
+                </div>
+                <div class="tic-tac-toe-score-container">
+                    <span class="tic-tac-toe-score" role="status"></span>
+                </div>
+                <p class="game-result" role="status"></p>
+                <div class="tic-tac-toe">
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                    <div class="tic-tac-toe-child"></div>
+                </div>
+            </main>
+        """,
 
         "flappy-furman": """
             <main>
                 <h1 id="game-title">Flappy Furman</h1>
-                <div class = "game-3">
+                <div id = "game-3">
                     <canvas id="flappy-furman"></canvas>
                     <button id="flappy-furman-start">Start Game</button>
                     <button id="flappy-furman-end">Reset Game</button>
                 </div>
-            </main>"""
+            </main>
+        """
     }
     
     scripts = {
