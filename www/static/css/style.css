@@ -216,6 +216,11 @@ article {
   font-size: 50px;
 }
 
+#paladin-jump-kill-screen h2 {
+  color: #ffcbcb;
+  font-size: 30px;
+}
+
 #paladin-jump-restart-button {
   font-family: var(--font);
   font-size: large;
