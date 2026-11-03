@@ -9,7 +9,6 @@ const squirrel = {
     radius: 20,
     gravity: 0.4,
     velocity: -2,
-    lift: -3
 };
 
 let clicked = false;
@@ -19,8 +18,8 @@ let attempts = 0;
 let constant;
 let pipe = [];
 const pipeGap = 100;
-const pipeN = new Image()
-const pipeS = new Image()
+const pipeN = new Image();
+const pipeS = new Image();
 const sqrlImg = new Image();
 
 sqrlImg.src = "/static/img/squirrel-standing.png";
@@ -29,7 +28,7 @@ pipeS.src = "/static/img/southpipe.png";
 
 pipe[0] = {
   x: canvas.width / 2,
-  y: canvas.height / 2,
+  y: -pipeGap * 3,
 };
 
 
@@ -42,15 +41,15 @@ function drawPipes(){
     for (var i = 0; i < pipe.length; i++) {
         //draws pipes
         constant = pipeN.height + pipeGap;
-        context.drawImage(pipeN, pipe[i].x, pipe[i].y);
-        context.drawImage(pipeS, pipe[i].x, pipe[i].y + constant);
+        context.drawImage(pipeN, pipe[i].x, pipe[i].y + constant);
+        context.drawImage(pipeS, pipe[i].x, pipe[i].y + pipeGap);
         pipe[i].x -= 1;
 
         // adds to pipe 
         if (pipe[i].x == 100){
         pipe.push({
             x: canvas.width,
-            y: Math.floor((Math.random() * pipeN.height) - constant),
+            y: Math.floor((Math.random() * pipeN.height) - constant)
         })}
 
         //collision detection (does not work atm)
@@ -64,7 +63,9 @@ function drawPipes(){
         // }
 
         //squirrel touches bottom of screen
-        if (squirrel.y >= canvas.height){
+        if (squirrel.y == canvas.height){
+            console.log(canvas.height);
+            console.log(squirrel.lift);
             restartGame()
         }
         // updates score
@@ -86,12 +87,15 @@ function instructions(){
 function deathScreen(){
     context.font = "60px Sans";
     context.fillStyle = "#775fc6";
-    context.fillText("YOU DIED.", 
-        canvas.width / 2 - 150, canvas.height / 2);
+    context.fillText("YOU DIED.", canvas.width / 2 - 150, canvas.height / 2);
 }
 
 function moveUp(){
     squirrel.y -= 40;
+}
+
+function moveDown(){
+    squirrel.y += 40;
 }
 
 function startGame(){
@@ -122,10 +126,19 @@ function restartGame() {
     }
     else{
         attempts += 1;
+        console.log(attempts);
         startGame();
     }
 }
-document.addEventListener("keydown", moveUp);
+
+document.addEventListener("keydown", function (e) {
+    if (e.key === "s" || e.key === "ArrowDown"){
+        moveDown()
+    }
+    if(e.key === "w" || e.key === "ArrowUp"){
+        moveUp()
+    }
+})
 
 document.getElementById("flappy-furman-start").addEventListener("click", () =>
     { startGame(); });

@@ -272,6 +272,13 @@ article {
   background-size: cover;
 }
 
+@media only screen and (max-width: 600px) {
+#flappy-furman {
+  width: 300px;
+  height: 300px;
+}
+
+}
 /* Tic-Tac-Toe */
 
 #breakout-canvas,
