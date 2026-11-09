@@ -7,6 +7,7 @@ services:
       # Bind-mount the app directory so code edits show up immediately
       # without rebuilding the image.
       - ./app:/app
+      - ./db:/db
     environment:
       - FLASK_ENV=development
     expose:

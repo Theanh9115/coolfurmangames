@@ -1,15 +1,20 @@
-from flask import Flask, request, render_template, jsonify
-import json
-from datetime import date
+
+from flask import Flask, request, render_template
+import os
+import sqlite3
 
 app = Flask(__name__)
 
-USER_DATA_PATH = "./user-data.json"
-SCORE_FIELDS = {
-    "game1": "game1Score",
-    "game2": "game2Score",
-    "game3": "game3Score",
+APP_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_DIR = os.path.dirname(APP_DIR)
+DATABASE_PATH = os.path.join(PROJECT_DIR, "db", "coolfurmangames.db")
+
+SCORE_COLUMNS = {
+    "game1": "game1_score",
+    "game2": "game2_score",
+    "game3": "game3_score",
 }
+
 TIME_FILTERS = ("All time", "This year", "This month", "Today")
 
 
@@ -21,62 +26,54 @@ def home():
 @app.route("/leaderboard.html")
 def leaderboard():
     selected_game = request.args.get("game", "game1")
-    if selected_game not in SCORE_FIELDS:
+    if selected_game not in SCORE_COLUMNS:
         selected_game = "game1"
 
     selected_filter = request.args.get("filter", "All time")
     if selected_filter not in TIME_FILTERS:
         selected_filter = "All time"
 
-    users = get_users_for_filter(selected_filter)
-    users.sort(key=lambda user: user[SCORE_FIELDS[selected_game]], reverse=True)
+    users = load_users(selected_game, selected_filter)
+
     return render_template(
         "leaderboard.html",
         users=users,
-        score_field=SCORE_FIELDS[selected_game],
+        score_field=SCORE_COLUMNS[selected_game],
         selected_game=selected_game,
         selected_filter=selected_filter,
         time_filters=TIME_FILTERS,
     )
 
 
-def get_users_for_filter(selected_filter):
-    today = date.today()
-    filtered_users = []
-    # Loop through user and get the users at a filter
-    for user in load_users():
-        # Split year month and day
-        year, month, day = map(int, user["date"].split("-"))
-        # Covert to date
-        user_date = date(year, month, day)
+def load_users(selected_game, selected_filter):
+    filters = {
+        "Today": "date = date('now', 'localtime')",
+        "This month": "strftime('%Y-%m', date) = strftime('%Y-%m', 'now', 'localtime')",
+        "This year": "strftime('%Y', date) = strftime('%Y', 'now', 'localtime')",
+        "All time": "1=1"
+    }
 
-        if selected_filter == "Today" and user_date != today:
-            continue
-        if selected_filter == "This month" and (
-            user_date.year != today.year or user_date.month != today.month
-        ):
-            continue
-        if selected_filter == "This year" and user_date.year != today.year:
-            continue
+    query = f"""
+        SELECT
+            username,
+            game1_score,
+            game2_score,
+            game3_score,
+            date
+        FROM scores
+        WHERE {filters[selected_filter]}
+        ORDER BY {SCORE_COLUMNS[selected_game]} DESC
+    """
 
-        filtered_users.append(user)
-    return filtered_users
+    conn = sqlite3.connect(DATABASE_PATH)
+    conn.row_factory = sqlite3.Row
 
-def load_users():
-    with open(USER_DATA_PATH, "r") as file:
-        user_data = json.load(file)
-
-    users = user_data["users"]
-    return users
-
-
-# @app.route("/score", methods=["GET"])
-# def get_score():
-#     selected_filter = request.args.get("filter", "All time")
-#     if selected_filter not in TIME_FILTERS:
-#         selected_filter = "All time"
-#     return jsonify(get_users_for_filter(selected_filter))
-
+    try:
+        users = conn.execute(query).fetchall()
+        return [dict(user) for user in users]
+    finally:
+        conn.close()
+        
 @app.route("/<game_name>")
 def get_game(game_name):
     games = {
@@ -115,21 +112,22 @@ def get_game(game_name):
                     <button class="tic-tac-toe-mode selected" type="button">Local</button>
                     <button class="tic-tac-toe-mode" type="button">Vs Computer</button>
                 </div>
+                <div class="tic-tac-toe-size-selector" role="group">
+                    <button class="tic-tac-toe-size selected" type="button" data-size="3">
+                    3 x 3
+                    </button>
+                    <button class="tic-tac-toe-size" type="button" data-size="5">
+                    5 x 5
+                    </button>
+                    <button class="tic-tac-toe-size" type="button" data-size="7">
+                    7 x 7
+                    </button>
+                </div>
                 <div class="tic-tac-toe-score-container">
                     <span class="tic-tac-toe-score" role="status"></span>
                 </div>
                 <p class="game-result" role="status"></p>
-                <div class="tic-tac-toe">
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                    <div class="tic-tac-toe-child"></div>
-                </div>
+                <div class="tic-tac-toe" role="grid" aria-label="Tic-tac-toe board"></div>
             </main>
         """,
 

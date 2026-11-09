@@ -23,7 +23,7 @@ const computerModeButton = modeButtons[1];
 // Game state
 let cells = [];
 let size = 3;
-let winLength = Math.min(5, size);
+let winLength = Math.min(4, size);
 const directions = [
   [0, 1],
   [1, 0],
@@ -50,11 +50,12 @@ function updateUI() {
 
 function createBoard(boardSize) {
   size = boardSize;
-  winLength = Math.min(5, size);
+  winLength = Math.min(4, size);
   cells = [];
 
   board.innerHTML = "";
   board.classList.toggle("five-by-five", size === 5);
+  board.classList.toggle("seven-by-seven", size === 7);
   board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
   board.style.gridTemplateRows = `repeat(${size}, minmax(0, 1fr))`;
 
