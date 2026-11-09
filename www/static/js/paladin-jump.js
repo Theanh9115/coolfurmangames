@@ -10,6 +10,10 @@ const rightButton = document.getElementById("pj-move-right");
 const runButton = document.querySelector(".game-run-button");
 const gameCard = document.querySelector(".start-game-card");
 
+// Initialize sprite sheet
+const spriteSheet = new Image();
+spriteSheet.src = "/static/img/pj-sprites.png";
+
 // Game window variables and parameters
 gameWindow.width = gameWindow.clientWidth;
 gameWindow.height = gameWindow.clientHeight;
@@ -27,16 +31,16 @@ gameWindow.style.setProperty("display", "none");
 killScreen.style.setProperty("display", "none");
 
 // Player initialization
-const playerWidth = 10;
-const playerHeight = 15;
+const playerWidth = 13;
+const playerHeight = 25;
 const gravity = -0.1;
 const terminalVelocity = 15;
 let playerX, playerY, playerXVel, playerYVel, score;
 let initializeMovement = false;
 
 // Platform initialization
-const platWidth = 50;
-const platHeight = 5;
+const platWidth = 60;
+const platHeight = 6;
 let platforms, initializePlatforms;
 
 // Event listener initialization
@@ -143,8 +147,7 @@ function collisionDetection() {
 function drawPlayer() {
   ctx.beginPath();
   ctx.rect(playerX, playerY, playerWidth, playerHeight);
-  ctx.fillStyle = "#430000";
-  ctx.fill();
+  ctx.drawImage(spriteSheet, 0, 17, 13, 41, playerX, playerY, playerWidth, playerHeight);
   ctx.closePath();
 }
 
@@ -152,8 +155,7 @@ function drawPlatforms() {
     ctx.beginPath();
     for (const platform of platforms) {
         ctx.rect(platform.x, platform.y, platWidth, platHeight);
-        ctx.fillStyle = "#090043";
-        ctx.fill();
+        ctx.drawImage(spriteSheet, 0, 0, 60, 7, platform.x, platform.y, platWidth, platHeight);
     }
     ctx.closePath();
 }
@@ -279,8 +281,8 @@ function draw(currentTime) {
 
     // Progress game by 1 frame
     generatePlatforms();
-    drawPlayer();
     drawPlatforms();
+    drawPlayer();
     handleMovementInput();
     checkBounds();
     collisionDetection();
