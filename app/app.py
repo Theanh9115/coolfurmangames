@@ -143,10 +143,12 @@ def get_game(game_name):
             <main>
                 <h1 id="game-title">Flappy Furman</h1>
                 <div id = "game-3">
-                    <canvas id="flappy-furman"></canvas>
-                    <button id="flappy-furman-start">Start Game</button>
-                    <button id="flappy-furman-end">Reset Game</button>
-                </div>
+        <canvas id="flappy-furman"></canvas>
+        <div id = "ff-buttons">
+          <button id="flappy-furman-start">Start Game</button>
+          <button id="flappy-furman-end">Reset Game</button>
+        </div>
+        </div>
             </main>
         """
     }

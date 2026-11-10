@@ -2,7 +2,8 @@ const canvas = document.getElementById("flappy-furman");
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 const context = canvas.getContext("2d");
-const ff = document.getElementById("flappy-furman-buttons");
+const ff = document.getElementById("ff-buttons");
+const buttonDisplay = window.getComputedStyle(ff);
 const mobileUp = document.getElementById("ff-move-up");
 const mobileDown = document.getElementById("ff-move-down");
 
@@ -63,7 +64,7 @@ function drawPipes(){
         const bottom = squirrel.y + (squirrel.radius * .8);
 
         const insidePipe = right > p.x && left < p.x + pipeW * 2;
-        const hitsPipe = top > p.topGap + pipeGap || bottom + pipeGap / 2 < p.topGap;
+        const hitsPipe = top > p.topGap + pipeGap || bottom + (pipeGap / 2) < p.topGap;
 
         if (hitsPipe && insidePipe) {
             restartGame();
@@ -95,6 +96,7 @@ function deathScreen(){
     context.font = "60px Sans";
     context.fillStyle = "#775fc6";
     context.fillText("YOU DIED.", canvas.width / 2 - 150, canvas.height / 2);
+    context.fillText("Score : " + score, canvas.width / 2 - 150, canvas.height / 1.5)
 }
 
 function moveUp(){
@@ -129,13 +131,11 @@ function startGame(){
 function restartGame() {
     if (attempts == 3){
         gameOver = true;
-        startGame();
     }
     else{
         squirrel.y = canvas.height / 2;
         attempts += 1;
         pipe = [];
-        startGame();
     }
 }
 
@@ -148,23 +148,34 @@ document.addEventListener("keydown", function (e) {
     }
 })
 
-document.getElementById("flappy-furman-start").addEventListener("click", () =>
+const start = document.getElementById("flappy-furman-start");
+const end = document.getElementById("flappy-furman-end");
+
+start.addEventListener("click", () =>
     { startGame(); });
 
-document.getElementById("flappy-furman-end").addEventListener("click", () =>{ 
+end.addEventListener("click", () =>{ 
         gameOver = false;
         attempts = 0;
         clicked = false;
+        score = 0;
+        context.clearRect(0, 0, canvas.width, canvas.height);
         startGame();
     })
 
 // //mobile movement 
-// let mobileMovement = false;
-// let upButton, downButton;
-// if (buttonDisplay.getPropertyValue("display") != "none") {
-//     mobileMovement = true;
-//     mobileButtons();
-// } 
-// function mobileButtons(){
-//     document.getElementsByClassName("instructions").innerHTML = ""
-// }
+let mobileMovement = false;
+let upButton, downButton;
+
+if (buttonDisplay.getPropertyValue("display") != "none" && clicked) {
+    mobileMovement = true;
+    mobileButtons();
+} 
+function mobileButtons(){
+    upButton = document.createElement("button");
+    upButton.innerHTML = "↑"
+    downButton = document.createElement("button");
+    downButton.innerHTML = "↓"
+    start.parentNode.replaceChild(upButton, start);
+    end.parentNode.replaceChild(downButton, end);
+}
