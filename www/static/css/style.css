@@ -272,12 +272,48 @@ article {
   background-size: cover;
 }
 
+#flappy-furman-start{
+  background-color:#d8d8ff;
+  text-align: center;
+  color: rgb(108, 108, 237);
+  font-weight: 300;
+  display: flex;
+  justify-self: center;
+  margin: 10px;
+  border: 2px solid cyan;
+  font-size: medium;
+  font-weight: 600;
+  padding: 30px;
+  border-radius: 30px;
+}
+
+#flappy-furman-end{
+  background-color:#de8c8c;
+  text-align: center;
+  color: rgb(227, 14, 64);
+  font-weight: 300;
+  display: flex;
+  justify-self: center;
+  margin: 10px;
+  border: 2px solid rgb(246, 88, 88);
+  font-size: medium;
+  font-weight: 600;
+  padding: 30px;
+  border-radius: 30px;
+}
+
 @media only screen and (max-width: 600px) {
 #flappy-furman {
   width: 300px;
   height: 300px;
 }
 
+#flappy-furman-start{
+  font-size: medium;
+  font-weight: 300;
+  padding: 20px;
+  border-radius: 20px;
+}
 }
 /* Tic-Tac-Toe */
 

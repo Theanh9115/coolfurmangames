@@ -2,8 +2,11 @@ const canvas = document.getElementById("flappy-furman");
 canvas.width = canvas.clientWidth;
 canvas.height = canvas.clientHeight;
 const context = canvas.getContext("2d");
+const ff = document.getElementById("flappy-furman-buttons");
+const mobileUp = document.getElementById("ff-move-up");
+const mobileDown = document.getElementById("ff-move-down");
 
-const squirrel = {
+let squirrel = {
     x: 50,
     y: canvas.height / 2,
     radius: 20,
@@ -11,11 +14,13 @@ const squirrel = {
     velocity: -2,
 };
 
+const pipeW = 150;
+const pipeH = 300;
+const pipeSpeed = 1.25;
 let clicked = false;
 let gameOver = false;
 let score = 0;
 let attempts = 0;
-let constant;
 let pipe = [];
 const pipeGap = 100;
 const pipeN = new Image();
@@ -26,62 +31,64 @@ sqrlImg.src = "/static/img/squirrel-standing.png";
 pipeN.src = "/static/img/northpipe.png";
 pipeS.src = "/static/img/southpipe.png";
 
-pipe[0] = {
-  x: canvas.width / 2,
-  y: -pipeGap * 3,
-};
-
-
 function drawSquirrel() {
     context.drawImage(sqrlImg, squirrel.x - squirrel.radius, squirrel.y - squirrel.radius, 
                 squirrel.radius * 2, squirrel.radius * 2);
 }
 
+function makePipe(){
+    const margin = 30;
+    const topGap = margin + Math.random() * (canvas.height - pipeGap - margin)
+    pipe.push({
+        x: canvas.width,
+        topGap: topGap,
+        passed: false
+    })}
+
 function drawPipes(){
+    // adds to pipe 
+    if (pipe.length == 0 || pipe[pipe.length - 1].x < canvas.width - 300){
+        makePipe();}
+
     for (var i = 0; i < pipe.length; i++) {
+        const p = pipe[i];
         //draws pipes
-        constant = pipeN.height + pipeGap;
-        context.drawImage(pipeN, pipe[i].x, pipe[i].y + constant);
-        context.drawImage(pipeS, pipe[i].x, pipe[i].y + pipeGap);
-        pipe[i].x -= 1;
+        context.drawImage(pipeN, p.x, p.topGap, pipeW, pipeH);
+        context.drawImage(pipeS, p.x, p.topGap - pipeH, pipeW, pipeH);
+        pipe[i].x -= pipeSpeed;
 
-        // adds to pipe 
-        if (pipe[i].x == 100){
-        pipe.push({
-            x: canvas.width,
-            y: Math.floor((Math.random() * pipeN.height) - constant)
-        })}
+        const left = squirrel.x - (squirrel.radius * .8);
+        const right = squirrel.x + (squirrel.radius * .8);
+        const top = squirrel.y - (squirrel.radius * .8);
+        const bottom = squirrel.y + (squirrel.radius * .8);
 
-        //collision detection (does not work atm)
-        // if ((squirrel.x + squirrel.width >= pipe[i].x &&
-        //     squirrel.x <= pipe[i].x + pipeN.width &&
-        //     (squirrel.y <= pipe[i].y + pipeN.height ||
-        //     squirrel.y + squirrel.height >= pipe[i].y + constant)) ||
-        //     squirrel.y + squirrel.height >= canvas.height - constant
-        // ) {
-        //     restartGame();
-        // }
+        const insidePipe = right > p.x && left < p.x + pipeW * 2;
+        const hitsPipe = top > p.topGap + pipeGap || bottom + pipeGap / 2 < p.topGap;
 
-        //squirrel touches bottom of screen
-        if (squirrel.y == canvas.height){
-            console.log(canvas.height);
-            console.log(squirrel.lift);
-            restartGame()
+        if (hitsPipe && insidePipe) {
+            restartGame();
+        }
+
+        if (top >= canvas.height || bottom <= -canvas.height){
+            restartGame();
         }
         // updates score
-        if (pipe[i].x + pipeGap == squirrel.x) {
-            score += 10;
-}}}
+        if (p.x + pipeGap == squirrel.x) {
+            p.passed = true;
+            score += 10;}}
 
+        // remove pipes that are off-screen
+        pipe = pipe.filter(p => p.x + pipeW > 0);
+}
 
 function instructions(){
+    clicked = true;
     context.font = "30px Sans";
     context.fillStyle = "#3f1954";
     context.fillText("Welcome to Flappy Furman!", 
         canvas.width / 2 - 150, canvas.height / 2);
-    context.fillText("Press space to start.", 
+    context.fillText("Click to start.", 
         canvas.width / 2 - 150, canvas.height / 2 + 30)
-    clicked = true;
 }
 
 function deathScreen(){
@@ -102,16 +109,16 @@ function startGame(){
     if (!clicked){
         instructions();
     }
-    if (!gameOver){
+    else if (!gameOver){
         context.clearRect(0, 0, canvas.width, canvas.height);
         drawSquirrel();
-        drawPipes();
-        requestAnimationFrame(startGame);
+        drawPipes()
         
         squirrel.y += squirrel.gravity;
         context.fillStyle = "#000";
         context.font = "20px Fredoka";
         context.fillText("Score : " + score, 10, canvas.height - 10);
+        requestAnimationFrame(startGame);
     }
     else{
         context.clearRect(0, 0, canvas.width, canvas.height);
@@ -125,18 +132,19 @@ function restartGame() {
         startGame();
     }
     else{
+        squirrel.y = canvas.height / 2;
         attempts += 1;
-        console.log(attempts);
+        pipe = [];
         startGame();
     }
 }
 
 document.addEventListener("keydown", function (e) {
     if (e.key === "s" || e.key === "ArrowDown"){
-        moveDown()
+        moveDown();
     }
-    if(e.key === "w" || e.key === "ArrowUp"){
-        moveUp()
+    if (e.key === "w" || e.key === "ArrowUp"){
+        moveUp();
     }
 })
 
@@ -149,3 +157,14 @@ document.getElementById("flappy-furman-end").addEventListener("click", () =>{
         clicked = false;
         startGame();
     })
+
+// //mobile movement 
+// let mobileMovement = false;
+// let upButton, downButton;
+// if (buttonDisplay.getPropertyValue("display") != "none") {
+//     mobileMovement = true;
+//     mobileButtons();
+// } 
+// function mobileButtons(){
+//     document.getElementsByClassName("instructions").innerHTML = ""
+// }
