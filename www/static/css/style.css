@@ -1286,3 +1286,309 @@ body.dark .menu-toggle span {
     white-space: nowrap;
   }
 }
+
+
+/* ========================================
+   LOCAL SCORES PAGE
+======================================== */
+
+/* Light Mode */
+
+.local-scores {
+  max-width: 950px;
+  margin: 40px auto;
+  padding: 0 25px;
+}
+
+.local-scores h1 {
+  color: #582c83;
+  font-size: 36px;
+  margin-bottom: 8px;
+}
+
+.scores-description {
+  color: #685575;
+  margin-bottom: 30px;
+}
+
+.scores-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Score Cards */
+
+.score-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 25px 30px;
+  background-color: #f1e7f8;
+  border: 2px solid #c1a3de;
+  border-radius: 15px;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
+}
+
+.score-card:hover {
+  transform: translateY(-3px);
+  border-color: #582c83;
+}
+
+/* Game Information */
+
+.game-info h2 {
+  font-size: 23px;
+  color: #582c83;
+  margin-bottom: 5px;
+}
+
+.game-info p {
+  font-size: 14px;
+  color: #685575;
+}
+
+/* Paladin Jump & Flappy Din Scores */
+
+.score-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-value span {
+  font-size: 34px;
+  font-weight: 600;
+  color: #582c83;
+}
+
+.score-value small {
+  color: #685575;
+}
+
+/* ========================================
+   TIC TAC TOE
+======================================== */
+
+.ttt-card {
+  flex-wrap: wrap;
+}
+
+.ttt-filters {
+  display: flex;
+  gap: 10px;
+}
+
+.ttt-filters select {
+  padding: 8px 12px;
+  border: 1px solid #c1a3de;
+  border-radius: 8px;
+  background-color: white;
+  color: #582c83;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ttt-filters select:hover {
+  border-color: #582c83;
+}
+
+.ttt-filters select:focus-visible {
+  outline: 2px solid #582c83;
+  outline-offset: 2px;
+}
+
+.ttt-stats {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  color: #582c83;
+}
+
+.ttt-stats b {
+  color: #794a9c;
+}
+
+/* ========================================
+   RESET SCORES
+======================================== */
+
+#reset-scores {
+  margin-top: 30px;
+  padding: 12px 22px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #582c83;
+  border: 2px solid #582c83;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.2s;
+}
+
+#reset-scores:hover {
+  background-color: #452166;
+}
+
+#reset-scores:active {
+  transform: scale(0.97);
+}
+
+.scores-note {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #685575;
+}
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+body.dark .local-scores h1 {
+  color: #a991c1;
+}
+
+body.dark .scores-description,
+body.dark .scores-note {
+  color: #c5b4d3;
+}
+
+/* Dark Score Cards */
+
+body.dark .score-card {
+  background-color: #434143;
+  border-color: #5d5264;
+}
+
+body.dark .score-card:hover {
+  border-color: #a991c1;
+}
+
+body.dark .game-info h2 {
+  color: #c9a9df;
+}
+
+body.dark .game-info p {
+  color: #c5b4d3;
+}
+
+/* Dark Score Numbers */
+
+body.dark .score-value span {
+  color: #c9a9df;
+}
+
+body.dark .score-value small {
+  color: #c5b4d3;
+}
+
+/* Dark Tic Tac Toe */
+
+body.dark .ttt-filters select {
+  background-color: #2e2c2c;
+  border-color: #a991c1;
+  color: #c9a9df;
+}
+
+body.dark .ttt-filters select:hover {
+  border-color: #d8b7ed;
+}
+
+body.dark .ttt-filters select:focus-visible {
+  outline-color: #d8b7ed;
+}
+
+body.dark .ttt-stats {
+  color: #c5b4d3;
+}
+
+body.dark .ttt-stats b {
+  color: #c9a9df;
+}
+
+/* Dark Reset Button */
+
+body.dark #reset-scores {
+  background-color: #a991c1;
+  border-color: #a991c1;
+  color: #232222;
+}
+
+body.dark #reset-scores:hover {
+  background-color: #9279ad;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+
+@media (max-width: 800px) {
+  .ttt-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .ttt-filters {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 600px) {
+  .local-scores {
+    margin: 25px auto;
+    padding: 0 15px;
+  }
+
+  .local-scores h1 {
+    font-size: 30px;
+  }
+
+  .scores-description {
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+
+  .score-card {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .game-info h2 {
+    font-size: 21px;
+  }
+
+  .score-value {
+    align-items: flex-start;
+  }
+
+  .ttt-filters {
+    width: 100%;
+  }
+
+  .ttt-filters select {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .ttt-stats {
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  #reset-scores {
+    width: 100%;
+  }
+}
+
+
