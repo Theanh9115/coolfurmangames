@@ -109,16 +109,6 @@ function initializeGame() {
 }
 
 /**
- * Checks whether the move at `index` completes a winning line for `player`.
- *
- * Counts contiguous matching marks in both directions along each line
- * orientation, treating the latest move as the center of the line.
- *
- * @param {number} index - Flat index of the most recently played cell.
- * @param {{ mark: string }} player - Player whose mark was placed.
- * @returns {boolean} Whether a line contains at least `winLength` marks.
- */
-/**
  * Determines whether the most recent move creates a winning line for a player.
  *
  * @param {number} index - Index of the cell that was just played.
@@ -159,7 +149,7 @@ function checkWinner(
 }
 
 /**
- * Places the current player's mark and advances the round state.
+ * Places the current player's mark and advances the state.
  *
  * @param {number} index - Index of the target cell in the board array.
  * @returns {boolean} True if the game continues after the move; false when the round ends in a win or draw.
@@ -413,6 +403,7 @@ function getTacticalMove(emptyIndices) {
     const row = Math.floor(move / size);
     const col = move % size;
     const center = (size - 1) / 2;
+    // Want to go near center
     let score = -(Math.abs(row - center) + Math.abs(col - center)) * 0.01;
 
     for (let rowStep = -1; rowStep <= 1; rowStep++) {

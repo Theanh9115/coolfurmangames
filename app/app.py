@@ -70,6 +70,7 @@ def load_users(selected_game, selected_filter):
 
     try:
         users = conn.execute(query).fetchall()
+        conn.close()
         return [dict(user) for user in users]
     finally:
         conn.close()
