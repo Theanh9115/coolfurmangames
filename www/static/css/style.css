@@ -255,7 +255,8 @@ article {
     width: 90%;
   }
 
-  #pj-move-left, #pj-move-right {
+  #pj-move-left,
+  #pj-move-right {
     border: 2px black solid;
     border-radius: 50%;
     width: 100px;
@@ -646,14 +647,22 @@ button {
   justify-content: center;
 }
 
-.tic-tac-toe-mode-selector {
+.tic-tac-toe-mode-selector,
+.tic-tac-toe-difficulty-selector,
+.tic-tac-toe-size-selector {
   display: flex;
   justify-content: center;
   gap: 8px;
   margin-bottom: 12px;
 }
 
-.tic-tac-toe-mode {
+.tic-tac-toe-difficulty-selector[hidden] {
+  display: none;
+}
+
+.tic-tac-toe-mode,
+.tic-tac-toe-difficulty,
+.tic-tac-toe-size {
   padding: 8px 14px;
   border: 2px solid #582c83;
   border-radius: 8px;
@@ -668,30 +677,42 @@ button {
     transform 0.1s;
 }
 
-.tic-tac-toe-mode:hover {
+.tic-tac-toe-mode:hover,
+.tic-tac-toe-difficulty:hover,
+.tic-tac-toe-size:hover {
   background-color: #e4d2f2;
 }
 
-.tic-tac-toe-mode:active {
+.tic-tac-toe-mode:active,
+.tic-tac-toe-difficulty:active,
+.tic-tac-toe-size:active {
   transform: scale(0.97);
 }
 
-.tic-tac-toe-mode.selected {
+.tic-tac-toe-mode.selected,
+.tic-tac-toe-difficulty.selected,
+.tic-tac-toe-size.selected {
   background: #582c83;
   color: #fff;
 }
 
-body.dark .tic-tac-toe-mode {
+body.dark .tic-tac-toe-mode,
+body.dark .tic-tac-toe-difficulty,
+body.dark .tic-tac-toe-size {
   border-color: #a991c1;
   background: #232222;
   color: #a991c1;
 }
 
-body.dark .tic-tac-toe-mode:hover {
+body.dark .tic-tac-toe-mode:hover,
+body.dark .tic-tac-toe-difficulty:hover,
+body.dark .tic-tac-toe-size:hover {
   background: #363036;
 }
 
-body.dark .tic-tac-toe-mode.selected {
+body.dark .tic-tac-toe-mode.selected,
+body.dark .tic-tac-toe-difficulty.selected,
+body.dark .tic-tac-toe-size.selected {
   background: #a991c1;
   color: #232222;
 }
@@ -725,10 +746,8 @@ body.dark .game-result {
 
 .tic-tac-toe {
   display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-template-rows: repeat(3, 100px);
-  justify-content: center;
-  width: min(100%, 316px);
+  width: max-content;
+  aspect-ratio: 1;
   margin: 0 auto;
   gap: 8px;
 }
@@ -780,16 +799,51 @@ body.dark .tic-tac-toe-child svg {
   color: #a991c1;
 }
 
-@media (max-width: 365px) {
-  .tic-tac-toe {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(3, minmax(0, 1fr));
-    aspect-ratio: 1;
+@media (max-width: 600px) {
+  .tic-tac-toe.five-by-five .tic-tac-toe-child {
+    width: 56px;
+    height: 56px;
   }
 
-  .tic-tac-toe-child {
+  .tic-tac-toe.seven-by-seven .tic-tac-toe-child {
     width: 100%;
     height: 100%;
+  }
+
+  .tic-tac-toe.seven-by-seven {
+    width: min(calc(100vw - 50px), 342px);
+  }
+}
+
+@media (max-width: 365px) {
+  .tic-tac-toe.five-by-five .tic-tac-toe-child {
+    width: 100%;
+    height: 100%;
+  }
+
+  .tic-tac-toe.five-by-five {
+    width: min(calc(100vw - 50px), 272px);
+  }
+
+  .tic-tac-toe.seven-by-seven .tic-tac-toe-child {
+    width: 100%;
+    height: 100%;
+  }
+
+  .tic-tac-toe.seven-by-seven {
+    width: min(calc(100vw - 50px), 300px);
+  }
+
+  .tic-tac-toe-mode-selector,
+  .tic-tac-toe-difficulty-selector,
+  .tic-tac-toe-size-selector {
+    gap: 4px;
+  }
+
+  .tic-tac-toe-mode,
+  .tic-tac-toe-difficulty,
+  .tic-tac-toe-size {
+    padding: 8px;
   }
 }
 

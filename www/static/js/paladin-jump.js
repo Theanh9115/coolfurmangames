@@ -10,6 +10,12 @@ const rightButton = document.getElementById("pj-move-right");
 const runButton = document.querySelector(".game-run-button");
 const gameCard = document.querySelector(".start-game-card");
 
+// Initialize sprite sheet
+const spriteSheet = new Image();
+const backgroundImg = new Image();
+spriteSheet.src = "/static/img/pj-sprites.png";
+backgroundImg.src = "/static/img/pj-background.png";
+
 // Game window variables and parameters
 gameWindow.width = gameWindow.clientWidth;
 gameWindow.height = gameWindow.clientHeight;
@@ -27,16 +33,16 @@ gameWindow.style.setProperty("display", "none");
 killScreen.style.setProperty("display", "none");
 
 // Player initialization
-const playerWidth = 10;
-const playerHeight = 15;
+const playerWidth = 13;
+const playerHeight = 24;
 const gravity = -0.1;
 const terminalVelocity = 15;
-let playerX, playerY, playerXVel, playerYVel, score;
+let playerX, playerY, playerXVel, playerYVel, score, facing;
 let initializeMovement = false;
 
 // Platform initialization
-const platWidth = 50;
-const platHeight = 5;
+const platWidth = 60;
+const platHeight = 6;
 let platforms, initializePlatforms;
 
 // Event listener initialization
@@ -65,6 +71,7 @@ function initializeGame() {
     playerYVel = -9;
     score = 0;
     initializeMovement = true;
+    facing = "left";
 
     // Platform variables
     platforms = [];
@@ -98,9 +105,11 @@ function handleMovementInput() {
     if (mobileMovement) {
         if (leftButtonHeld && !rightButtonHeld) {
             playerXVel = -4 * deltaTimeMultiplier;
+            facing = "left";
         }
         if (rightButtonHeld && !leftButtonHeld) {
             playerXVel = 4 * deltaTimeMultiplier;
+            facing = "right";
         }
         if ((!leftButtonHeld && !rightButtonHeld) ||
             (leftButtonHeld && rightButtonHeld)) {
@@ -112,10 +121,12 @@ function handleMovementInput() {
         // Move only if their respective direction keys are pressed
         if (keysPressed["d"] && !keysPressed["a"]) {
             playerXVel = 4 * deltaTimeMultiplier;
+            facing = "right";
         }
 
         if (keysPressed["a"] && !keysPressed["d"]) {
             playerXVel = -4 * deltaTimeMultiplier;
+            facing = "left";
         }
         // Stop moving if both or none of movement keys are pressed
         if ((!keysPressed["d"] && !keysPressed["a"]) ||
@@ -141,19 +152,44 @@ function collisionDetection() {
 }
 
 function drawPlayer() {
-  ctx.beginPath();
-  ctx.rect(playerX, playerY, playerWidth, playerHeight);
-  ctx.fillStyle = "#430000";
-  ctx.fill();
-  ctx.closePath();
+    // Save un-transformed context
+    ctx.save(); 
+
+    ctx.beginPath();
+    ctx.rect(playerX, playerY, playerWidth, playerHeight);
+
+    // Player will appear upright if y velocity near
+    if (playerYVel > -2 && playerYVel < 2) {
+        // Flip image if player changes direction
+        if (facing == "right") {
+            ctx.drawImage(spriteSheet, 1, 43, playerWidth, playerHeight, 
+                        playerX, playerY, playerWidth, playerHeight);
+        }
+        else ctx.drawImage(spriteSheet, 1, 16, playerWidth, playerHeight, 
+                        playerX, playerY, playerWidth, playerHeight);
+    }
+    // Player will be in jumping pose if y velocity is high
+    else {
+        // Flip image if player changes direction
+        if (facing == "right") {
+            ctx.drawImage(spriteSheet, 21, 43, playerWidth, playerHeight, 
+                        playerX, playerY, playerWidth, playerHeight);
+        }
+        else ctx.drawImage(spriteSheet, 21, 16, playerWidth, playerHeight, 
+                        playerX, playerY, playerWidth, playerHeight);
+    }
+    
+    ctx.closePath();
+
+    // Restore un-transformed context
+    ctx.restore();
 }
 
 function drawPlatforms() {
     ctx.beginPath();
     for (const platform of platforms) {
         ctx.rect(platform.x, platform.y, platWidth, platHeight);
-        ctx.fillStyle = "#090043";
-        ctx.fill();
+        ctx.drawImage(spriteSheet, 0, 0, 60, 15, platform.x, platform.y, 60, 14);
     }
     ctx.closePath();
 }
@@ -271,6 +307,10 @@ function drawScore() {
 function draw(currentTime) {
     // Clear canvas
     ctx.clearRect(0, 0, gameWindow.width, gameWindow.height);
+    // Add cenetered background image
+    const scaleFactor = Math.max(gameWindow.width / backgroundImg.width, gameWindow.height / backgroundImg.height);
+    ctx.drawImage(backgroundImg, 0 - (backgroundImg.width / 2), 0, 
+                backgroundImg.width * scaleFactor, backgroundImg.height * scaleFactor);
 
     // Matching frame rates
     deltaTime = currentTime - previousTime;
@@ -279,8 +319,8 @@ function draw(currentTime) {
 
     // Progress game by 1 frame
     generatePlatforms();
-    drawPlayer();
     drawPlatforms();
+    drawPlayer();
     handleMovementInput();
     checkBounds();
     collisionDetection();

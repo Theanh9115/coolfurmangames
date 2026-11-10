@@ -11,6 +11,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # docker-compose.yml during development, but kept here too so
 # this image also works standalone if needed).
 COPY app/ .
+COPY db/ /db/
 
 COPY scripts/start_gunicorn_docker.sh /usr/local/bin/start_gunicorn.sh
 RUN chmod +x /usr/local/bin/start_gunicorn.sh
