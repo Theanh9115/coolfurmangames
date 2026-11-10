@@ -77,81 +77,16 @@ def load_users(selected_game, selected_filter):
         
 @app.route("/<game_name>")
 def get_game(game_name):
+    games = ["paladin-jump.txt", "tic-tac-toe.txt", "flappy-furman.txt"]
+    content = []
+    for g in games:
+        with open(g, "r") as f:
+            content.append(f.read())
+            
     games = {
-        "paladin-jump": """
-            <main>
-                <div class="game-page-card">
-                    <canvas id="paladin-jump-canvas"></canvas>
-                    <div class="start-game-card" id="paladin-jump-start">
-                        <div class="start-game-card-info">
-                            <h1>Paladin Jump!</h2>
-                            <h3>Get the highest score you can by jumping from platform to platform!</h3>
-                        </div>
-                        <button class="game-run-button">Start Game</button>
-                        </div>
-                    <div id="paladin-jump-kill-screen">
-                        <h1>You died!</h1>
-                        <h2 id="paladin-jump-kill-score">Score: </h2>
-                        <button id="paladin-jump-restart-button">Restart</button>
-                    </div>
-                    <div id="paladin-jump-move-buttons">
-                        <button id="pj-move-left">←</h1>
-                        <button id="pj-move-right">→</h1>
-                    </div>
-                </div>
-            </main>
-        """,
-
-        "tic-tac-toe": """
-            <main>
-                <h1>Game 2</h1>
-                <div class="tic-tac-toe-controls">
-                    <span class="player" role="status"></span>
-                    <button type="button" class="reset-btn">New Game</button>
-                </div>
-                <div class="tic-tac-toe-mode-selector">
-                    <button class="tic-tac-toe-mode selected" type="button">Local</button>
-                    <button class="tic-tac-toe-mode" type="button">Vs Computer</button>
-                </div>
-                <div class="tic-tac-toe-difficulty-selector" role="group">
-                    <button class="tic-tac-toe-difficulty selected" type="button" data-difficulty="easy">
-                    Easy
-                    </button>
-                    <button class="tic-tac-toe-difficulty" type="button" data-difficulty="hard">
-                    Hard
-                    </button>
-                </div>
-                <div class="tic-tac-toe-size-selector" role="group">
-                    <button class="tic-tac-toe-size selected" type="button" data-size="3">
-                    3 x 3
-                    </button>
-                    <button class="tic-tac-toe-size" type="button" data-size="5">
-                    5 x 5
-                    </button>
-                    <button class="tic-tac-toe-size" type="button" data-size="7">
-                    7 x 7
-                    </button>
-                </div>
-                <div class="tic-tac-toe-score-container">
-                    <span class="tic-tac-toe-score" role="status"></span>
-                </div>
-                <p class="game-result" role="status"></p>
-                <div class="tic-tac-toe" role="grid" aria-label="Tic-tac-toe board"></div>
-            </main>
-        """,
-
-        "flappy-furman": """
-            <main>
-                <h1 id="game-title">Flappy Furman</h1>
-                <div id = "game-3">
-        <canvas id="flappy-furman"></canvas>
-        <div id = "ff-buttons">
-          <button id="flappy-furman-start">Start Game</button>
-          <button id="flappy-furman-end">Reset Game</button>
-        </div>
-        </div>
-            </main>
-        """
+        "paladin-jump": content[0],
+        "tic-tac-toe": content[1],
+        "flappy-furman": content[2]
     }
     
     scripts = {
