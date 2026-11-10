@@ -48,9 +48,77 @@
         </div>
       </nav>
     </header>
-    <main>
+    
+    <main class="local-scores">
       <h1>Local Scores</h1>
+      <p class="scores-description">
+        Your personal best scores, saved on this browser!
+      </p>
+
+      <div class="scores-container">
+
+        <!-- Paladin Jump -->
+        <div class="score-card">
+          <div class="game-info">
+            <h2>Paladin Jump</h2>
+            <p>Personal Best</p>
+          </div>
+          <div class="score-value">
+            <span id="jump-score">0</span>
+            <small>points</small>
+          </div>
+        </div>
+
+        <!-- Tic Tac Toe -->
+        <div class="score-card ttt-card">
+          <div class="game-info">
+            <h2>Tic Tac Toe</h2>
+            <p>Your Match Results</p>
+          </div>
+
+          <div class="ttt-filters">
+            <select id="ttt-size">
+              <option value="3x3">3X3</option>
+              <option value="5x5">5X5</option>
+              <option value="7x7">7X7</option>
+            </select>
+
+            <select id="ttt-difficulty">
+              <option value="easy">Easy</option>
+              <option value="hard">Hard</option>
+            </select>
+          </div>
+
+          <div class="ttt-stats">
+            <span>Wins: <b id="ttt-wins">0</b></span>
+            <span>Draws: <b id="ttt-draws">0</b></span>
+            <span>Losses: <b id="ttt-losses">0</b></span>
+          </div>
+        </div>
+
+        <!-- Flappy Din -->
+        <div class="score-card">
+          <div class="game-info">
+            <h2>Flappy Din</h2>
+            <p>Personal Best</p>
+          </div>
+          <div class="score-value">
+            <span id="flappy-score">0</span>
+            <small>points</small>
+          </div>
+        </div>
+
+      </div>
+
+      <button id="reset-scores" type="button">
+        Reset Scores
+      </button>
+
+      <p class="scores-note">
+        Scores are saved locally on this browser.
+      </p>
     </main>
+
     <script src="./static/js/main.js"></script>
     <script src="./static/js/hamburger.js"></script>
   </body>
