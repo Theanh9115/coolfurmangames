@@ -46,7 +46,7 @@ def leaderboard():
 
 
 def load_users(selected_game, selected_filter):
-    filters = {
+    filters_query = {
         "Today": "date = date('now', 'localtime')",
         "This month": "strftime('%Y-%m', date) = strftime('%Y-%m', 'now', 'localtime')",
         "This year": "strftime('%Y', date) = strftime('%Y', 'now', 'localtime')",
@@ -61,7 +61,7 @@ def load_users(selected_game, selected_filter):
             game3_score,
             date
         FROM scores
-        WHERE {filters[selected_filter]}
+        WHERE {filters_query[selected_filter]}
         ORDER BY {SCORE_COLUMNS[selected_game]} DESC
     """
 
@@ -111,6 +111,14 @@ def get_game(game_name):
                 <div class="tic-tac-toe-mode-selector">
                     <button class="tic-tac-toe-mode selected" type="button">Local</button>
                     <button class="tic-tac-toe-mode" type="button">Vs Computer</button>
+                </div>
+                <div class="tic-tac-toe-difficulty-selector" role="group">
+                    <button class="tic-tac-toe-difficulty selected" type="button" data-difficulty="easy">
+                    Easy
+                    </button>
+                    <button class="tic-tac-toe-difficulty" type="button" data-difficulty="hard">
+                    Hard
+                    </button>
                 </div>
                 <div class="tic-tac-toe-size-selector" role="group">
                     <button class="tic-tac-toe-size selected" type="button" data-size="3">
