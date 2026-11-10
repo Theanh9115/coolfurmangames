@@ -30,6 +30,8 @@ const computerModeButton = modeButtons[1];
 let cells = [];
 let size = 3;
 let winLength = Math.min(4, size);
+let winningLines = [];
+let linesByCell = [];
 const directions = [
   [0, 1],
   [1, 0],
@@ -68,6 +70,29 @@ function updateUI() {
 function createBoard(boardSize) {
   size = boardSize;
   winLength = Math.min(4, size);
+  // Cache every possible winning line and the lines touching each cell.
+  // The large-board AI reuses these lists throughout its search.
+  winningLines = [];
+  linesByCell = Array.from({ length: size * size }, () => []);
+
+  for (let row = 0; row < size; row++) {
+    for (let col = 0; col < size; col++) {
+      for (const [rowStep, colStep] of directions) {
+        const endRow = row + rowStep * (winLength - 1);
+        const endCol = col + colStep * (winLength - 1);
+        if (endRow < 0 || endRow >= size || endCol < 0 || endCol >= size) {
+          continue;
+        }
+
+        const line = Array.from(
+          { length: winLength },
+          (_, step) => (row + rowStep * step) * size + col + colStep * step,
+        );
+        winningLines.push(line);
+        line.forEach((index) => linesByCell[index].push(line));
+      }
+    }
+  }
   cells = [];
 
   board.innerHTML = "";
@@ -277,15 +302,25 @@ function getAvailableMoves(
  * @param {boolean} isMaximizing - Whether the evaluation is being performed from the maximizing player's perspective.
  * @param {number | null} lastMove - The last move that was played on the board.
  * @param {number} [depth=0] - Current recursion depth used to prioritize faster wins and slower losses.
- * @returns {number} A heuristic score for the position.
+ * @param {number} [alpha=-Infinity] - Best score guaranteed to the maximizing player.
+ * @param {number} [beta=Infinity] - Best score guaranteed to the minimizing player.
+ * @returns {number} The exact outcome score when both players play optimally.
  */
-function minimax(board, isMaximizing, lastMove, depth = 0) {
+function minimax(
+  board,
+  isMaximizing,
+  lastMove,
+  depth = 0,
+  alpha = -Infinity,
+  beta = Infinity,
+) {
   // Check if the previous move won
   if (lastMove !== null) {
     const lastPlayer = isMaximizing ? player1 : player2;
 
     if (checkWinner(lastMove, lastPlayer, board)) {
-      return lastPlayer === player2 ? 10 - depth : depth - 10;
+      const winScore = board.length + 1 - depth;
+      return lastPlayer === player2 ? winScore : -winScore;
     }
   }
 
@@ -304,7 +339,7 @@ function minimax(board, isMaximizing, lastMove, depth = 0) {
     board[move] = currentPlayer.mark;
 
     // Recursively evaluate the move
-    const score = minimax(board, !isMaximizing, move, depth + 1);
+    const score = minimax(board, !isMaximizing, move, depth + 1, alpha, beta);
 
     // Undo the move
     board[move] = "";
@@ -312,16 +347,175 @@ function minimax(board, isMaximizing, lastMove, depth = 0) {
     // Choose the best score
     if (isMaximizing) {
       bestScore = Math.max(bestScore, score);
+      alpha = Math.max(alpha, bestScore);
     } else {
       bestScore = Math.min(bestScore, score);
+      beta = Math.min(beta, bestScore);
     }
+
+    // The other player already has a better choice elsewhere in the tree.
+    if (beta <= alpha) break;
   }
 
   return bestScore;
 }
 
+// Large-board AI adapted from Wong Hong Wei's Tic Tac Toe engine:
+// https://wonghongwei.com/tictactoe/
+/** Finds a one-move win for the given mark, or null if none exists. */
+function findImmediateMove(boardState, mark) {
+  for (const line of winningLines) {
+    const marks = line.filter((index) => boardState[index] === mark).length;
+    const empty = line.filter((index) => boardState[index] === "");
+    if (marks === winLength - 1 && empty.length === 1) return empty[0];
+  }
+  return null;
+}
+
+/** Rates one empty cell by the unblocked winning lines it could extend. */
+function scoreCandidate(boardState, index, mark) {
+  const opponent = mark === player2.mark ? player1.mark : player2.mark;
+  let score = 0;
+
+  for (const line of linesByCell[index]) {
+    let marks = 0;
+    let blocked = false;
+    for (const cellIndex of line) {
+      if (boardState[cellIndex] === opponent) {
+        blocked = true;
+        break;
+      }
+      if (boardState[cellIndex] === mark) marks++;
+    }
+    // Longer existing lines are more valuable than several isolated marks.
+    if (!blocked) score += 8 ** marks;
+  }
+
+  return score;
+}
+
+/** Orders legal moves and keeps only the most promising ones for a fast search. */
+function candidateMoves(boardState, mark, limit) {
+  const center = (size - 1) / 2;
+  return getAvailableMoves(boardState)
+    .map((index) => {
+      const row = Math.floor(index / size);
+      const col = index % size;
+      const opponent = mark === player2.mark ? player1.mark : player2.mark;
+      return {
+        index,
+        // Balance building our lines, blocking theirs, and a small center bias.
+        score:
+          scoreCandidate(boardState, index, mark) +
+          scoreCandidate(boardState, index, opponent) * 0.86 -
+          (Math.abs(row - center) + Math.abs(col - center)) * 0.01,
+      };
+    })
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(({ index }) => index);
+}
+
+/** Estimates a nonterminal board when the search reaches its depth limit. */
+function evaluateBoard(boardState) {
+  let score = 0;
+
+  for (const line of winningLines) {
+    let xCount = 0;
+    let oCount = 0;
+    for (const index of line) {
+      if (boardState[index] === player1.mark) xCount++;
+      if (boardState[index] === player2.mark) oCount++;
+    }
+    // A line containing both marks can no longer produce a win.
+    if (xCount && oCount) continue;
+    if (oCount) score += 10 ** oCount;
+    if (xCount) score -= 10 ** xCount * 1.08;
+  }
+
+  return score;
+}
+
+/** Searches ahead with alpha-beta pruning and a fixed move/depth budget. */
+function boundedMinimax(boardState, depth, isMaximizing, lastMove, alpha, beta) {
+  if (lastMove !== null) {
+    const lastPlayer = isMaximizing ? player1 : player2;
+    if (checkWinner(lastMove, lastPlayer, boardState)) {
+      const winScore = 1_000_000 + depth * 1_000;
+      return lastPlayer === player2 ? winScore : -winScore;
+    }
+  }
+
+  if (getAvailableMoves(boardState).length === 0) return 0;
+  // Unlike 3x3, larger boards stop here and use a position estimate.
+  if (depth === 0) return evaluateBoard(boardState);
+
+  const mark = isMaximizing ? player2.mark : player1.mark;
+  const limit = size === 5 ? 10 : 8;
+  let bestScore = isMaximizing ? -Infinity : Infinity;
+
+  for (const move of candidateMoves(boardState, mark, limit)) {
+    boardState[move] = mark;
+    const score = boundedMinimax(
+      boardState,
+      depth - 1,
+      !isMaximizing,
+      move,
+      alpha,
+      beta,
+    );
+    boardState[move] = "";
+
+    if (isMaximizing) {
+      bestScore = Math.max(bestScore, score);
+      alpha = Math.max(alpha, bestScore);
+    } else {
+      bestScore = Math.min(bestScore, score);
+      beta = Math.min(beta, bestScore);
+    }
+    if (beta <= alpha) break;
+  }
+
+  return bestScore;
+}
+
+/** Handles forced tactics first, then searches the best large-board candidates. */
+function getBestLargeMove(boardState) {
+  // Winning now takes priority over blocking an opponent threat.
+  const winningMove = findImmediateMove(boardState, player2.mark);
+  if (winningMove !== null) return winningMove;
+
+  const blockingMove = findImmediateMove(boardState, player1.mark);
+  if (blockingMove !== null) return blockingMove;
+
+  // A smaller budget on 7x7 keeps the computer responsive.
+  const depth = Math.min(size === 5 ? 4 : 3, getAvailableMoves(boardState).length);
+  const limit = size === 5 ? 10 : 8;
+  let bestScore = -Infinity;
+  let bestMove = null;
+
+  for (const move of candidateMoves(boardState, player2.mark, limit)) {
+    boardState[move] = player2.mark;
+    const score = boundedMinimax(
+      boardState,
+      depth - 1,
+      false,
+      move,
+      -Infinity,
+      Infinity,
+    );
+    boardState[move] = "";
+    if (score > bestScore) {
+      bestScore = score;
+      bestMove = move;
+    }
+  }
+
+  return bestMove;
+}
+
 /**
- * Selects the strongest move for the computer on a 3x3 board.
+ * Selects a computer move using full search on 3x3 and bounded search on larger boards.
  *
  * The evaluation compares each legal move using minimax and chooses the action
  * that yields the highest score for the computer.
@@ -330,6 +524,8 @@ function minimax(board, isMaximizing, lastMove, depth = 0) {
  */
 function getBestMove() {
   const board = cells.map((cell) => cell.dataset.mark || "");
+
+  if (size > 3) return getBestLargeMove(board);
 
   let bestScore = -Infinity;
   let bestMove = null;
@@ -353,8 +549,7 @@ function getBestMove() {
 /**
  * Schedules the computer's hard-mode move.
  *
- * For 3x3 boards, a minimax-based decision is used. For larger boards, the
- * function takes a win, blocks a loss, or plays near its existing marks.
+ * Uses full-depth minimax on 3x3 and bounded minimax on larger boards.
  */
 function makeComputerMoveHard() {
   if (!playAgainstComputer || gameOver || playerTurn !== player2) return;
@@ -370,12 +565,12 @@ function makeComputerMoveHard() {
 
     if (emptyIndices.length === 0) return;
 
-    const bestMove = size === 3 ? getBestMove() : getTacticalMove(emptyIndices);
+    const bestMove = getBestMove();
 
     if (bestMove !== null) {
       makeMove(bestMove);
     }
-  }, 900);
+  }, 100);
 }
 
 /**
@@ -467,7 +662,7 @@ sizeButtons.forEach((button) => {
  */
 function setGameMode(againstComputer) {
   playAgainstComputer = againstComputer;
-  difficultySelector.hidden = !againstComputer;
+  difficultySelector.classList.toggle("is-hidden", !againstComputer);
 
   modeButtons.forEach((button) => {
     button.classList.toggle(
@@ -490,4 +685,4 @@ difficultyButtons.forEach((button) => {
 
 // Start
 createBoard(size);
-initializeGame();
+setGameMode(false);
