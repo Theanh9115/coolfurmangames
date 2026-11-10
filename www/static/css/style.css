@@ -273,7 +273,7 @@ article {
   background-size: cover;
 }
 
-#ff-buttons button{
+#ff-buttons button {
   text-align: center;
   display: flex;
   justify-self: center;
@@ -286,15 +286,15 @@ article {
   border-radius: 30px;
 }
 
-#flappy-furman-start{
+#flappy-furman-start {
   color: rgb(108, 108, 237);
   font-weight: 300;
   margin: 10px;
   border: 2px solid cyan;
-  font-size: medium; 
+  font-size: medium;
 }
 
-#flappy-furman-end{
+#flappy-furman-end {
   color: rgb(227, 14, 64);
   font-weight: 300;
   margin: 10px;
@@ -303,17 +303,17 @@ article {
 }
 
 @media only screen and (max-width: 600px) {
-#flappy-furman {
-  width: 300px;
-  height: 300px;
-}
+  #flappy-furman {
+    width: 300px;
+    height: 300px;
+  }
 
-#flappy-furman-start{
-  font-size: medium;
-  font-weight: 300;
-  padding: 20px;
-  border-radius: 20px;
-}
+  #flappy-furman-start {
+    font-size: medium;
+    font-weight: 300;
+    padding: 20px;
+    border-radius: 20px;
+  }
 }
 /* Tic-Tac-Toe */
 
@@ -655,8 +655,13 @@ button {
   margin-bottom: 12px;
 }
 
-.tic-tac-toe-difficulty-selector[hidden] {
+.tic-tac-toe-difficulty-selector.is-hidden {
   display: none;
+}
+
+.tic-tac-toe-credit {
+  text-align: center;
+  font-size: 0.85rem;
 }
 
 .tic-tac-toe-mode,

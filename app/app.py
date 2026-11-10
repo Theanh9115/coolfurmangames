@@ -113,7 +113,7 @@ def get_game(game_name):
                     <button class="tic-tac-toe-mode selected" type="button">Local</button>
                     <button class="tic-tac-toe-mode" type="button">Vs Computer</button>
                 </div>
-                <div class="tic-tac-toe-difficulty-selector" role="group">
+                <div class="tic-tac-toe-difficulty-selector is-hidden" role="group">
                     <button class="tic-tac-toe-difficulty selected" type="button" data-difficulty="easy">
                     Easy
                     </button>
