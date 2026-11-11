@@ -73,17 +73,22 @@ function createBoard(boardSize) {
   // Cache every possible winning line and the lines touching each cell.
   // The large-board AI reuses these lists throughout its search.
   winningLines = [];
+  // Create all winning lines pass through a cell
   linesByCell = Array.from({ length: size * size }, () => []);
 
+  // Loop through cells
   for (let row = 0; row < size; row++) {
     for (let col = 0; col < size; col++) {
       for (const [rowStep, colStep] of directions) {
         const endRow = row + rowStep * (winLength - 1);
         const endCol = col + colStep * (winLength - 1);
+
+        // Skip this cell if the winning line can't appear in this cell
         if (endRow < 0 || endRow >= size || endCol < 0 || endCol >= size) {
           continue;
         }
 
+        // Get the winning line indexes for fast lookup
         const line = Array.from(
           { length: winLength },
           (_, step) => (row + rowStep * step) * size + col + colStep * step,
@@ -365,8 +370,11 @@ function minimax(
 /** Finds a one-move win for the given mark, or null if none exists. */
 function findImmediateMove(boardState, mark) {
   for (const line of winningLines) {
+    // Get indexes where the cells equal mark
     const marks = line.filter((index) => boardState[index] === mark).length;
+    // Get the empty index at that line
     const empty = line.filter((index) => boardState[index] === "");
+    // if missing a move to win return that move
     if (marks === winLength - 1 && empty.length === 1) return empty[0];
   }
   return null;
@@ -377,6 +385,7 @@ function scoreCandidate(boardState, index, mark) {
   const opponent = mark === player2.mark ? player1.mark : player2.mark;
   let score = 0;
 
+  // Check all winning lines that pass through a cell
   for (const line of linesByCell[index]) {
     let marks = 0;
     let blocked = false;
@@ -437,7 +446,14 @@ function evaluateBoard(boardState) {
 }
 
 /** Searches ahead with alpha-beta pruning and a fixed move/depth budget. */
-function boundedMinimax(boardState, depth, isMaximizing, lastMove, alpha, beta) {
+function boundedMinimax(
+  boardState,
+  depth,
+  isMaximizing,
+  lastMove,
+  alpha,
+  beta,
+) {
   if (lastMove !== null) {
     const lastPlayer = isMaximizing ? player1 : player2;
     if (checkWinner(lastMove, lastPlayer, boardState)) {
@@ -489,7 +505,10 @@ function getBestLargeMove(boardState) {
   if (blockingMove !== null) return blockingMove;
 
   // A smaller budget on 7x7 keeps the computer responsive.
-  const depth = Math.min(size === 5 ? 4 : 3, getAvailableMoves(boardState).length);
+  const depth = Math.min(
+    size === 5 ? 4 : 3,
+    getAvailableMoves(boardState).length,
+  );
   const limit = size === 5 ? 10 : 8;
   let bestScore = -Infinity;
   let bestMove = null;
