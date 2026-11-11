@@ -273,33 +273,33 @@ article {
   background-size: cover;
 }
 
-#ff-buttons button {
+#ff-buttons {
   text-align: center;
   display: flex;
   justify-self: center;
-  background-color: #d8d8ff;
-  font-weight: 300;
-  font-size: large;
-  margin: 15;
   font-weight: 800;
-  padding: 30px;
-  border-radius: 30px;
 }
 
-#flappy-furman-start {
+#ff-start {
+  font-size: larger;
+  background-color: #d8d8ff;
   color: rgb(108, 108, 237);
-  font-weight: 300;
   margin: 10px;
   border: 2px solid cyan;
-  font-size: medium;
+  padding: 30px;
+  border-radius: 30px;
+  font-weight: 800;
 }
 
-#flappy-furman-end {
+#ff-end {
+  font-size: larger;
+  background-color: rgb(243, 138, 138);
   color: rgb(227, 14, 64);
-  font-weight: 300;
   margin: 10px;
   border: 2px solid rgb(246, 88, 88);
-  font-size: medium;
+  padding: 30px;
+  border-radius: 30px;
+  font-weight: 800;
 }
 
 @media only screen and (max-width: 600px) {

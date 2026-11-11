@@ -64,7 +64,7 @@ function drawPipes(){
         const bottom = squirrel.y + (squirrel.radius * .8);
 
         const insidePipe = right > p.x && left < p.x + pipeW * 2;
-        const hitsPipe = top > p.topGap + pipeGap || bottom + (pipeGap / 2) < p.topGap;
+        const hitsPipe = top > p.topGap + pipeGap / 2 || bottom + pipeGap / 2 < p.topGap;
 
         if (hitsPipe && insidePipe) {
             restartGame();
@@ -148,8 +148,8 @@ document.addEventListener("keydown", function (e) {
     }
 })
 
-const start = document.getElementById("flappy-furman-start");
-const end = document.getElementById("flappy-furman-end");
+const start = document.getElementById("ff-start");
+const end = document.getElementById("ff-end");
 
 start.addEventListener("click", () =>
     { startGame(); });
