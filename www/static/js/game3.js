@@ -63,7 +63,7 @@ function drawPipes(){
         const top = squirrel.y - (squirrel.radius * .8);
         const bottom = squirrel.y + (squirrel.radius * .8);
 
-        const insidePipe = right > p.x && left < p.x + pipeW * 2;
+        const insidePipe = right > p.x + pipeW / 2 && left < p.x + pipeW * 2;
         const hitsPipe = top > p.topGap + pipeGap / 2 || bottom + pipeGap / 2 < p.topGap;
 
         if (hitsPipe && insidePipe) {
