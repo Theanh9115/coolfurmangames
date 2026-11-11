@@ -108,17 +108,21 @@ button {
 
 #game-selection {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1em;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 50px;
   border-radius: 100px;
   background-color: #f1e7f8;
+  gap: 20px;
 }
 
 .game-card {
-  flex: 1 1;
-  max-width: 400px;
-  margin: 75px 0;
+  flex: 0 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  margin: 50px 0;
   padding: 25px;
   border-radius: 50px;
   background-color: white;
@@ -128,23 +132,29 @@ button {
   display: flex;
   justify-content: center;
   margin: 20px;
-  padding: 8px;
+  padding: 1px;
   border: 10px double #582c83;
   border-radius: 10px;
+  
 }
 
 .game-img {
-  flex: 1 1;
-  width: 100%;
-  height: auto;
-  /* filter: blur(8px); */
+  width: 300px;
+  height: 300px;
+  filter: blur(5px);
 }
 
 .game-desc {
-  display: grid;
-  justify-content: center;
+  position: absolute;
+  bottom: 200px;
+  margin: auto;
+  width: 50%;
+  background-color: white;
+  border-radius: 20px;
   text-decoration: underline 1px;
-}
+  text-align: center;
+  pointer-events: none;
+} 
 
 /* ========================================
    4. ABOUT PAGE
