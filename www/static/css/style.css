@@ -668,6 +668,10 @@ button {
   outline-offset: -4px;
 }
 
+.game-page-card .game-instructions {
+  text-align: left;
+}
+
 .game-instructions-content {
   padding: 0 18px 16px;
   color: #685575;
