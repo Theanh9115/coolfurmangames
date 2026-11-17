@@ -13,8 +13,7 @@
             <div class="game-instructions-content">
                 <h2>Controls</h2>
                 <ul>
-                    <li>Press <strong>W</strong> or <strong>Arrow Up</strong> to move up.</li>
-                    <li>Press <strong>S</strong> or <strong>Arrow Down</strong> to move down.</li>
+                    <li>Press <strong>Space</strong> or <strong>Enter</strong> to move up.</li>
                 </ul>
                 <h2>Goal</h2>
                 <p>Guide the squirrel through the gaps between the pipes.</p>
