@@ -553,12 +553,9 @@ function getBestLargeMove(boardState) {
   const blockingMove = findImmediateMove(boardState, player1.mark);
   if (blockingMove !== null) return blockingMove;
 
-  // A smaller budget on 7x7 keeps the computer responsive.
-  const depth = Math.min(
-    size === 5 ? 4 : 3,
-    getAvailableMoves(boardState).length,
-  );
-  const limit = size === 5 ? 10 : 8;
+  // A smaller depth on 7x7 keeps the computer responsive.
+  const depth = Math.min(3, getAvailableMoves(boardState).length);
+  const limit = 8;
   let bestScore = -Infinity;
   let bestMove = null;
 
