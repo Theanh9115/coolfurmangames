@@ -1,7 +1,7 @@
 <main>
     <h1 id="game-title">Flappy Furman</h1>
     <div id = "game-3">
-    <canvas id="flappy-furman"></canvas>
+        <canvas id="flappy-furman"></canvas>
         <div id = "ff-buttons">
             <button id="ff-start">Start Game</button>
             <button id="ff-end">Reset Game</button>

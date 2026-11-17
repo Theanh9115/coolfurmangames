@@ -1,13 +1,11 @@
-
-from flask import Flask, request, render_template
-import os
+from flask import Flask, request, render_template   
+from pathlib import Path
 import sqlite3
 
 app = Flask(__name__)
 
-APP_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_DIR = os.path.dirname(APP_DIR)
-DATABASE_PATH = os.path.join(PROJECT_DIR, "db", "coolfurmangames.db")
+PROJECT_PATH = Path(__file__).parent
+DB_PATH = PROJECT_PATH / "db" / "coolfurmangames.db"
 
 SCORE_COLUMNS = {
     "game1": "game1_score",
@@ -65,7 +63,7 @@ def load_users(selected_game, selected_filter):
         ORDER BY {SCORE_COLUMNS[selected_game]} DESC
     """
 
-    conn = sqlite3.connect(DATABASE_PATH)
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
 
     try:
