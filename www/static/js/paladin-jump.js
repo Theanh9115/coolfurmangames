@@ -9,6 +9,9 @@ const leftButton = document.getElementById("pj-move-left");
 const rightButton = document.getElementById("pj-move-right");
 const runButton = document.querySelector(".game-run-button");
 const gameCard = document.querySelector(".start-game-card");
+const highScoreText = document.getElementById("pj-kill-high-score");
+const submitHighScore = document.getElementById("pj-submit-high-score");
+const submittedHighScore = document.getElementById("pj-submitted-high-score");
 
 // Initialize sprite sheet
 const spriteSheet = new Image();
@@ -28,7 +31,7 @@ const frameInterval = 1000 / fps;
 let previousTime = performance.now();
 let deltaTime, deltaTimeMultiplier;
 
-// Hide game and kill screens
+// Hide game & kill screens
 gameWindow.style.setProperty("display", "none");
 killScreen.style.setProperty("display", "none");
 
@@ -44,6 +47,9 @@ let initializeMovement = false;
 const platWidth = 60;
 const platHeight = 6;
 let platforms, initializePlatforms;
+
+// Initialize previous scores
+let finalScoreList;
 
 // Event listener initialization
 let keysPressed = {};
@@ -91,10 +97,18 @@ function initializeGame() {
     gameWindow.style.setProperty("opacity", 1);
     gameCard.style.setProperty("display", "none");
     killScreen.style.setProperty("display", "none");
+    highScoreText.style.setProperty("display", "none");
+    submitHighScore.style.setProperty("display", "none");
+    submittedHighScore.style.setProperty("display", "none");
 
     // Delta time variables
     deltaTime = 0;
     deltaTimeMultiplier = 1;
+
+    // Tracking previous scores
+    finalScoreList = JSON.parse(localStorage.getItem("pj-scores"))
+    if (finalScoreList == null) finalScoreList = [];
+    console.log(finalScoreList);
 
     // Game is running
     gameRunning = true;
@@ -201,11 +215,10 @@ function checkBounds() {
     if (playerX > gameWindow.width) {
         playerX = 0;
     }
+
+    // Player dies if they fall off screen
     if (playerY > gameWindow.height) {
-        gameRunning = false;
-        killScreenScore.textContent = `Score: ${Math.trunc(score)}`
-        killScreen.style.setProperty("display", "flex");
-        gameWindow.style.setProperty("opacity", 0.3);
+        killPlayer();
     }
 
     // Move platforms and lock player height upon progression
@@ -220,11 +233,7 @@ function checkBounds() {
 
     // When platform moves off-screen, remove it
     for (const platform of platforms) {
-        if (platform.y > gameWindow.height) {
-            // platforms.splice(platforms.indexOf(platform), 1);
-            platforms.shift()
-            console.log("Platform removed!")
-        }
+        if (platform.y > gameWindow.height) platforms.shift()
     }
 }
 
@@ -302,6 +311,28 @@ function drawScore() {
     ctx.fillText(`Score: ${intScore}`, 20, 30);
 }
 
+function killPlayer() {
+    // Stop game
+    gameRunning = false;
+
+    // Add score to localStorage
+    currScore = Math.trunc(score);
+    finalScoreList.push(currScore);
+    localStorage.setItem("pj-scores", JSON.stringify(finalScoreList));
+
+    console.log(finalScoreList);
+
+    // Display high score submission if high score achieved
+    if (currScore == Math.max(...finalScoreList)) {
+        highScoreText.style.setProperty("display", "inline");
+        submitHighScore.style.setProperty("display", "inline");
+    }
+
+    // Display kill screen
+    killScreenScore.textContent = `Score: ${currScore}`;
+    killScreen.style.setProperty("display", "flex");
+    gameWindow.style.setProperty("opacity", 0.3);
+}
 
 
 function draw(currentTime) {
@@ -336,11 +367,18 @@ function startGame() {
 }
 
 runButton.addEventListener("click", () => {
-    initializeGame();
     startGame();
 });
 
 restartButton.addEventListener("click", () => {
-    initializeGame();
     startGame();
+});
+
+submitHighScore.addEventListener("click", () => {
+
+    submitHighScore.style.setProperty("display", "none");
+    submittedHighScore.style.setProperty("display", "inline");
+
+    // TEMPORARY!!!
+    highScoreText.textContent = "(Doesn't do anything yet)";
 });

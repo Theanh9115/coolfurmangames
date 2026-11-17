@@ -66,12 +66,9 @@ def load_users(selected_game, selected_filter):
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
 
-    try:
-        users = conn.execute(query).fetchall()
-        conn.close()
-        return [dict(user) for user in users]
-    finally:
-        conn.close()
+    users = conn.execute(query).fetchall()
+    conn.close()
+    return [dict(user) for user in users]
         
 @app.route("/<game_name>")
 def get_game(game_name):

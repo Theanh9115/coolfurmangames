@@ -208,9 +208,9 @@ article {
 
 #paladin-jump-kill-screen {
   position: absolute;
-  top: 150px;
+  top: 100px;
   width: 300px;
-  height: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -230,6 +230,36 @@ article {
 #paladin-jump-kill-screen h2 {
   color: #ffcbcb;
   font-size: 30px;
+}
+
+#pj-kill-high-score {
+  color: #710303;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#pj-submit-high-score {
+  font-family: var(--font);
+  font-size: large;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 30px;
+  border: 3px solid #1c8810;
+  height: auto;
+  background-color: #ffdada;
+  color: #1c8810;
+}
+
+#pj-submitted-high-score {
+  font-family: var(--font);
+  font-size: large;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 30px;
+  border: 3px solid #1c8810;
+  height: auto;
+  background-color: #dfffda;
+  color: #1c8810;
 }
 
 #paladin-jump-restart-button {

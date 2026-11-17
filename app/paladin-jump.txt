@@ -11,6 +11,9 @@
         <div id="paladin-jump-kill-screen">
             <h1>You died!</h1>
             <h2 id="paladin-jump-kill-score">Score: </h2>
+            <p id="pj-kill-high-score">High score!</p>
+            <button id="pj-submit-high-score">Submit High Score</button>
+            <button id="pj-submitted-high-score">Submitted!</button>
             <button id="paladin-jump-restart-button">Restart</button>
         </div>
         <div id="paladin-jump-move-buttons">
