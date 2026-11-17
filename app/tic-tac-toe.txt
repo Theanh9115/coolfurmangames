@@ -20,9 +20,6 @@
         <button class="tic-tac-toe-size selected" type="button" data-size="3">
         3 x 3
         </button>
-        <button class="tic-tac-toe-size" type="button" data-size="5">
-        5 x 5
-        </button>
         <button class="tic-tac-toe-size" type="button" data-size="7">
         7 x 7
         </button>
@@ -40,7 +37,7 @@
                 <p>Take turns placing your mark. Connect the required number of marks in a row to win.</p>
                 <ul>
                     <li>3 x 3 boards require 3 consecutive marks.</li>
-                    <li>5 x 5 and 7 x 7 boards require 4 consecutive marks.</li>
+                    <li>7 x 7 boards require 4 consecutive marks.</li>
                     <li>Lines can be horizontal, vertical, or diagonal.</li>
                     <li>A full board with no winner is a draw.</li>
                 </ul>

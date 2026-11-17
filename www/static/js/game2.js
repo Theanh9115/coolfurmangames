@@ -65,7 +65,7 @@ function updateUI() {
 /**
  * Builds the board for the selected board size and resets the cell collection.
  *
- * @param {number} boardSize - The dimension of the board (3, 5, or 7).
+ * @param {number} boardSize - Number of rows and columns. The game offers 3 or 7.
  */
 function createBoard(boardSize) {
   size = boardSize;
@@ -143,7 +143,7 @@ function initializeGame() {
  *
  * @param {number} index - Index of the cell that was just played.
  * @param {{ mark: string }} player - The player whose move is being evaluated.
- * @param {string[]} [board=cells.map((cell) => cell.dataset.mark || "")] - Optional board state used for simulation.
+ * @param {string[]} [board] - Position as X, O, or an empty string per cell. Defaults to the live board.
  * @returns {boolean} True if the move completes a continuous line of at least winLength marks.
  */
 function checkWinner(
@@ -252,7 +252,7 @@ function makeComputerMoveEasy() {
 /**
  * Sets the current computer difficulty and updates the button highlight state.
  *
- * @param {string} difficulty - The selected difficulty level: "easy" or "hard".
+ * @param {"easy" | "hard"} difficulty - The strategy to use for computer turns.
  */
 function setDifficulty(difficulty) {
   computerDifficulty = difficulty;
@@ -289,7 +289,7 @@ function makeComputerMove() {
 /**
  * Returns the indices of empty cells in the provided board state.
  *
- * @param {string[]} [board=cells.map((cell) => cell.dataset.mark || "")] - Board state to inspect.
+ * @param {string[]} [board] - Position to scan for empty strings. Defaults to the live board.
  * @returns {number[]} An array of legal move positions.
  */
 function getAvailableMoves(
@@ -303,12 +303,12 @@ function getAvailableMoves(
 /**
  * Applies the minimax algorithm to evaluate the current board position.
  *
- * @param {string[]} board - The board state represented as an array of marks.
- * @param {boolean} isMaximizing - Whether the evaluation is being performed from the maximizing player's perspective.
- * @param {number | null} lastMove - The last move that was played on the board.
- * @param {number} [depth=0] - Current recursion depth used to prioritize faster wins and slower losses.
- * @param {number} [alpha=-Infinity] - Best score guaranteed to the maximizing player.
- * @param {number} [beta=Infinity] - Best score guaranteed to the minimizing player.
+ * @param {string[]} board - Simulated position with one entry per cell and empty strings for open cells.
+ * @param {boolean} isMaximizing - True if O moves next, false if X moves next.
+ * @param {number | null} lastMove - Index of the most recent move, or null if there is none.
+ * @param {number} [depth=0] - Number of trial moves already played, used to prefer faster wins and slower losses.
+ * @param {number} [alpha=-Infinity] - Lower score bound O can secure from choices already explored.
+ * @param {number} [beta=Infinity] - Upper score bound X can hold O to from choices already explored.
  * @returns {number} The exact outcome score when both players play optimally.
  */
 function minimax(
@@ -367,10 +367,16 @@ function minimax(
 
 // Large-board AI adapted from Wong Hong Wei's Tic Tac Toe engine:
 // https://wonghongwei.com/tictactoe/
-/** Finds a one-move win for the given mark, or null if none exists. */
+/**
+ * Finds a one-move win for the given mark.
+ *
+ * @param {string[]} boardState - Position to scan, with empty strings for open cells.
+ * @param {"X" | "O"} mark - Player to check for a winning move.
+ * @returns {number | null} The winning cell's index, or null if there is no immediate win.
+ */
 function findImmediateMove(boardState, mark) {
   for (const line of winningLines) {
-    // Get indexes where the cells equal mark
+    // Get indexes where the cells equal X or O
     const marks = line.filter((index) => boardState[index] === mark).length;
     // Get the empty index at that line
     const empty = line.filter((index) => boardState[index] === "");
@@ -380,31 +386,48 @@ function findImmediateMove(boardState, mark) {
   return null;
 }
 
-/** Rates one empty cell by the unblocked winning lines it could extend. */
+/**
+ * Rates one empty cell by the unblocked winning lines it could extend.
+ *
+ * @param {string[]} boardState - Position before the candidate move.
+ * @param {number} index - Index of the empty cell to score.
+ * @param {"X" | "O"} mark - Player whose existing lines contribute to the score.
+ * @returns {number} How valuable the square is to that player.
+ */
 function scoreCandidate(boardState, index, mark) {
   const opponent = mark === player2.mark ? player1.mark : player2.mark;
   let score = 0;
 
-  // Check all winning lines that pass through a cell
+  // Check all possible winning lines that pass through a cell
   for (const line of linesByCell[index]) {
     let marks = 0;
     let blocked = false;
+    // skip blocked winning line by opponent
     for (const cellIndex of line) {
       if (boardState[cellIndex] === opponent) {
         blocked = true;
         break;
       }
+      // Not blocked -> increment the counts
       if (boardState[cellIndex] === mark) marks++;
     }
-    // Longer existing lines are more valuable than several isolated marks.
+    // Square/cell with more unblocked winning lines are more valuable
     if (!blocked) score += 8 ** marks;
   }
 
   return score;
 }
 
-/** Orders legal moves and keeps only the most promising ones for a fast search. */
+/**
+ * Ranks empty cells by attack, defense, and distance from the center.
+ *
+ * @param {string[]} boardState - board to find candidates for.
+ * @param {"X" | "O"} mark - Player moving next
+ * @param {number} limit - Maximum number of candidates to keep after sorting.
+ * @returns {number[]} Candidate cell indices, highest score first.
+ */
 function candidateMoves(boardState, mark, limit) {
+  // Find where is the center. To prioritize center square
   const center = (size - 1) / 2;
   return getAvailableMoves(boardState)
     .map((index) => {
@@ -413,19 +436,24 @@ function candidateMoves(boardState, mark, limit) {
       const opponent = mark === player2.mark ? player1.mark : player2.mark;
       return {
         index,
-        // Balance building our lines, blocking theirs, and a small center bias.
+        // Score = building our lines + blocking theirs -  a small center bias.
         score:
           scoreCandidate(boardState, index, mark) +
           scoreCandidate(boardState, index, opponent) * 0.86 -
           (Math.abs(row - center) + Math.abs(col - center)) * 0.01,
       };
     })
-    .sort((a, b) => b.score - a.score)
+    .sort((a, b) => b.score - a.score) // Sort the object
     .slice(0, limit)
     .map(({ index }) => index);
 }
 
-/** Estimates a nonterminal board when the search reaches its depth limit. */
+/**
+ * Estimates a position when the search reaches its depth limit before the game ends.
+ *
+ * @param {string[]} boardState - Simulated position after the trial moves in this branch.
+ * @returns {number} A position score, with positive values favoring O and negative values favoring X.
+ */
 function evaluateBoard(boardState) {
   let score = 0;
 
@@ -436,16 +464,28 @@ function evaluateBoard(boardState) {
       if (boardState[index] === player1.mark) xCount++;
       if (boardState[index] === player2.mark) oCount++;
     }
-    // A line containing both marks can no longer produce a win.
+    // A line containing both marks can no longer produce a win
     if (xCount && oCount) continue;
+    // Computer score calculation
     if (oCount) score += 10 ** oCount;
+    // Subtrack for human score
     if (xCount) score -= 10 ** xCount * 1.08;
   }
 
   return score;
 }
 
-/** Searches ahead with alpha-beta pruning and a fixed move/depth budget. */
+/**
+ * Searches a limited number of moves ahead
+ *
+ * @param {string[]} boardState - Simulated position including the most recent trial move
+ * @param {number} depth - Number of additional moves the search can simulate. At zero, it scores the board in place
+ * @param {boolean} isMaximizing - True if O moves next and seeks a higher score, false if X moves next and seeks a lower score.
+ * @param {number | null} lastMove - Index of the most recent trial move to check for a win, or null if there is none.
+ * @param {number} alpha - Lower score bound O can secure from choices already explored.
+ * @param {number} beta - Upper score bound X can hold O to from choices already explored.
+ * @returns {number} Search score from O's perspective.
+ */
 function boundedMinimax(
   boardState,
   depth,
@@ -454,6 +494,7 @@ function boundedMinimax(
   alpha,
   beta,
 ) {
+  // Set the score
   if (lastMove !== null) {
     const lastPlayer = isMaximizing ? player1 : player2;
     if (checkWinner(lastMove, lastPlayer, boardState)) {
@@ -462,12 +503,15 @@ function boundedMinimax(
     }
   }
 
+  // No available move
   if (getAvailableMoves(boardState).length === 0) return 0;
-  // Unlike 3x3, larger boards stop here and use a position estimate.
+
+  // Score the simulated position when there are no moves left to try in this branch.
   if (depth === 0) return evaluateBoard(boardState);
 
   const mark = isMaximizing ? player2.mark : player1.mark;
-  const limit = size === 5 ? 10 : 8;
+  // Try up to eight candidate moves from this position.
+  const limit = 8;
   let bestScore = isMaximizing ? -Infinity : Infinity;
 
   for (const move of candidateMoves(boardState, mark, limit)) {
@@ -495,7 +539,12 @@ function boundedMinimax(
   return bestScore;
 }
 
-/** Handles forced tactics first, then searches the best large-board candidates. */
+/**
+ * Checks for an immediate win or block, then searches the highest-ranked candidates.
+ *
+ * @param {string[]} boardState - Copy of the live position with O to move.
+ * @returns {number | null} The cell index to play, or null if the board is full.
+ */
 function getBestLargeMove(boardState) {
   // Winning now takes priority over blocking an opponent threat.
   const winningMove = findImmediateMove(boardState, player2.mark);
@@ -514,6 +563,7 @@ function getBestLargeMove(boardState) {
   let bestMove = null;
 
   for (const move of candidateMoves(boardState, player2.mark, limit)) {
+    // Simulate move
     boardState[move] = player2.mark;
     const score = boundedMinimax(
       boardState,
@@ -523,6 +573,7 @@ function getBestLargeMove(boardState) {
       -Infinity,
       Infinity,
     );
+    // Undo simulated move
     boardState[move] = "";
     if (score > bestScore) {
       bestScore = score;
@@ -677,7 +728,7 @@ sizeButtons.forEach((button) => {
 /**
  * Switches between local multiplayer and computer play.
  *
- * @param {boolean} againstComputer - True to enable computer mode; false for local two-player mode.
+ * @param {boolean} againstComputer - True for computer mode, false for local two-player mode.
  */
 function setGameMode(againstComputer) {
   playAgainstComputer = againstComputer;

@@ -895,11 +895,6 @@ body.dark .tic-tac-toe-child svg {
     padding-right: 14px;
   }
 
-  .tic-tac-toe.five-by-five .tic-tac-toe-child {
-    width: 56px;
-    height: 56px;
-  }
-
   .tic-tac-toe.seven-by-seven .tic-tac-toe-child {
     width: 100%;
     height: 100%;
@@ -911,15 +906,6 @@ body.dark .tic-tac-toe-child svg {
 }
 
 @media (max-width: 365px) {
-  .tic-tac-toe.five-by-five .tic-tac-toe-child {
-    width: 100%;
-    height: 100%;
-  }
-
-  .tic-tac-toe.five-by-five {
-    width: min(calc(100vw - 50px), 272px);
-  }
-
   .tic-tac-toe.seven-by-seven .tic-tac-toe-child {
     width: 100%;
     height: 100%;
