@@ -32,4 +32,31 @@
     </div>
     <p class="game-result" role="status"></p>
     <div class="tic-tac-toe" role="grid" aria-label="Tic-tac-toe board"></div>
+    <section class="game-instructions" aria-labelledby="tic-tac-toe-instructions-title">
+        <details>
+            <summary id="tic-tac-toe-instructions-title">How to play Tic-Tac-Toe</summary>
+            <div class="game-instructions-content">
+                <h2>Goal</h2>
+                <p>Take turns placing your mark. Connect the required number of marks in a row to win.</p>
+                <ul>
+                    <li>3 x 3 boards require 3 consecutive marks.</li>
+                    <li>5 x 5 and 7 x 7 boards require 4 consecutive marks.</li>
+                    <li>Lines can be horizontal, vertical, or diagonal.</li>
+                    <li>A full board with no winner is a draw.</li>
+                </ul>
+                <h2>Modes</h2>
+                <ul>
+                    <li><strong>Local:</strong> Player 1 plays against Player 2.</li>
+                    <li><strong>Vs Computer:</strong> Player 1 plays against the computer.</li>
+                </ul>
+                <h2>Difficulty</h2>
+                <ul>
+                    <li><strong>Easy:</strong> The computer chooses a random empty cell.</li>
+                    <li><strong>Hard:</strong> The computer looks for winning moves, blocks threats, and searches promising moves.</li>
+                </ul>
+                <h2>Scoring</h2>
+                <p>Each win adds one point. Draws do not add points. Use <strong>New Game</strong> to start another round while keeping the match score.</p>
+            </div>
+        </details>
+    </section>
 </main>

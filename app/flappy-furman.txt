@@ -7,4 +7,22 @@
             <button id="ff-end">Reset Game</button>
         </div>
     </div>
+    <section class="game-instructions" aria-labelledby="flappy-instructions-title">
+        <details>
+            <summary id="flappy-instructions-title">How to play Flappy Furman</summary>
+            <div class="game-instructions-content">
+                <h2>Controls</h2>
+                <ul>
+                    <li>Press <strong>W</strong> or <strong>Arrow Up</strong> to move up.</li>
+                    <li>Press <strong>S</strong> or <strong>Arrow Down</strong> to move down.</li>
+                </ul>
+                <h2>Goal</h2>
+                <p>Guide the squirrel through the gaps between the pipes.</p>
+                <h2>Scoring</h2>
+                <p>You earn 10 points for each pipe passed.</p>
+                <h2>Attempts</h2>
+                <p>You have up to 3 attempts. The game ends after the third crash or when you leave the screen.</p>
+            </div>
+        </details>
+    </section>
 </main>

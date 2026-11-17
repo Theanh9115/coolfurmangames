@@ -644,6 +644,71 @@ button {
   color: #00540a;
 }
 
+.game-instructions {
+  width: min(90%, 760px);
+  margin: 24px auto 0;
+  color: #582c83;
+}
+
+.game-instructions details {
+  overflow: hidden;
+  border: 2px solid #c1a3de;
+  border-radius: 12px;
+  background: #f1e7f8;
+}
+
+.game-instructions summary {
+  padding: 14px 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.game-instructions summary:focus-visible {
+  outline: 2px solid #582c83;
+  outline-offset: -4px;
+}
+
+.game-instructions-content {
+  padding: 0 18px 16px;
+  color: #685575;
+}
+
+.game-instructions-content h2 {
+  margin: 14px 0 4px;
+  color: #582c83;
+  font-size: 1rem;
+}
+
+.game-instructions-content p {
+  margin: 4px 0;
+}
+
+.game-instructions-content ul {
+  margin: 4px 0;
+  padding-left: 22px;
+}
+
+body.dark .game-instructions {
+  color: #c9a9df;
+}
+
+body.dark .game-instructions details {
+  border-color: #5d5264;
+  background: #434143;
+}
+
+body.dark .game-instructions summary:focus-visible {
+  outline-color: #d8b7ed;
+}
+
+body.dark .game-instructions-content {
+  color: #c5b4d3;
+}
+
+body.dark .game-instructions-content h2 {
+  color: #c9a9df;
+}
+
 /* Game 2 */
 .tic-tac-toe-controls {
   display: flex;
@@ -815,6 +880,17 @@ body.dark .tic-tac-toe-child svg {
 }
 
 @media (max-width: 600px) {
+  .game-instructions {
+    width: calc(100% - 30px);
+    margin-top: 18px;
+  }
+
+  .game-instructions summary,
+  .game-instructions-content {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
   .tic-tac-toe.five-by-five .tic-tac-toe-child {
     width: 56px;
     height: 56px;
